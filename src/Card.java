@@ -1,3 +1,6 @@
+/**
+ * Card object
+ */
 public class Card {
 
 String name;

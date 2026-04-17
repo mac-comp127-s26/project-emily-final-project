@@ -1,3 +1,6 @@
+/**
+ * Board object.
+ */
 public class Board {
 
     private Card[][] boardArray;
@@ -9,7 +12,7 @@ public class Board {
     }
 
     /**
-     * Placed card at (x, y)
+     * Place card at (x, y)
      */
     public void addCard(int x, int y, Card card) {
         boardArray[x][y] = card;
