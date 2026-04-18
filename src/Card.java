@@ -3,19 +3,19 @@
  */
 public class Card {
 
-String name;
-Type type;
+    private String name;
+    private Type type;
 
-public Card(String name, Type type) {
-    this.type = type;
-    this.name = name;
-}
+    public Card(String name, Type type) {
+        this.type = type;
+        this.name = name;
+    }
 
-public Type getType() {
-    return type;
-}
+    public Type getType() {
+        return type;
+    }
 
-public String getName() {
-    return name;
-}
+    public String getName() {
+        return name;
+    }
 }
