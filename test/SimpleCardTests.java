@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -142,5 +143,12 @@ public class SimpleCardTests {
         board.addCard(3,1,park);
         board.addCard(3,2,park2);
         assertEquals(List.of(Type.COMMERCIAL,Type.COMMUNITY,Type.COMMERCIAL), board.getAdjacentsOf(2, 2));
+    }
+
+    @Test
+    public void cardGainsSingleAbility() {
+        bank.addAbility(Trigger.PLACEMENT, -2, Stat.ECONOMY);
+        // bank.addAbility(Trigger.ENDGAME, +3, Stat.ECONOMY);
+        assertEquals(Trigger.PLACEMENT, bank.getAbility(Trigger.PLACEMENT).getTriggerType());
     }
 }

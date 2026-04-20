@@ -134,16 +134,6 @@ public class Board {
     }
 
     /**
-     * Returns a list of the Types of the cards adjacent to the card at x, y
-     */
-    public List<Type> getAdjacentsOf(double x, double y) {
-        int newX = (int) x;
-        int newY = (int) y;
-        return getAdjacentsOf(newX, newY);
-
-    }
-
-    /**
      * Returns the type of the card at (x, y)
      */
     private Type typeOf(int x, int y) {
