@@ -63,7 +63,6 @@ public class Board {
                 int newX = x - xDif;
                 int newY = y - yDif;
                 if (newX >= 0 && newY >= 0) {
-                    System.out.println("X " + x + " to " + newX + " and Y " + y + " to " + newY);
                     Card card = oldBoard.getCard(x, y);
                     if (card != null) {
                         addCard(newX, newY, card);
@@ -123,22 +122,15 @@ public class Board {
      */
     public List<Type> getAdjacentsOf(int x, int y) {
         List<Type> adjacents = new ArrayList<>();
-        addTypesFrom(x, y, adjacents);
-        return adjacents;
-    }
-
-    /**
-     * Adds the types of the cards adjacent to (x, y) to list.
-     */
-    private void addTypesFrom(int x, int y, List<Type> list) {
         if (typeOf(x - 1, y) != null)
-            list.add(typeOf(x - 1, y));
+            adjacents.add(typeOf(x - 1, y));
         if (typeOf(x + 1, y) != null)
-            list.add(typeOf(x + 1, y));
+            adjacents.add(typeOf(x + 1, y));
         if (typeOf(x, y - 1) != null)
-            list.add(typeOf(x, y - 1));
+            adjacents.add(typeOf(x, y - 1));
         if (typeOf(x, y + 1) != null)
-            list.add(typeOf(x, y + 1));
+            adjacents.add(typeOf(x, y + 1));
+        return adjacents;
     }
 
     /**
