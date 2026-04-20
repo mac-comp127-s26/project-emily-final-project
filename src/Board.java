@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,27 +62,33 @@ public class Board {
             for (int y = 0; y < oldBoard.getArrayHeight(); y++) {
                 int newX = x - xDif;
                 int newY = y - yDif;
-                Card card = oldBoard.getCard(x, y);
-                if (card != null) {
-                    addCard(newX, newY, card);
+                if (newX >= 0 && newY >= 0) {
+                    System.out.println("X " + x + " to " + newX + " and Y " + y + " to " + newY);
+                    Card card = oldBoard.getCard(x, y);
+                    if (card != null) {
+                        addCard(newX, newY, card);
+                    }
                 }
             }
         }
     }
 
     /**
-     * Place card at (x, y)
+     * If card is not already in the array, place card at (x, y)
      */
     public void addCard(int x, int y, Card card) {
-        boardArray[x][y] = card;
-        if (x > maxX)
-            maxX = x;
-        else if (x < minX)
-            minX = x;
-        if (y > maxY)
-            maxY = y;
-        else if (y < minY)
-            minY = y;
+        if (!contains(card)) {
+            boardArray[x][y] = card;
+            card.setPosition(x, y);
+            if (x > maxX)
+                maxX = x;
+            else if (x < minX)
+                minX = x;
+            if (y > maxY)
+                maxY = y;
+            else if (y < minY)
+                minY = y;
+        }
     }
 
     /**
@@ -89,6 +96,7 @@ public class Board {
      */
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
+        card.setPosition(minX, minY);
     }
 
     public int getBoardSize() {
@@ -108,5 +116,71 @@ public class Board {
      */
     public Card getCard(int x, int y) {
         return boardArray[x][y];
+    }
+
+    /**
+     * Returns a list of the Types of the cards adjacent to the card at x, y
+     */
+    public List<Type> getAdjacentsOf(int x, int y) {
+        List<Type> adjacents = new ArrayList<>();
+        addTypesFrom(x, y, adjacents);
+        return adjacents;
+    }
+
+    /**
+     * Adds the types of the cards adjacent to (x, y) to list.
+     */
+    private void addTypesFrom(int x, int y, List<Type> list) {
+        if (typeOf(x - 1, y) != null)
+            list.add(typeOf(x - 1, y));
+        if (typeOf(x + 1, y) != null)
+            list.add(typeOf(x + 1, y));
+        if (typeOf(x, y - 1) != null)
+            list.add(typeOf(x, y - 1));
+        if (typeOf(x, y + 1) != null)
+            list.add(typeOf(x, y + 1));
+    }
+
+    /**
+     * Returns a list of the Types of the cards adjacent to the card at x, y
+     */
+    public List<Type> getAdjacentsOf(double x, double y) {
+        int newX = (int) x;
+        int newY = (int) y;
+        return getAdjacentsOf(newX, newY);
+
+    }
+
+    /**
+     * Returns the type of the card at (x, y)
+     */
+    private Type typeOf(int x, int y) {
+        if (inBounds(x, y) && getCard(x, y) != null) {
+            return getCard(x, y).getType();
+        } else
+            return null;
+    }
+
+    /**
+     * Return if (x, y) is in bounds of the array.
+     */
+    private boolean inBounds(int x, int y) {
+        if (x >= 0 && x < boardArray.length && y >= 0 && y < boardArray[0].length)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Returns whether or not @param card is in the array.
+     */
+    private boolean contains(Card card) {
+        for (int i = 0; i < boardArray.length; i++) {
+            for (int j = 0; j < boardArray[0].length; j++) {
+                if (boardArray[i][j] == card)
+                    return true;
+            }
+        }
+        return false;
     }
 }
