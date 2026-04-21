@@ -44,9 +44,10 @@ public class Ability {
     public Stat getStat() {
         return stat;
     }
-/**
- * Returns the trigger that activates the ability.
- */
+
+    /**
+     * Returns the trigger that activates the ability.
+     */
     public Trigger getTrigger() {
         return trigger;
     }

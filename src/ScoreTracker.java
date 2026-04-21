@@ -14,4 +14,16 @@ public class ScoreTracker {
         ScoreTracker.pop = i;
         ScoreTracker.leis = i;
     }
+
+    public static int getEcon() {
+        return econ;
+    }
+
+    public static int getPop() {
+        return pop;
+    }
+
+    public static int getLeis() {
+        return leis;
+    }
 }

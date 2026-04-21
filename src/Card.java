@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Card object
@@ -66,9 +64,9 @@ public class Card {
         return new Position(x, y);
     }
 
-/**
- * Return all abilities this with trigger @param trigger
- */
+    /**
+     * Return all abilities this with trigger @param trigger
+     */
     public List<Ability> getAbility(Trigger trigger) {
         List<Ability> res = new ArrayList<>();
         for (Ability abi : abilities) {
