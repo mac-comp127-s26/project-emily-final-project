@@ -34,8 +34,8 @@ public class Card {
      * Stores an ability that triggers on @param trigger that adds/subtracts @param val to @param stat
      * per adjacent @param triggerType
      */
-    public void addAbility(Trigger onTrigger, Type adjacentType, int change, Stat stat) {
-        Ability effect = new Ability(onTrigger, adjacentType, change, stat);
+    public void addAbility(Trigger onTrigger, int change, Stat stat, Type adjacentType) {
+        Ability effect = new Ability(onTrigger, change, stat, adjacentType);
         abilities.add(effect);
     }
 
@@ -65,7 +65,7 @@ public class Card {
     }
 
     /**
-     * Return all abilities this with trigger @param trigger
+     * Return all abilities of this card with trigger @param trigger
      */
     public List<Ability> getAbility(Trigger trigger) {
         List<Ability> res = new ArrayList<>();
@@ -88,7 +88,9 @@ public class Card {
         }
         return res;
     }
-
+/**
+ * Return the number of @param typeGoal cards adjacent to this card on @param board
+ */
     public int getAdjacentsOfType(Type typeGoal, Board board) {
         return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
     }

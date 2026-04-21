@@ -5,7 +5,7 @@ public class Ability {
     private Stat stat;
     private Trigger trigger;
 
-    public Ability(Trigger trigger, Type adjacentType, int change, Stat stat) {
+    public Ability(Trigger trigger, int change, Stat stat, Type adjacentType) {
         this.type = adjacentType;
         this.val = change;
         this.stat = stat;

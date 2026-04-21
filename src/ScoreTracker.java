@@ -26,4 +26,13 @@ public class ScoreTracker {
     public static int getLeis() {
         return leis;
     }
+
+    public static void changeStat(Stat stat, int change) {
+        if (stat == Stat.ECONOMY)
+            econ += change;
+        if (stat == Stat.POPULATION)
+            pop += change;
+        if (stat == Stat.LEISURE)
+            leis += change;
+    }
 }
