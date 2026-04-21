@@ -146,9 +146,18 @@ public class SimpleCardTests {
     }
 
     @Test
-    public void cardGainsSingleAbility() {
+    public void cardGainsTwoDifferentAbilities() {
         bank.addAbility(Trigger.PLACEMENT, -2, Stat.ECONOMY);
-        // bank.addAbility(Trigger.ENDGAME, +3, Stat.ECONOMY);
-        assertEquals(Trigger.PLACEMENT, bank.getAbility(Trigger.PLACEMENT).getTriggerType());
+        bank.addAbility(Trigger.ENDGAME, +3, Stat.ECONOMY);
+        assertEquals(-2, bank.getAbility(Trigger.PLACEMENT).get(0).getChange());
+        assertEquals(+3, bank.getAbility(Trigger.ENDGAME).get(0).getChange());
+    }
+
+    @Test
+    public void cardGainsTwoAbilitiesWithSameTrigger() {
+        bank.addAbility(Trigger.PLACEMENT, -1, Stat.LEISURE);
+        bank.addAbility(Trigger.PLACEMENT, -1, Stat.ECONOMY);
+        assertEquals(Stat.LEISURE, bank.getAbility(Trigger.PLACEMENT).get(0).getStat());
+        assertEquals(Stat.ECONOMY, bank.getAbility(Trigger.PLACEMENT).get(1).getStat());
     }
 }

@@ -1,7 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Card object
@@ -10,7 +10,8 @@ public class Card {
 
     private String name;
     private Type type;
-    private Map<Trigger, Ability> abilities = new HashMap<>();
+    private String description;
+    private List<Ability> abilities = new ArrayList<>();
     private int x;
     private int y;
 
@@ -23,21 +24,29 @@ public class Card {
         this.name = name;
     }
 
+    public void setDescription(String desc) {
+        description = desc;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Stores an ability that triggers on @param trigger that adds/subtracts @param val to @param stat
      * per adjacent @param triggerType
      */
-    public void addAbility(Trigger trigger, Type triggerType, int val, Stat stat) {
-        Ability effect = new Ability(triggerType, val, stat);
-        abilities.put(trigger, effect);
+    public void addAbility(Trigger onTrigger, Type adjacentType, int change, Stat stat) {
+        Ability effect = new Ability(onTrigger, adjacentType, change, stat);
+        abilities.add(effect);
     }
 
     /**
      * Stores an ability that adds/subtracts @param val to @param stat on @param trigger.
      */
-    public void addAbility(Trigger trigger, int val, Stat stat) {
-        Ability effect = new Ability(val, stat);
-        abilities.put(trigger, effect);
+    public void addAbility(Trigger onTrigger, int change, Stat stat) {
+        Ability effect = new Ability(onTrigger, change, stat);
+        abilities.add(effect);
     }
 
     public Type getType() {
@@ -57,8 +66,17 @@ public class Card {
         return new Position(x, y);
     }
 
-    public Ability getAbility(Trigger trigger) {
-        return abilities.get(trigger);
+/**
+ * Return all abilities this with trigger @param trigger
+ */
+    public List<Ability> getAbility(Trigger trigger) {
+        List<Ability> res = new ArrayList<>();
+        for (Ability abi : abilities) {
+            if (abi.getTrigger() == trigger) {
+                res.add(abi);
+            }
+        }
+        return res;
     }
 
     /**
@@ -75,10 +93,5 @@ public class Card {
 
     public int getAdjacentsOfType(Type typeGoal, Board board) {
         return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
-    }
-
-    public void whenPlaced() {
-        if (abilities.containsKey(Trigger.PLACEMENT)) { 
-        }
     }
 }
