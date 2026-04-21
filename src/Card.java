@@ -88,9 +88,10 @@ public class Card {
         }
         return res;
     }
-/**
- * Return the number of @param typeGoal cards adjacent to this card on @param board
- */
+
+    /**
+     * Return the number of @param typeGoal cards adjacent to this card on @param board
+     */
     public int getAdjacentsOfType(Type typeGoal, Board board) {
         return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
     }
