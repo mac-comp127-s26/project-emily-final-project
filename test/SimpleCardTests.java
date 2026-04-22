@@ -144,20 +144,20 @@ public class SimpleCardTests {
         board.addCard(2, 1, bank3);
         board.addCard(3, 1, park);
         board.addCard(3, 2, park2);
-        assertEquals(List.of(Type.COMMERCIAL, Type.COMMUNITY, Type.COMMERCIAL), board.getAdjacentsOf(2, 2));
+        assertEquals(List.of(BuildingType.COMMERCIAL, BuildingType.COMMUNITY, BuildingType.COMMERCIAL), board.getAdjacentsOf(2, 2));
     }
 
     @Test
     public void cardGainsTwoDifferentAbilities() {
-        assertEquals(-2, bank.getAbility(Trigger.PLACEMENT).get(0).getChange());
-        assertEquals(+3, bank.getAbility(Trigger.ENDGAME).get(0).getChange());
+        assertEquals(-2, bank.getAbility(AbilityTrigger.PLACEMENT).get(0).getChange());
+        assertEquals(+3, bank.getAbility(AbilityTrigger.ENDGAME).get(0).getChange());
     }
 
     @Test
     public void cardGainsTwoAbilitiesWithSameTrigger() {
-        bank.addAbility(Trigger.PLACEMENT, -1, Stat.ECONOMY);
-        assertEquals(Stat.ECONOMY, bank.getAbility(Trigger.PLACEMENT).get(0).getStat());
-        assertEquals(Stat.ECONOMY, bank.getAbility(Trigger.PLACEMENT).get(1).getStat());
+        bank.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.ECONOMY);
+        assertEquals(Stat.ECONOMY, bank.getAbility(AbilityTrigger.PLACEMENT).get(0).getStat());
+        assertEquals(Stat.ECONOMY, bank.getAbility(AbilityTrigger.PLACEMENT).get(1).getStat());
     }
 
     @Test
@@ -169,7 +169,7 @@ public class SimpleCardTests {
     @Test
     public void complexAbilityWorksOnPlacement() {
         Card card = deck.getCard("Complex");
-        card.activateAbility(Trigger.PLACEMENT, scores);
+        card.activateAbility(AbilityTrigger.PLACEMENT, scores);
         assertEquals(1, scores.getEcon());
         assertEquals(3, scores.getPop());
         assertEquals(0, scores.getLeis());
@@ -179,7 +179,7 @@ public class SimpleCardTests {
     public void zeroAbilityWorksOnEndgame() {
         Card complex = deck.getCard("Complex");
         board.addCard(complex);
-        complex.activateAbility(Trigger.ENDGAME, scores);
+        complex.activateAbility(AbilityTrigger.ENDGAME, scores);
         assertEquals(1, scores.getEcon());
         assertEquals(3, scores.getPop());
         assertEquals(0, scores.getLeis());
@@ -196,7 +196,7 @@ public class SimpleCardTests {
         assertEquals(List.of(3,-1,2), scores.getStats());
         board.addCard(2, 3, bank);
         assertEquals(List.of(3,-3,2), scores.getStats());
-        complex.activateAbility(Trigger.ENDGAME, scores);
+        complex.activateAbility(AbilityTrigger.ENDGAME, scores);
         assertEquals(List.of(1,-3,2), scores.getStats());
     }
 
@@ -211,4 +211,7 @@ public class SimpleCardTests {
         Card coffee = deck.getCard("Coffeeshop");
         assertEquals("When placed, -1 Econ and -1 Population and -1 Leisure. At end of game, +1 Leisure per adjacent Commercial building.", coffee.getDescription());
     }
+
+ // WRITE TEST TO CHECK BOARDFULL FUNCTION
+    
 }

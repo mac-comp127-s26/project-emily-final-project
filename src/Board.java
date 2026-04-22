@@ -7,7 +7,7 @@ import java.util.List;
 public class Board {
 
     private Card[][] boardArray;
-    private static int boardSize;
+    private int boardSize;
     private ScoreTracker scores;
     private int minX;
     private int minY;
@@ -15,7 +15,7 @@ public class Board {
     private int maxY;
 
     public Board(int boardSize, ScoreTracker scores) {
-        Board.boardSize = boardSize;
+        this.boardSize = boardSize;
         this.scores = scores;
         int doubleSize = (boardSize * 2) - 1;
         boardArray = new Card[doubleSize][doubleSize];
@@ -29,8 +29,9 @@ public class Board {
         maxY = doubleSize / 2;
     }
 
-    public Board(int width, int height, ScoreTracker scores) {
+    public Board(int width, int height, int boardSize, ScoreTracker scores) {
         this.scores = scores;
+        this.boardSize = boardSize;
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
         boardArray = new Card[w][h];
@@ -50,7 +51,7 @@ public class Board {
      * Make a new board with the new size and card locations
      */
     public Board updateBoard() {
-        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), scores);
+        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), boardSize, scores);
         newBoard.translateCardsFrom(this);
         return newBoard;
     }
@@ -82,7 +83,7 @@ public class Board {
         if (!contains(card)) {
             boardArray[x][y] = card;
             card.setPosition(x, y);
-            card.activateAbility(Trigger.PLACEMENT, scores);
+            card.activateAbility(AbilityTrigger.PLACEMENT, scores);
             if (x > maxX)
                 maxX = x;
             else if (x < minX)
@@ -100,7 +101,7 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
-        card.activateAbility(Trigger.PLACEMENT, scores);
+        card.activateAbility(AbilityTrigger.PLACEMENT, scores);
     }
 
     public int getBoardSize() {
@@ -125,8 +126,8 @@ public class Board {
     /**
      * Returns a list of the Types of the cards adjacent to the card at x, y
      */
-    public List<Type> getAdjacentsOf(int x, int y) {
-        List<Type> adjacents = new ArrayList<>();
+    public List<BuildingType> getAdjacentsOf(int x, int y) {
+        List<BuildingType> adjacents = new ArrayList<>();
         if (typeOf(x - 1, y) != null)
             adjacents.add(typeOf(x - 1, y));
         if (typeOf(x + 1, y) != null)
@@ -141,7 +142,7 @@ public class Board {
     /**
      * Returns the type of the card at (x, y)
      */
-    private Type typeOf(int x, int y) {
+    private BuildingType typeOf(int x, int y) {
         if (inBounds(x, y) && getCard(x, y) != null) {
             return getCard(x, y).getType();
         } else
@@ -169,5 +170,19 @@ public class Board {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns true if every space in the board is occupied, or otherwise false
+     */
+    public boolean boardFull() {
+        for (int x = 0; x < boardArray.length; x++) {
+            for (int y = 0; y < boardArray[0].length; y++) {
+                if (boardArray[x][y] == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public class Card {
 
     private String name;
-    private Type type;
+    private BuildingType type;
     private Board board;
     private List<Ability> abilities = new ArrayList<>();
     private int x;
@@ -17,7 +17,7 @@ public class Card {
      * @param name Name of card
      * @param type Type of card
      */
-    public Card(String name, Type type, Board board) {
+    public Card(String name, BuildingType type, Board board) {
         this.type = type;
         this.name = name;
         this.board = board;
@@ -25,16 +25,16 @@ public class Card {
 
     public String getDescription() {
         String desc = "";
-        desc += getDescriptionFor(Trigger.PLACEMENT);
-        desc += getDescriptionFor(Trigger.ENDGAME);
+        desc += getDescriptionFor(AbilityTrigger.PLACEMENT);
+        desc += getDescriptionFor(AbilityTrigger.ENDGAME);
         return desc.trim();
     }
 
-    private String getDescriptionFor(Trigger trigger) {
+    private String getDescriptionFor(AbilityTrigger trigger) {
         String starter = "";
-        if (trigger == Trigger.PLACEMENT)
+        if (trigger == AbilityTrigger.PLACEMENT)
             starter = "When placed, ";
-        if (trigger == Trigger.ENDGAME)
+        if (trigger == AbilityTrigger.ENDGAME)
             starter = "At end of game, ";
         String desc = "";
         int num = numAbilitiesWithTrigger(trigger);
@@ -84,7 +84,7 @@ public class Card {
     /**
      * Returns the first ability of card with trigger @param trig
      */
-    private Ability abilityWithTrigger(Trigger trig) {
+    private Ability abilityWithTrigger(AbilityTrigger trig) {
         for (Ability ab : abilities) {
             if (ab.getTrigger() == trig) {
                 return ab;
@@ -104,7 +104,7 @@ public class Card {
             return "";
     }
 
-    private int numAbilitiesWithTrigger(Trigger trigger) {
+    private int numAbilitiesWithTrigger(AbilityTrigger trigger) {
         int t = 0;
         for (Ability ab : abilities) {
             if (ab.getTrigger() == trigger)
@@ -117,7 +117,7 @@ public class Card {
      * Stores an ability that triggers on @param trigger that adds/subtracts @param val to @param stat
      * per adjacent @param triggerType
      */
-    public void addAbility(Trigger onTrigger, int change, Stat stat, Type adjacentType) {
+    public void addAbility(AbilityTrigger onTrigger, int change, Stat stat, BuildingType adjacentType) {
         Ability effect = new Ability(onTrigger, change, stat, adjacentType);
         abilities.add(effect);
     }
@@ -125,12 +125,12 @@ public class Card {
     /**
      * Stores an ability that adds/subtracts @param val to @param stat on @param trigger.
      */
-    public void addAbility(Trigger onTrigger, int change, Stat stat) {
+    public void addAbility(AbilityTrigger onTrigger, int change, Stat stat) {
         Ability effect = new Ability(onTrigger, change, stat);
         abilities.add(effect);
     }
 
-    public Type getType() {
+    public BuildingType getType() {
         return type;
     }
 
@@ -150,7 +150,7 @@ public class Card {
     /**
      * Return all abilities of this card with trigger @param trigger
      */
-    public List<Ability> getAbility(Trigger trigger) {
+    public List<Ability> getAbility(AbilityTrigger trigger) {
         List<Ability> res = new ArrayList<>();
         for (Ability abi : abilities) {
             if (abi.getTrigger() == trigger) {
@@ -163,9 +163,9 @@ public class Card {
     /**
      * Return the number of @param typeGoal in @param listTypes
      */
-    private int countAdjacents(Type typeGoal, List<Type> listTypes) {
+    private int countAdjacents(BuildingType typeGoal, List<BuildingType> listTypes) {
         int res = 0;
-        for (Type i : listTypes) {
+        for (BuildingType i : listTypes) {
             if (i == typeGoal)
                 res += 1;
         }
@@ -175,7 +175,7 @@ public class Card {
     /**
      * Return the number of @param typeGoal cards adjacent to this card
      */
-    public int getAdjacentsOfType(Type typeGoal) {
+    public int getAdjacentsOfType(BuildingType typeGoal) {
         return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
     }
 
@@ -183,7 +183,7 @@ public class Card {
      * Trigger the @param trigger ability of the card and change scores on the scoretracker @param
      * scores.
      */
-    public void activateAbility(Trigger trigger, ScoreTracker scoreTracker) {
+    public void activateAbility(AbilityTrigger trigger, ScoreTracker scoreTracker) {
         for (Ability i : abilities) {
             if (i.getTrigger() == trigger) {
                 if (i.getAdjacentType() != null) {

@@ -1,4 +1,4 @@
-public enum Trigger {
+public enum AbilityTrigger {
     PLACEMENT,
     ENDGAME
 }

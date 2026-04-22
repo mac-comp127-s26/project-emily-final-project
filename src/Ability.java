@@ -1,18 +1,18 @@
 public class Ability {
 
-    private Type type;
+    private BuildingType type;
     private int val;
     private Stat stat;
-    private Trigger trigger;
+    private AbilityTrigger trigger;
 
-    public Ability(Trigger trigger, int change, Stat stat, Type adjacentType) {
+    public Ability(AbilityTrigger trigger, int change, Stat stat, BuildingType adjacentType) {
         this.type = adjacentType;
         this.val = change;
         this.stat = stat;
         this.trigger = trigger;
     }
 
-    public Ability(Trigger trigger, int val, Stat stat) {
+    public Ability(AbilityTrigger trigger, int val, Stat stat) {
         this.val = val;
         this.stat = stat;
         this.trigger = trigger;
@@ -24,7 +24,7 @@ public class Ability {
      * 
      * @return
      */
-    public Type getAdjacentType() {
+    public BuildingType getAdjacentType() {
         return type;
     }
 
@@ -34,9 +34,9 @@ public class Ability {
      * @return
      */
     public String getAdjacentTypeName() {
-        if (type == Type.COMMERCIAL)
+        if (type == BuildingType.COMMERCIAL)
             return "Commercial";
-        else if (type == Type.COMMUNITY)
+        else if (type == BuildingType.COMMUNITY)
             return "Community";
         return null;
     }
@@ -62,7 +62,7 @@ public class Ability {
     /**
      * Returns the trigger that activates the ability.
      */
-    public Trigger getTrigger() {
+    public AbilityTrigger getTrigger() {
         return trigger;
     }
 }

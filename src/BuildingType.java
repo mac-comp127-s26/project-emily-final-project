@@ -1,7 +1,7 @@
 /**
  * Type enum for Card objects
  */
-public enum Type {
+public enum BuildingType {
     COMMERCIAL,
     COMMUNITY
 }
