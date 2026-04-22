@@ -199,4 +199,16 @@ public class SimpleCardTests {
         complex.activateAbility(Trigger.ENDGAME, scores);
         assertEquals(List.of(1,-3,2), scores.getStats());
     }
+
+    @Test
+    public void cardWithSingleAbilityDescription() {
+        Card landfill = deck.getCard("Landfill");
+        assertEquals("When placed, -1 Population and -1 Leisure. At end of game, +2 Econ.", landfill.getDescription());
+    }
+
+    @Test
+    public void cardWithComplexDescription() {
+        Card coffee = deck.getCard("Coffeeshop");
+        assertEquals("When placed, -1 Econ and -1 Population and -1 Leisure. At end of game, +1 Leisure per adjacent Commercial building.", coffee.getDescription());
+    }
 }

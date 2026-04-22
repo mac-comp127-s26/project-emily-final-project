@@ -8,7 +8,6 @@ public class Card {
 
     private String name;
     private Type type;
-    private String description;
     private Board board;
     private List<Ability> abilities = new ArrayList<>();
     private int x;
@@ -24,12 +23,94 @@ public class Card {
         this.board = board;
     }
 
-    public void setDescription(String desc) {
-        description = desc;
+    public String getDescription() {
+        String desc = "";
+        desc += getDescriptionFor(Trigger.PLACEMENT);
+        desc += getDescriptionFor(Trigger.ENDGAME);
+        return desc.trim();
     }
 
-    public String getDescription() {
-        return description;
+    private String getDescriptionFor(Trigger trigger) {
+        String starter = "";
+        if (trigger == Trigger.PLACEMENT)
+            starter = "When placed, ";
+        if (trigger == Trigger.ENDGAME)
+            starter = "At end of game, ";
+        String desc = "";
+        int num = numAbilitiesWithTrigger(trigger);
+        if (num == 1) {
+            Ability ab = abilityWithTrigger(trigger);
+            if (ab.getAdjacentType() == null) {
+                desc += starter + posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + ". ";
+            } else {
+                desc += starter + posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                    + " per adjacent " + ab.getAdjacentTypeName() + " building. ";
+            }
+        } else if (num > 1) {
+            desc += starter;
+            for (int p = 0; p < num - 1; p++) {
+                Ability ab = abilities.get(p);
+                if (ab.getAdjacentType() == null) {
+                    desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + " and ";
+                } else {
+                    desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                        + " per adjacent " + ab.getAdjacentTypeName() + " building and ";
+                }
+            }
+            Ability ab = abilities.get(num - 1);
+            if (ab.getAdjacentType() == null) {
+                desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + ". ";
+            } else {
+                desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                    + " per adjacent " + ab.getAdjacentTypeName() + " building. ";
+            }
+        }
+        return desc;
+    }
+
+    /**
+     * Returns the string version of the stat @param stat
+     */
+    private String statToString(Stat test) {
+        if (test == Stat.ECONOMY)
+            return " Econ";
+        if (test == Stat.POPULATION)
+            return " Population";
+        if (test == Stat.LEISURE)
+            return " Leisure";
+        return "";
+    }
+
+    /**
+     * Returns the first ability of card with trigger @param trig
+     */
+    private Ability abilityWithTrigger(Trigger trig) {
+        for (Ability ab : abilities) {
+            if (ab.getTrigger() == trig) {
+                return ab;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * @return "+" if the number is positive
+     */
+    private String posSignOf(int n) {
+        if (n > 0)
+            return "+";
+        else
+            return "";
+    }
+
+    private int numAbilitiesWithTrigger(Trigger trigger) {
+        int t = 0;
+        for (Ability ab : abilities) {
+            if (ab.getTrigger() == trigger)
+                t += 1;
+        }
+        return t;
     }
 
     /**
