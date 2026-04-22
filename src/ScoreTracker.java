@@ -27,10 +27,12 @@ public class ScoreTracker {
     public int getLeis() {
         return leis;
     }
-/**
- * Returns a list of pop, econ, leisure
- * @return
- */
+
+    /**
+     * Returns a list of pop, econ, leisure
+     * 
+     * @return
+     */
     public List<Integer> getStats() {
         return List.of(pop, econ, leis);
     }

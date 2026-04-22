@@ -30,11 +30,14 @@ public class Ability {
 
     /**
      * Return the name of the adjacent card type that matters for the ability.
+     * 
      * @return
      */
     public String getAdjacentTypeName() {
-        if (type == Type.COMMERCIAL) return "Commercial";
-        else if (type == Type.COMMUNITY) return "Community";
+        if (type == Type.COMMERCIAL)
+            return "Commercial";
+        else if (type == Type.COMMUNITY)
+            return "Community";
         return null;
     }
 
