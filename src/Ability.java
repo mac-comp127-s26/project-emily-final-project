@@ -23,7 +23,7 @@ public class Ability {
      * 
      * @return
      */
-    public Type getType() {
+    public Type getAdjacentType() {
         return type;
     }
 

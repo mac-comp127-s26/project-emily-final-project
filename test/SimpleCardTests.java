@@ -1,24 +1,20 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SimpleCardTests {
 
-    private Board board;
-
-    @BeforeEach
-    public void createBoard() {
-        this.board = new Board(3);
-    }
-
-    Card bank = new Card("Bank", Type.COMMERCIAL);
-    Card bank2 = new Card("Bank", Type.COMMERCIAL);
-    Card bank3 = new Card("Bank", Type.COMMERCIAL);
-    Card park = new Card("Park", Type.COMMUNITY);
-    Card park2 = new Card("Park", Type.COMMUNITY);
+    ScoreTracker scores = new ScoreTracker(1);
+    Board board = new Board(3, scores);
+    Deck deck = new Deck(board);
+    Deck deck2 = new Deck(board);
+    Deck deck3 = new Deck(board);
+    Card bank = deck.getCard("Bank");
+    Card bank2 = deck2.getCard("Bank");
+    Card bank3 = deck3.getCard("Bank");
+    Card park = deck.getCard("Park");
+    Card park2 = deck2.getCard("Park");
 
     @Test
     public void testAddCard() {
@@ -65,6 +61,12 @@ public class SimpleCardTests {
         board.addCard(2, 2, bank);
         board.addCard(0, 0, bank2);
         assertEquals(List.of(0, 2, 3, 0, 2, 3), board.getMargins());
+    }
+
+    @Test
+    public void getMargins() {
+        assertEquals(5, board.getArrayWidth());
+        assertEquals(5, board.getArrayHeight());
     }
 
     @Test
@@ -147,17 +149,54 @@ public class SimpleCardTests {
 
     @Test
     public void cardGainsTwoDifferentAbilities() {
-        bank.addAbility(Trigger.PLACEMENT, -2, Stat.ECONOMY);
-        bank.addAbility(Trigger.ENDGAME, +3, Stat.ECONOMY);
         assertEquals(-2, bank.getAbility(Trigger.PLACEMENT).get(0).getChange());
         assertEquals(+3, bank.getAbility(Trigger.ENDGAME).get(0).getChange());
     }
 
     @Test
     public void cardGainsTwoAbilitiesWithSameTrigger() {
-        bank.addAbility(Trigger.PLACEMENT, -1, Stat.LEISURE);
         bank.addAbility(Trigger.PLACEMENT, -1, Stat.ECONOMY);
-        assertEquals(Stat.LEISURE, bank.getAbility(Trigger.PLACEMENT).get(0).getStat());
+        assertEquals(Stat.ECONOMY, bank.getAbility(Trigger.PLACEMENT).get(0).getStat());
         assertEquals(Stat.ECONOMY, bank.getAbility(Trigger.PLACEMENT).get(1).getStat());
+    }
+
+    @Test
+    public void deckGenerates() {
+        assertEquals(20, deck.getSize());
+        assertEquals("City Hall", deck.getCard(0).getName());
+    }
+
+    @Test
+    public void complexAbilityWorksOnPlacement() {
+        Card card = deck.getCard("Complex");
+        card.activateAbility(Trigger.PLACEMENT, scores);
+        assertEquals(1, scores.getEcon());
+        assertEquals(3, scores.getPop());
+        assertEquals(0, scores.getLeis());
+    }
+
+    @Test
+    public void zeroAbilityWorksOnEndgame() {
+        Card complex = deck.getCard("Complex");
+        board.addCard(complex);
+        complex.activateAbility(Trigger.ENDGAME, scores);
+        assertEquals(1, scores.getEcon());
+        assertEquals(3, scores.getPop());
+        assertEquals(0, scores.getLeis());
+    }
+
+    @Test
+    public void statsKeepTrackAcrossPlacement() {
+        Card complex = deck.getCard("Complex");
+        board.addCard(complex);
+        assertEquals(List.of(3,1,0), scores.getStats());
+        board.addCard(1, 2, park);
+        assertEquals(List.of(3,0,1), scores.getStats());
+        board.addCard(3, 2, park2);
+        assertEquals(List.of(3,-1,2), scores.getStats());
+        board.addCard(2, 3, bank);
+        assertEquals(List.of(3,-3,2), scores.getStats());
+        complex.activateAbility(Trigger.ENDGAME, scores);
+        assertEquals(List.of(1,-3,2), scores.getStats());
     }
 }

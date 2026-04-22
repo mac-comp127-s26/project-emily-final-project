@@ -8,13 +8,15 @@ public class Board {
 
     private Card[][] boardArray;
     private static int boardSize;
+    private ScoreTracker scores;
     private int minX;
     private int minY;
     private int maxX;
     private int maxY;
 
-    public Board(int boardSize) {
+    public Board(int boardSize, ScoreTracker scores) {
         Board.boardSize = boardSize;
+        this.scores = scores;
         int doubleSize = (boardSize * 2) - 1;
         boardArray = new Card[doubleSize][doubleSize];
         initializeValues(doubleSize);
@@ -27,7 +29,8 @@ public class Board {
         maxY = doubleSize / 2;
     }
 
-    public Board(int width, int height) {
+    public Board(int width, int height, ScoreTracker scores) {
+        this.scores = scores;
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
         boardArray = new Card[w][h];
@@ -47,7 +50,7 @@ public class Board {
      * Make a new board with the new size and card locations
      */
     public Board updateBoard() {
-        Board newBoard = new Board(getMargins().get(2), getMargins().get(5));
+        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), scores);
         newBoard.translateCardsFrom(this);
         return newBoard;
     }
@@ -79,6 +82,7 @@ public class Board {
         if (!contains(card)) {
             boardArray[x][y] = card;
             card.setPosition(x, y);
+            card.activateAbility(Trigger.PLACEMENT, scores);
             if (x > maxX)
                 maxX = x;
             else if (x < minX)
@@ -96,6 +100,7 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
+        card.activateAbility(Trigger.PLACEMENT, scores);
     }
 
     public int getBoardSize() {

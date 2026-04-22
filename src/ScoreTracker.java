@@ -1,3 +1,4 @@
+import java.util.List;
 
 /**
  * GameManager for the game to run under
@@ -5,29 +6,36 @@
 
 public class ScoreTracker {
 
-    private static int econ;
-    private static int pop;
-    private static int leis;
+    private int econ;
+    private int pop;
+    private int leis;
 
-    public static void initializeValues(int i) {
-        ScoreTracker.econ = i;
-        ScoreTracker.pop = i;
-        ScoreTracker.leis = i;
+    public ScoreTracker(int i) {
+        econ = i;
+        pop = i;
+        leis = i;
     }
 
-    public static int getEcon() {
+    public int getEcon() {
         return econ;
     }
 
-    public static int getPop() {
+    public int getPop() {
         return pop;
     }
 
-    public static int getLeis() {
+    public int getLeis() {
         return leis;
     }
+/**
+ * Returns a list of pop, econ, leisure
+ * @return
+ */
+    public List<Integer> getStats() {
+        return List.of(pop, econ, leis);
+    }
 
-    public static void changeStat(Stat stat, int change) {
+    public void changeStat(Stat stat, int change) {
         if (stat == Stat.ECONOMY)
             econ += change;
         if (stat == Stat.POPULATION)

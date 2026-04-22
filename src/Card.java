@@ -9,6 +9,7 @@ public class Card {
     private String name;
     private Type type;
     private String description;
+    private Board board;
     private List<Ability> abilities = new ArrayList<>();
     private int x;
     private int y;
@@ -17,9 +18,10 @@ public class Card {
      * @param name Name of card
      * @param type Type of card
      */
-    public Card(String name, Type type) {
+    public Card(String name, Type type, Board board) {
         this.type = type;
         this.name = name;
+        this.board = board;
     }
 
     public void setDescription(String desc) {
@@ -90,9 +92,27 @@ public class Card {
     }
 
     /**
-     * Return the number of @param typeGoal cards adjacent to this card on @param board
+     * Return the number of @param typeGoal cards adjacent to this card
      */
-    public int getAdjacentsOfType(Type typeGoal, Board board) {
+    public int getAdjacentsOfType(Type typeGoal) {
         return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
+    }
+
+    /**
+     * Trigger the @param trigger ability of the card and change scores on the scoretracker @param
+     * scores.
+     */
+    public void activateAbility(Trigger trigger, ScoreTracker scoreTracker) {
+        for (Ability i : abilities) {
+            if (i.getTrigger() == trigger) {
+                if (i.getAdjacentType() != null) {
+                    int num = getAdjacentsOfType(i.getAdjacentType());
+                    scoreTracker.changeStat(i.getStat(), i.getChange() * num);
+                } else {
+                    scoreTracker.changeStat(i.getStat(), i.getChange());
+                }
+
+            }
+        }
     }
 }

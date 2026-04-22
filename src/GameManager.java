@@ -1,9 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameManager {
 
     public static void main(String[] args) {
-        CardManager deck = new CardManager();
-        deck.generateCards();
-        System.out.println(deck.getCardNames());
+        ScoreTracker scores = new ScoreTracker(1);
+        Board board = new Board(4, scores);
+        Deck deck = new Deck(board);
+
+        Board newBoard = board.updateBoard();
     }
 
 }
