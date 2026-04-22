@@ -17,10 +17,31 @@ public class Card {
      * @param name Name of card
      * @param type Type of card
      */
-    public Card(String name, BuildingType type, Board board) {
-        this.type = type;
-        this.name = name;
-        this.board = board;
+
+public static class CardBuilder {
+    private final String name;
+    private final BuildingType type;
+    private List<Ability> abilities = new ArrayList<>();
+
+    public CardBuilder(String name, BuildingType type) {
+      this.name = name;
+      this.type = type;
+    }
+
+    public CardBuilder ability(Ability ability) {
+      abilities.add(ability);
+      return this;
+    }
+
+    public Card build() {
+      return new Card(this);
+    }
+  }
+
+    private Card(CardBuilder cardBuilder) {
+        this.type = cardBuilder.type;
+        this.name = cardBuilder.name;
+        this.abilities = cardBuilder.abilities;
     }
 
     public String getDescription() {
@@ -118,7 +139,7 @@ public class Card {
      * per adjacent @param triggerType
      */
     public void addAbility(AbilityTrigger onTrigger, int change, Stat stat, BuildingType adjacentType) {
-        Ability effect = new Ability(onTrigger, change, stat, adjacentType);
+        Ability effect = new Ability.AbilityBuilder(onTrigger, change, stat).adjacentType(adjacentType).build();
         abilities.add(effect);
     }
 
@@ -126,7 +147,7 @@ public class Card {
      * Stores an ability that adds/subtracts @param val to @param stat on @param trigger.
      */
     public void addAbility(AbilityTrigger onTrigger, int change, Stat stat) {
-        Ability effect = new Ability(onTrigger, change, stat);
+        Ability effect = new Ability.AbilityBuilder(onTrigger, change, stat).build();
         abilities.add(effect);
     }
 

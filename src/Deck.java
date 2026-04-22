@@ -79,6 +79,8 @@ public class Deck {
     }
 
     private Card cityhallMuseum(String name) {
+
+
         Card card = new Card(name, BuildingType.COMMUNITY, board);
         card.addAbility(AbilityTrigger.PLACEMENT, +2, Stat.ECONOMY);
         card.addAbility(AbilityTrigger.PLACEMENT, +1, Stat.POPULATION, BuildingType.COMMUNITY);

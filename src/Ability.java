@@ -1,68 +1,83 @@
 public class Ability {
+  private BuildingType type;
+  private int val;
+  private Stat stat;
+  private AbilityTrigger trigger;
 
+  public static class AbilityBuilder {
+    private final AbilityTrigger trigger;
+    private final int val;
+    private final Stat stat;
     private BuildingType type;
-    private int val;
-    private Stat stat;
-    private AbilityTrigger trigger;
 
-    public Ability(AbilityTrigger trigger, int change, Stat stat, BuildingType adjacentType) {
-        this.type = adjacentType;
-        this.val = change;
-        this.stat = stat;
-        this.trigger = trigger;
+    public AbilityBuilder(AbilityTrigger trigger, int val, Stat stat) {
+      this.trigger = trigger;
+      this.val = val;
+      this.stat = stat;
     }
 
-    public Ability(AbilityTrigger trigger, int val, Stat stat) {
-        this.val = val;
-        this.stat = stat;
-        this.trigger = trigger;
-        type = null;
+    public AbilityBuilder adjacentType(BuildingType type) {
+      this.type = type;
+      return this;
     }
 
-    /**
-     * Return the type of adjacent card that matters for the ability.
-     * 
-     * @return
-     */
-    public BuildingType getAdjacentType() {
-        return type;
+    public Ability build() {
+      return new Ability(this);
     }
+  }
 
-    /**
-     * Return the name of the adjacent card type that matters for the ability.
-     * 
-     * @return
-     */
-    public String getAdjacentTypeName() {
-        if (type == BuildingType.COMMERCIAL)
-            return "Commercial";
-        else if (type == BuildingType.COMMUNITY)
-            return "Community";
-        return null;
-    }
+  private Ability(AbilityBuilder builder) {
+    trigger = builder.trigger;
+    val = builder.val;
+    stat = builder.stat;
+    type = builder.type;
+  }
 
-    /**
-     * Return the value of change per adjacent card of the right type.
-     * 
-     * @return
-     */
-    public int getChange() {
-        return val;
-    }
+  /**
+   * Return the type of adjacent card that matters for the ability.
+   * 
+   * @return
+   */
+  public BuildingType getAdjacentType() {
+    return type;
+  }
 
-    /**
-     * Return the stat that changes per adjacent card of the right type.
-     * 
-     * @return
-     */
-    public Stat getStat() {
-        return stat;
-    }
+  /**
+   * Return the name of the adjacent card type that matters for the ability.
+   * 
+   * @return
+   */
+  public String getAdjacentTypeName() {
+    if (type == BuildingType.COMMERCIAL)
+      return "Commercial";
+    else if (type == BuildingType.COMMUNITY)
+      return "Community";
+    return null;
+  }
 
-    /**
-     * Returns the trigger that activates the ability.
-     */
-    public AbilityTrigger getTrigger() {
-        return trigger;
-    }
+  /**
+   * Return the value of change per adjacent card of the right type.
+   * 
+   * @return
+   */
+  public int getChange() {
+    return val;
+  }
+
+  /**
+   * Return the stat that changes per adjacent card of the right type.
+   * 
+   * @return
+   */
+  public Stat getStat() {
+    return stat;
+  }
+
+  /**
+   * Returns the trigger that activates the ability.
+   */
+  public AbilityTrigger getTrigger() {
+    return trigger;
+  }
 }
+
