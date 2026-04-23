@@ -79,82 +79,80 @@ public class Deck {
     }
 
     private Card cityhallMuseum(String name) {
-
-
-        Card card = new Card(name, BuildingType.COMMUNITY, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, +2, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, +1, Stat.POPULATION, BuildingType.COMMUNITY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+1, Stat.POPULATION).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card neighborhoodMansion(String name) {
-        Card card = new Card(name, BuildingType.COMMUNITY, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +1, Stat.POPULATION, BuildingType.COMMUNITY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(-1, Stat.LEISURE).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card complexAirport(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, +2, Stat.POPULATION);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, -1, Stat.POPULATION, BuildingType.COMMUNITY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(-1, Stat.POPULATION).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card businessBank(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -2, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.ENDGAME, +3, Stat.ECONOMY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-2, Stat.ECONOMY).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+3, Stat.ECONOMY).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card parkTheater(String name) {
-        Card card = new Card(name, BuildingType.COMMUNITY, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, +1, Stat.LEISURE);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(+1, Stat.LEISURE).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card mallStadium(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, +2, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, +1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +1, Stat.ECONOMY, BuildingType.COMMERCIAL);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).addChange(+1, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card landfillStation(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.POPULATION);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +2, Stat.ECONOMY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+2, Stat.ECONOMY).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card schoolUniversity(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, +2, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +1, Stat.POPULATION);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(+2, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.POPULATION).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card coffeeshopBookstore(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.ECONOMY);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.POPULATION);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +1, Stat.LEISURE, BuildingType.COMMERCIAL);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.LEISURE).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
+        .buildCard();
         return card;
     }
 
     private Card reccenterHospital(String name) {
-        Card card = new Card(name, BuildingType.COMMERCIAL, board);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.POPULATION);
-        card.addAbility(AbilityTrigger.PLACEMENT, -1, Stat.LEISURE);
-        card.addAbility(AbilityTrigger.ENDGAME, +1, Stat.ECONOMY, BuildingType.COMMUNITY);
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
+        .buildCard();
         return card;
     }
 
