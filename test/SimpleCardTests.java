@@ -156,35 +156,34 @@ board = board.updateBoard();
     @Test
     public void complexAbilityWorksOnPlacement() {
         Card card = deck.getCard("Complex");
-        card.activateAbility(AbilityTrigger.PLACEMENT, board);
-        assertEquals(1, scores.getEcon());
-        assertEquals(3, scores.getPop());
-        assertEquals(0, scores.getLeis());
+        board.activateAbility(card, AbilityTrigger.PLACEMENT);
+        assertEquals(1, board.getScoreboard().getEcon());
+        assertEquals(3, board.getScoreboard().getPop());
+        assertEquals(0, board.getScoreboard().getLeis());
     }
 
     @Test
     public void zeroAbilityWorksOnEndgame() {
         Card complex = deck.getCard("Complex");
         board.addCard(complex);
-        complex.activateAbility(AbilityTrigger.ENDGAME, board);
-        assertEquals(1, scores.getEcon());
-        assertEquals(3, scores.getPop());
-        assertEquals(0, scores.getLeis());
+        assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
+        board.activateAbility(complex, AbilityTrigger.ENDGAME);
+        assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
     }
 
     @Test
     public void statsKeepTrackAcrossPlacement() {
         Card complex = deck.getCard("Complex");
         board.addCard(complex);
-        assertEquals(List.of(3,1,0), scores.getStats());
+        assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
         board.addCard(1, 2, park);
-        assertEquals(List.of(3,0,1), scores.getStats());
+        assertEquals(List.of(3,0,1), board.getScoreboard().getStats());
         board.addCard(3, 2, park2);
-        assertEquals(List.of(3,-1,2), scores.getStats());
+        assertEquals(List.of(3,-1,2), board.getScoreboard().getStats());
         board.addCard(2, 3, bank);
-        assertEquals(List.of(3,-3,2), scores.getStats());
-        complex.activateAbility(AbilityTrigger.ENDGAME, board);
-        assertEquals(List.of(1,-3,2), scores.getStats());
+        assertEquals(List.of(3,-3,2), board.getScoreboard().getStats());
+        board.activateAbility(complex, AbilityTrigger.ENDGAME);
+        assertEquals(List.of(1,-3,2), board.getScoreboard().getStats());
     }
 
     @Test

@@ -163,26 +163,4 @@ public class Card {
         }
         return res;
     }
-
-    /**
-     * Trigger the @param trigger ability of the card and change scores on the scoretracker @param
-     * scores.
-     */
-    public void activateAbility(AbilityTrigger trigger, Board board) {
-        for (Ability i : abilities) {
-            if (i.getTrigger() == trigger) {
-                if (i.getAdjacentType() != null) {
-                    for (int a = 0; a < i.getNumChanges(); a++) {
-                        int num = board.getAdjacentsOfType(i.getAdjacentType(), getPos().getX(), getPos().getY());
-                        board.changeStat(i.getStat(a), i.getChange(a) * num);
-                    }
-                } else {
-                    for (int b = 0; b < i.getNumChanges(); b++) {
-                        board.changeStat(i.getStat(b), i.getChange(b));
-                    }
-                }
-
-            }
-        }
-    }
 }

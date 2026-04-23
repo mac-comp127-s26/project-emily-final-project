@@ -83,7 +83,7 @@ public class Board {
         if (!contains(card)) {
             boardArray[x][y] = card;
             card.setPosition(x, y);
-            card.activateAbility(AbilityTrigger.PLACEMENT, this);
+            activateAbility(card, AbilityTrigger.PLACEMENT);
             if (x > maxX)
                 maxX = x;
             else if (x < minX)
@@ -101,7 +101,7 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
-        card.activateAbility(AbilityTrigger.PLACEMENT, this);
+        activateAbility(card, AbilityTrigger.PLACEMENT);
     }
 
     public int getBoardSize() {
@@ -205,5 +205,30 @@ public class Board {
                 if (boardArray[x][y] == null) return false;
             }
         } return true;
+    }
+
+    public ScoreTracker getScoreboard() {
+        return scores;
+    }
+
+    /**
+     * Activate all abilities of @param trigger for @param card.
+     */
+    public void activateAbility(Card card, AbilityTrigger trigger) {
+        for (Ability i : card.getAbility(trigger)) {
+            if (i.getTrigger() == trigger) {
+                if (i.getAdjacentType() != null) {
+                    for (int a = 0; a < i.getNumChanges(); a++) {
+                        int num = getAdjacentsOfType(i.getAdjacentType(), card.getPos().getX(), card.getPos().getY());
+                        changeStat(i.getStat(a), i.getChange(a) * num);
+                    }
+                } else {
+                    for (int b = 0; b < i.getNumChanges(); b++) {
+                        changeStat(i.getStat(b), i.getChange(b));
+                    }
+                }
+
+            }
+        }
     }
 }
