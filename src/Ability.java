@@ -1,35 +1,42 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ability {
-  private BuildingType type;
-  private int val;
-  private Stat stat;
   private AbilityTrigger trigger;
+  private List<Integer> vals = new ArrayList<>();
+  private List<Stat> stats = new ArrayList<>();
+  private BuildingType type;
 
   public static class AbilityBuilder {
     private final AbilityTrigger trigger;
-    private final int val;
-    private final Stat stat;
+    private List<Integer> vals = new ArrayList<>();
+    private List<Stat> stats = new ArrayList<>();
     private BuildingType type;
 
-    public AbilityBuilder(AbilityTrigger trigger, int val, Stat stat) {
+    public AbilityBuilder(AbilityTrigger trigger) {
       this.trigger = trigger;
-      this.val = val;
-      this.stat = stat;
     }
 
-    public AbilityBuilder adjacentType(BuildingType type) {
+    public AbilityBuilder addAdjacentType(BuildingType type) {
       this.type = type;
       return this;
     }
 
-    public Ability build() {
+    public AbilityBuilder addChange(int val, Stat stat) {
+      this.stats.add(stat);
+      this.vals.add(val);
+      return this;
+    }
+
+    public Ability buildAbility() {
       return new Ability(this);
     }
   }
 
   private Ability(AbilityBuilder builder) {
     trigger = builder.trigger;
-    val = builder.val;
-    stat = builder.stat;
+    vals = builder.vals;
+    stats = builder.stats;
     type = builder.type;
   }
 
@@ -60,8 +67,8 @@ public class Ability {
    * 
    * @return
    */
-  public int getChange() {
-    return val;
+  public int getChange(int n) {
+    return vals.get(n);
   }
 
   /**
@@ -69,8 +76,12 @@ public class Ability {
    * 
    * @return
    */
-  public Stat getStat() {
-    return stat;
+  public Stat getStat(int n) {
+    return stats.get(n);
+  }
+
+  public int getNumChanges() {
+    return stats.size();
   }
 
   /**
