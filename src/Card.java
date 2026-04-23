@@ -18,33 +18,30 @@ public class Card {
      * @param type Type of card
      */
 
-    public static class CardBuilder {
-        private final String name;
-        private final BuildingType type;
-        private final Board board;
-        private List<Ability> abilities = new ArrayList<>();
+public static class CardBuilder {
+    private final String name;
+    private final BuildingType type;
+    private List<Ability> abilities = new ArrayList<>();
 
-        public CardBuilder(String name, BuildingType type, Board board) {
-            this.name = name;
-            this.type = type;
-            this.board = board;
-        }
-
-        public CardBuilder addAbility(Ability ability) {
-            abilities.add(ability);
-            return this;
-        }
-
-        public Card buildCard() {
-            return new Card(this);
-        }
+    public CardBuilder(String name, BuildingType type) {
+      this.name = name;
+      this.type = type;
     }
+
+    public CardBuilder ability(Ability ability) {
+      abilities.add(ability);
+      return this;
+    }
+
+    public Card build() {
+      return new Card(this);
+    }
+  }
 
     private Card(CardBuilder cardBuilder) {
         this.type = cardBuilder.type;
         this.name = cardBuilder.name;
         this.abilities = cardBuilder.abilities;
-        this.board = cardBuilder.board;
     }
 
     public String getDescription() {
@@ -61,37 +58,36 @@ public class Card {
         if (trigger == AbilityTrigger.ENDGAME)
             starter = "At end of game, ";
         String desc = "";
-        for (int i = 0; i < numAbilitiesWithTrigger(trigger); i++) {
-            desc += starter;
+        int num = numAbilitiesWithTrigger(trigger);
+        if (num == 1) {
             Ability ab = abilityWithTrigger(trigger);
             if (ab.getAdjacentType() == null) {
-                if (ab.getNumChanges() > 1) {
-                    for (int x = 0; x < ab.getNumChanges() - 1; x++) {
-                        desc += posSignOf(ab.getChange(x)) + ab.getChange(x) + statToString(ab.getStat(x)) + " and ";
-                    }
-                    desc += posSignOf(ab.getChange(ab.getNumChanges() - 1)) + ab.getChange(ab.getNumChanges() - 1)
-                        + statToString(ab.getStat(ab.getNumChanges() - 1)) + ". ";
-                } else {
-                    desc += posSignOf(ab.getChange(0)) + ab.getChange(0) + statToString(ab.getStat(0)) + ". ";
-                }
+                desc += starter + posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + ". ";
             } else {
-                if (ab.getNumChanges() > 1) {
-                    for (int x = 0; x < ab.getNumChanges() - 1; x++) {
-                        desc += posSignOf(ab.getChange(x)) + ab.getChange(x) + statToString(ab.getStat(x))
-                            + " per adjacent " + ab.getAdjacentTypeName() + " building and ";
-                    }
-                    desc += posSignOf(ab.getChange(ab.getNumChanges() - 1)) + ab.getChange(ab.getNumChanges() - 1)
-                        + statToString(ab.getStat(ab.getNumChanges() - 1))
-                        + " per adjacent " + ab.getAdjacentTypeName() + " building.";
+                desc += starter + posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                    + " per adjacent " + ab.getAdjacentTypeName() + " building. ";
+            }
+        } else if (num > 1) {
+            desc += starter;
+            for (int p = 0; p < num - 1; p++) {
+                Ability ab = abilities.get(p);
+                if (ab.getAdjacentType() == null) {
+                    desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + " and ";
                 } else {
-                    desc += posSignOf(ab.getChange(0)) + ab.getChange(0) + statToString(ab.getStat(0))
-                        + " per adjacent " + ab.getAdjacentTypeName() + " building.";
+                    desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                        + " per adjacent " + ab.getAdjacentTypeName() + " building and ";
                 }
+            }
+            Ability ab = abilities.get(num - 1);
+            if (ab.getAdjacentType() == null) {
+                desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat()) + ". ";
+            } else {
+                desc += posSignOf(ab.getChange()) + ab.getChange() + statToString(ab.getStat())
+                    + " per adjacent " + ab.getAdjacentTypeName() + " building. ";
             }
         }
         return desc;
     }
-
 
     /**
      * Returns the string version of the stat @param stat
@@ -136,6 +132,23 @@ public class Card {
                 t += 1;
         }
         return t;
+    }
+
+    /**
+     * Stores an ability that triggers on @param trigger that adds/subtracts @param val to @param stat
+     * per adjacent @param triggerType
+     */
+    public void addAbility(AbilityTrigger onTrigger, int change, Stat stat, BuildingType adjacentType) {
+        Ability effect = new Ability.AbilityBuilder(onTrigger, change, stat).adjacentType(adjacentType).build();
+        abilities.add(effect);
+    }
+
+    /**
+     * Stores an ability that adds/subtracts @param val to @param stat on @param trigger.
+     */
+    public void addAbility(AbilityTrigger onTrigger, int change, Stat stat) {
+        Ability effect = new Ability.AbilityBuilder(onTrigger, change, stat).build();
+        abilities.add(effect);
     }
 
     public BuildingType getType() {
@@ -195,14 +208,10 @@ public class Card {
         for (Ability i : abilities) {
             if (i.getTrigger() == trigger) {
                 if (i.getAdjacentType() != null) {
-                    for (int a = 0; a < i.getNumChanges(); a++) {
-                        int num = getAdjacentsOfType(i.getAdjacentType());
-                        scoreTracker.changeStat(i.getStat(a), i.getChange(a) * num);
-                    }
+                    int num = getAdjacentsOfType(i.getAdjacentType());
+                    scoreTracker.changeStat(i.getStat(), i.getChange() * num);
                 } else {
-                    for (int b = 0; b < i.getNumChanges(); b++) {
-                        scoreTracker.changeStat(i.getStat(b), i.getChange(b));
-                    }
+                    scoreTracker.changeStat(i.getStat(), i.getChange());
                 }
 
             }

@@ -8,17 +8,15 @@ public class Board {
 
     private Card[][] boardArray;
     private int boardSize;
-    private BoardManager boardManager;
     private ScoreTracker scores;
     private int minX;
     private int minY;
     private int maxX;
     private int maxY;
 
-    public Board(int boardSize, ScoreTracker scores, BoardManager boardManager) {
+    public Board(int boardSize, ScoreTracker scores) {
         this.boardSize = boardSize;
         this.scores = scores;
-        this.boardManager = boardManager;
         int doubleSize = (boardSize * 2) - 1;
         boardArray = new Card[doubleSize][doubleSize];
         initializeValues(doubleSize);
@@ -31,20 +29,29 @@ public class Board {
         maxY = doubleSize / 2;
     }
 
-    public Board(int width, int height, int boardSize, ScoreTracker scores, BoardManager boardManager) {
+    public Board(int width, int height, int boardSize, ScoreTracker scores) {
         this.scores = scores;
         this.boardSize = boardSize;
-        this.boardManager = boardManager;
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
         boardArray = new Card[w][h];
     }
 
-     /**
+    /**
+     * Get a list of coordinates and margins/widths, used primarily for testing.
+     */
+    public List<Integer> getMargins() {
+        int xWidth = (maxX + 1) - minX;
+        int yHeight = (maxY + 1) - minY;
+        List<Integer> result = List.of(minX, maxX, xWidth, minY, maxY, yHeight);
+        return result;
+    }
+
+    /**
      * Make a new board with the new size and card locations
      */
     public Board updateBoard() {
-        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores, boardManager);
+        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), boardSize, scores);
         newBoard.translateCardsFrom(this);
         return newBoard;
     }
@@ -70,16 +77,6 @@ public class Board {
     }
 
     /**
-     * Get a list of coordinates and margins/widths, used primarily for testing.
-     */
-    public List<Integer> getMargins() {
-        int xWidth = (maxX + 1) - minX;
-        int yHeight = (maxY + 1) - minY;
-        List<Integer> result = List.of(minX, maxX, xWidth, minY, maxY, yHeight);
-        return result;
-    }
-
-    /**
      * If card is not already in the array, place card at (x, y)
      */
     public void addCard(int x, int y, Card card) {
@@ -95,7 +92,6 @@ public class Board {
                 maxY = y;
             else if (y < minY)
                 minY = y;
-            boardManager.setBoard(updateBoard());
         }
     }
 
@@ -179,12 +175,14 @@ public class Board {
     /**
      * Returns true if every space in the board is occupied, or otherwise false
      */
-    public boolean isFull() {
+    public boolean boardFull() {
         for (int x = 0; x < boardArray.length; x++) {
             for (int y = 0; y < boardArray[0].length; y++) {
-                System.out.println("Card at x:" + x + " y: " + y + " is " + boardArray[x][y]);
-                if (boardArray[x][y] == null) return false;
+                if (boardArray[x][y] == null) {
+                    return false;
+                }
             }
-        } return true;
+        }
+        return true;
     }
 }
