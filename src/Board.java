@@ -8,17 +8,15 @@ public class Board {
 
     private Card[][] boardArray;
     private int boardSize;
-    private BoardManager boardManager;
     private ScoreTracker scores;
     private int minX;
     private int minY;
     private int maxX;
     private int maxY;
 
-    public Board(int boardSize, ScoreTracker scores, BoardManager boardManager) {
+    public Board(int boardSize, ScoreTracker scores) {
         this.boardSize = boardSize;
         this.scores = scores;
-        this.boardManager = boardManager;
         int doubleSize = (boardSize * 2) - 1;
         boardArray = new Card[doubleSize][doubleSize];
         initializeValues(doubleSize);
@@ -31,10 +29,9 @@ public class Board {
         maxY = doubleSize / 2;
     }
 
-    public Board(int width, int height, int boardSize, ScoreTracker scores, BoardManager boardManager) {
+    public Board(int width, int height, int boardSize, ScoreTracker scores) {
         this.scores = scores;
         this.boardSize = boardSize;
-        this.boardManager = boardManager;
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
         boardArray = new Card[w][h];
@@ -44,7 +41,7 @@ public class Board {
      * Make a new board with the new size and card locations
      */
     public Board updateBoard() {
-        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores, boardManager);
+        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores);
         newBoard.translateCardsFrom(this);
         return newBoard;
     }
@@ -95,7 +92,6 @@ public class Board {
                 maxY = y;
             else if (y < minY)
                 minY = y;
-            boardManager.setBoard(updateBoard());
         }
     }
 
