@@ -8,7 +8,6 @@ public class Card {
 
     private String name;
     private BuildingType type;
-    private Board board;
     private List<Ability> abilities = new ArrayList<>();
     private int x;
     private int y;
@@ -21,13 +20,11 @@ public class Card {
     public static class CardBuilder {
         private final String name;
         private final BuildingType type;
-        private final Board board;
         private List<Ability> abilities = new ArrayList<>();
 
-        public CardBuilder(String name, BuildingType type, Board board) {
+        public CardBuilder(String name, BuildingType type) {
             this.name = name;
             this.type = type;
-            this.board = board;
         }
 
         public CardBuilder addAbility(Ability ability) {
@@ -44,7 +41,6 @@ public class Card {
         this.type = cardBuilder.type;
         this.name = cardBuilder.name;
         this.abilities = cardBuilder.abilities;
-        this.board = cardBuilder.board;
     }
 
     public String getDescription() {
@@ -169,39 +165,20 @@ public class Card {
     }
 
     /**
-     * Return the number of @param typeGoal in @param listTypes
-     */
-    private int countAdjacents(BuildingType typeGoal, List<BuildingType> listTypes) {
-        int res = 0;
-        for (BuildingType i : listTypes) {
-            if (i == typeGoal)
-                res += 1;
-        }
-        return res;
-    }
-
-    /**
-     * Return the number of @param typeGoal cards adjacent to this card
-     */
-    public int getAdjacentsOfType(BuildingType typeGoal) {
-        return countAdjacents(typeGoal, board.getAdjacentsOf(x, y));
-    }
-
-    /**
      * Trigger the @param trigger ability of the card and change scores on the scoretracker @param
      * scores.
      */
-    public void activateAbility(AbilityTrigger trigger, ScoreTracker scoreTracker) {
+    public void activateAbility(AbilityTrigger trigger, Board board) {
         for (Ability i : abilities) {
             if (i.getTrigger() == trigger) {
                 if (i.getAdjacentType() != null) {
                     for (int a = 0; a < i.getNumChanges(); a++) {
-                        int num = getAdjacentsOfType(i.getAdjacentType());
-                        scoreTracker.changeStat(i.getStat(a), i.getChange(a) * num);
+                        int num = board.getAdjacentsOfType(i.getAdjacentType(), getPos().getX(), getPos().getY());
+                        board.changeStat(i.getStat(a), i.getChange(a) * num);
                     }
                 } else {
                     for (int b = 0; b < i.getNumChanges(); b++) {
-                        scoreTracker.changeStat(i.getStat(b), i.getChange(b));
+                        board.changeStat(i.getStat(b), i.getChange(b));
                     }
                 }
 

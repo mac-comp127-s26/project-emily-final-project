@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class SimpleCardTests {
 
     ScoreTracker scores = new ScoreTracker(1);
-    Board board = new Board(3, scores);
+    Board board = new Board(3);
     Deck deck = new Deck(board);
     Deck deck2 = new Deck(board);
     Deck deck3 = new Deck(board);
@@ -136,22 +136,6 @@ board = board.updateBoard();
     }
 
     @Test
-    public void neighborListIsEmpty() {
-        board.addCard(bank);
-        assertEquals(List.of(), board.getAdjacentsOf(bank.getPos().getX(), bank.getPos().getY()));
-    }
-
-    @Test
-    public void neighborListIsCorrect() {
-        board.addCard(bank);
-        board.addCard(1, 2, bank2);
-        board.addCard(2, 1, bank3);
-        board.addCard(3, 1, park);
-        board.addCard(3, 2, park2);
-        assertEquals(List.of(BuildingType.COMMERCIAL, BuildingType.COMMUNITY, BuildingType.COMMERCIAL), board.getAdjacentsOf(2, 2));
-    }
-
-    @Test
     public void cardGainsTwoDifferentAbilities() {
         assertEquals(-2, bank.getAbility(AbilityTrigger.PLACEMENT).get(0).getChange(0));
         assertEquals(+3, bank.getAbility(AbilityTrigger.ENDGAME).get(0).getChange(0));
@@ -172,7 +156,7 @@ board = board.updateBoard();
     @Test
     public void complexAbilityWorksOnPlacement() {
         Card card = deck.getCard("Complex");
-        card.activateAbility(AbilityTrigger.PLACEMENT, scores);
+        card.activateAbility(AbilityTrigger.PLACEMENT, board);
         assertEquals(1, scores.getEcon());
         assertEquals(3, scores.getPop());
         assertEquals(0, scores.getLeis());
@@ -182,7 +166,7 @@ board = board.updateBoard();
     public void zeroAbilityWorksOnEndgame() {
         Card complex = deck.getCard("Complex");
         board.addCard(complex);
-        complex.activateAbility(AbilityTrigger.ENDGAME, scores);
+        complex.activateAbility(AbilityTrigger.ENDGAME, board);
         assertEquals(1, scores.getEcon());
         assertEquals(3, scores.getPop());
         assertEquals(0, scores.getLeis());
@@ -199,7 +183,7 @@ board = board.updateBoard();
         assertEquals(List.of(3,-1,2), scores.getStats());
         board.addCard(2, 3, bank);
         assertEquals(List.of(3,-3,2), scores.getStats());
-        complex.activateAbility(AbilityTrigger.ENDGAME, scores);
+        complex.activateAbility(AbilityTrigger.ENDGAME, board);
         assertEquals(List.of(1,-3,2), scores.getStats());
     }
 

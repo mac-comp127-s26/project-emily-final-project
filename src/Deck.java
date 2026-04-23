@@ -79,7 +79,7 @@ public class Deck {
     }
 
     private Card cityhallMuseum(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+1, Stat.POPULATION).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
         .buildCard();
@@ -87,14 +87,14 @@ public class Deck {
     }
 
     private Card neighborhoodMansion(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(-1, Stat.LEISURE).buildAbility())
         .buildCard();
         return card;
     }
 
     private Card complexAirport(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(-1, Stat.POPULATION).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
         .buildCard();
@@ -102,7 +102,7 @@ public class Deck {
     }
 
     private Card businessBank(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-2, Stat.ECONOMY).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+3, Stat.ECONOMY).buildAbility())
         .buildCard();
@@ -110,14 +110,14 @@ public class Deck {
     }
 
     private Card parkTheater(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(+1, Stat.LEISURE).buildAbility())
         .buildCard();
         return card;
     }
 
     private Card mallStadium(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).addChange(+1, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
         .buildCard();
@@ -125,7 +125,7 @@ public class Deck {
     }
 
     private Card landfillStation(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+2, Stat.ECONOMY).buildAbility())
         .buildCard();
@@ -133,7 +133,7 @@ public class Deck {
     }
 
     private Card schoolUniversity(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(+2, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.POPULATION).buildAbility())
         .buildCard();
@@ -141,7 +141,7 @@ public class Deck {
     }
 
     private Card coffeeshopBookstore(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.LEISURE).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
         .buildCard();
@@ -149,7 +149,7 @@ public class Deck {
     }
 
     private Card reccenterHospital(String name) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL, board)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMUNITY).buildAbility())
         .buildCard();

@@ -10,10 +10,10 @@ public class ScoreTracker {
     private int pop;
     private int leis;
 
-    public ScoreTracker(int i) {
-        econ = i;
-        pop = i;
-        leis = i;
+    public ScoreTracker(int initial) {
+        econ = initial;
+        pop = initial;
+        leis = initial;
     }
 
     public int getEcon() {

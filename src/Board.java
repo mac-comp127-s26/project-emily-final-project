@@ -14,10 +14,10 @@ public class Board {
     private int maxX;
     private int maxY;
 
-    public Board(int boardSize, ScoreTracker scores) {
+    public Board(int boardSize) {
         this.boardSize = boardSize;
-        this.scores = scores;
         int doubleSize = (boardSize * 2) - 1;
+        scores = new ScoreTracker(1);
         boardArray = new Card[doubleSize][doubleSize];
         initializeValues(doubleSize);
     }
@@ -83,7 +83,7 @@ public class Board {
         if (!contains(card)) {
             boardArray[x][y] = card;
             card.setPosition(x, y);
-            card.activateAbility(AbilityTrigger.PLACEMENT, scores);
+            card.activateAbility(AbilityTrigger.PLACEMENT, this);
             if (x > maxX)
                 maxX = x;
             else if (x < minX)
@@ -101,7 +101,7 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
-        card.activateAbility(AbilityTrigger.PLACEMENT, scores);
+        card.activateAbility(AbilityTrigger.PLACEMENT, this);
     }
 
     public int getBoardSize() {
@@ -126,7 +126,7 @@ public class Board {
     /**
      * Returns a list of the Types of the cards adjacent to the card at x, y
      */
-    public List<BuildingType> getAdjacentsOf(int x, int y) {
+    private List<BuildingType> getAdjacentsOf(int x, int y) {
         List<BuildingType> adjacents = new ArrayList<>();
         if (typeOf(x - 1, y) != null)
             adjacents.add(typeOf(x - 1, y));
@@ -137,6 +137,29 @@ public class Board {
         if (typeOf(x, y + 1) != null)
             adjacents.add(typeOf(x, y + 1));
         return adjacents;
+    }
+
+     /**
+     * Return the number of @param typeGoal in @param listTypes
+     */
+    private int countAdjacents(BuildingType typeGoal, List<BuildingType> listTypes) {
+        int res = 0;
+        for (BuildingType i : listTypes) {
+            if (i == typeGoal)
+                res += 1;
+        }
+        return res;
+    }
+
+      /**
+     * Return the number of @param typeGoal cards adjacent to the card at (x, y)
+     */
+    public int getAdjacentsOfType(BuildingType typeGoal, int x, int y) {
+        return countAdjacents(typeGoal, getAdjacentsOf(x, y));
+    }
+
+    public void changeStat(Stat stat, int change) {
+        scores.changeStat(stat, change);
     }
 
     /**
