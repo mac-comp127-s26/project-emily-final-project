@@ -7,9 +7,9 @@ public class SimpleCardTests {
 
     ScoreTracker scores = new ScoreTracker(1);
     Board board = new Board(3);
-    Deck deck = new Deck(board);
-    Deck deck2 = new Deck(board);
-    Deck deck3 = new Deck(board);
+    Deck deck = new Deck();
+    Deck deck2 = new Deck();
+    Deck deck3 = new Deck();
     Card bank = deck.getCard("Bank");
     Card bank2 = deck2.getCard("Bank");
     Card bank3 = deck3.getCard("Bank");

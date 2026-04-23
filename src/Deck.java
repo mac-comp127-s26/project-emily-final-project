@@ -5,10 +5,8 @@ import java.util.Random;
 public class Deck {
 
     private List<Card> deck = new ArrayList<>();
-    private Board board;
 
-    public Deck(Board board) {
-        this.board = board;
+    public Deck() {
         for (String n : List.of("City Hall", "Museum")) {
             deck.add(cityhallMuseum(n));
         }
