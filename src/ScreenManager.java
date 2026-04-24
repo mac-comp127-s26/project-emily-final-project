@@ -32,14 +32,12 @@ public class ScreenManager {
         handDisplay.add(handOutline);
     }
 
-    public void drawCardAt(Board board, Card card, int x, int y) {
-        x += 1;
-        y += 1;
+    public void drawCardAt(Board board, Card card) {
         GraphicsObject icon = card.getIcon();
-        System.out.println(icon.getWidth());
-        double posX = (x * (icon.getWidth()/2));
-        double posY = (y * (icon.getWidth()/2));
-        icon.setCenter(posX, posY);
+        icon.setCenter(
+            (card.getPos().getX() * icon.getWidth()) + icon.getWidth()/2, 
+            (card.getPos().getY() * icon.getHeight()) + icon.getHeight()/2
+        );
         boardDisplay.add(card.getIcon());
     }
 
