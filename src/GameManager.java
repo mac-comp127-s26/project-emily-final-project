@@ -5,12 +5,13 @@ public class GameManager {
     public static void main(String[] args) {
         Board board = new Board(4);
         Deck deck = new Deck();
-        System.out.println(board.getScoreboard().getStats());
-
-        Card complex = deck.getCard("Complex");
-        System.out.println(complex.getAbility(AbilityTrigger.PLACEMENT).get(0).getChange(1));
-        board.addCard(complex);
-        System.out.println(board.getScoreboard().getStats());
+        ScreenManager game = new ScreenManager(500, board.getBoardSize());
+        Card bank = deck.getCard("Bank");
+        Card park = deck.getCard("Park");
+        board.addCard(bank);
+        board.addCard(3, 4, park);
+        game.drawCardAt(board, bank, 3, 3);
+        game.drawCardAt(board, park, 3, 4);
     }
 
     }

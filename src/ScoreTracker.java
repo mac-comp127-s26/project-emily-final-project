@@ -38,14 +38,12 @@ public class ScoreTracker {
     }
 
     public void changeStat(Stat stat, int change) {
-        System.out.println("Current " + stat + " " + getStats());
         if (stat == Stat.ECONOMY)
             econ += change;
         if (stat == Stat.POPULATION)
             pop += change;
         if (stat == Stat.LEISURE)
             leis += change;
-        System.out.println("New " + stat + " " + getStats());
     }
     
 }

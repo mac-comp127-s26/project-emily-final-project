@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Image;
+
 /**
  * Card object
  */
@@ -9,6 +12,7 @@ public class Card {
     private String name;
     private BuildingType type;
     private List<Ability> abilities = new ArrayList<>();
+    private GraphicsObject icon;
     private int x;
     private int y;
 
@@ -21,6 +25,7 @@ public class Card {
         private final String name;
         private final BuildingType type;
         private List<Ability> abilities = new ArrayList<>();
+        private GraphicsObject icon;
 
         public CardBuilder(String name, BuildingType type) {
             this.name = name;
@@ -32,6 +37,12 @@ public class Card {
             return this;
         }
 
+        public CardBuilder addIcon(String cardName) {
+            String pathToImage = cardName + ".png";
+            icon = new Image(pathToImage);
+            return this;
+        } 
+
         public Card buildCard() {
             return new Card(this);
         }
@@ -41,6 +52,7 @@ public class Card {
         this.type = cardBuilder.type;
         this.name = cardBuilder.name;
         this.abilities = cardBuilder.abilities;
+        this.icon = cardBuilder.icon;
     }
 
     public String getDescription() {
@@ -149,6 +161,10 @@ public class Card {
 
     public Position getPos() {
         return new Position(x, y);
+    }
+
+    public GraphicsObject getIcon() {
+        return icon;
     }
 
     /**

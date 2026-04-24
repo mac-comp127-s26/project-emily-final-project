@@ -40,7 +40,7 @@ public class Board {
      /**
      * Make a new board with the new size and card locations
      */
-    public Board updateBoard() {
+    public Board refreshBoard() {
         Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores);
         newBoard.translateCardsFrom(this);
         return newBoard;
@@ -80,7 +80,6 @@ public class Board {
      * If card is not already in the array, place card at (x, y)
      */
     public void addCard(int x, int y, Card card) {
-        if (!contains(card)) {
             boardArray[x][y] = card;
             card.setPosition(x, y);
             activateAbility(card, AbilityTrigger.PLACEMENT);
@@ -92,7 +91,6 @@ public class Board {
                 maxY = y;
             else if (y < minY)
                 minY = y;
-        }
     }
 
     /**
@@ -116,11 +114,16 @@ public class Board {
         return boardArray[0].length;
     }
 
+    public Card[][] getCards() {
+        return boardArray;
+    }
+
     /**
      * Returns card at (x, y)
      */
     public Card getCard(int x, int y) {
-        return boardArray[x][y];
+        if (boardArray[x][y] != null) return boardArray[x][y];
+        else return null;
     }
 
     /**
@@ -201,7 +204,6 @@ public class Board {
     public boolean isFull() {
         for (int x = 0; x < boardArray.length; x++) {
             for (int y = 0; y < boardArray[0].length; y++) {
-                System.out.println("Card at x:" + x + " y: " + y + " is " + boardArray[x][y]);
                 if (boardArray[x][y] == null) return false;
             }
         } return true;

@@ -75,13 +75,13 @@ public class SimpleCardTests {
 
     @Test
     public void newBoardSizeSame() {
-        board = board.updateBoard();
+        board = board.refreshBoard();
         assertEquals(3, board.getBoardSize());
     }
 
     @Test
     public void newBoardDimensionsSame() {
-        board = board.updateBoard();
+        board = board.refreshBoard();
         assertEquals(5, board.getArrayHeight());
         assertEquals(5, board.getArrayWidth());
     }
@@ -90,7 +90,7 @@ public class SimpleCardTests {
     public void newBoardDimensionsSetToMax() {
         board.addCard(bank);
         board.addCard(4, 4, bank2);
-        Board newBoard = board.updateBoard();
+        Board newBoard = board.refreshBoard();
         assertEquals(3, newBoard.getArrayHeight());
         assertEquals(3, newBoard.getArrayWidth());
     }
@@ -99,7 +99,7 @@ public class SimpleCardTests {
     public void newBoardDimensionsSetSmall() {
         board.addCard(bank);
         board.addCard(3, 0, bank2);
-        board = board.updateBoard();
+        board = board.refreshBoard();
         assertEquals(3, board.getArrayHeight());
         assertEquals(4, board.getArrayWidth());
     }
@@ -110,7 +110,7 @@ public class SimpleCardTests {
         board.addCard(3, 4, park);
         assertEquals("Bank", board.getCard(2, 2).getName());
         assertEquals("Park", board.getCard(3, 4).getName());
-        board = board.updateBoard();
+        board = board.refreshBoard();
         assertEquals("Park", board.getCard(2, 2).getName());
         assertEquals("Bank", board.getCard(1, 0).getName());
     }
@@ -119,7 +119,7 @@ public class SimpleCardTests {
     public void newBoardRecursion() {
         board.addCard(bank);
         board.addCard(3, 4, park);
-board = board.updateBoard();
+board = board.refreshBoard();
         assertEquals("Park", board.getCard(2, 2).getName());
         assertEquals("Bank", board.getCard(1, 0).getName());
     }
@@ -128,7 +128,7 @@ board = board.updateBoard();
     public void getPositionWorksOnMovedCard() {
         board.addCard(bank);
         board.addCard(3, 4, park);
-        board = board.updateBoard();
+        board = board.refreshBoard();
         assertEquals(2, board.getCard(2, 2).getPos().getX());
         assertEquals(2, board.getCard(2, 2).getPos().getY());
         assertEquals(1, board.getCard(1, 0).getPos().getX());
