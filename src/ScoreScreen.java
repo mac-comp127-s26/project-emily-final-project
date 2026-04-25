@@ -9,12 +9,12 @@ public class ScoreScreen {
         scoreCanvas = new CanvasWindow("Scores!", 155, 80);
     }
 
-    public ScoreScreen update(ScoreTracker scores, Deck deck) {
+    public ScoreScreen update(GameManager game) {
         scoreCanvas.removeAll();
-        scoreCanvas.add(new GraphicsText("Cards left in deck: " + deck.getSize(),5,15));
-        scoreCanvas.add(new GraphicsText("Population: " + scores.getPop(), 5, 45));
-        scoreCanvas.add(new GraphicsText("Economy: " + scores.getEcon(), 5, 60));
-        scoreCanvas.add(new GraphicsText("Leisure: " + scores.getLeis(), 5, 75));
+        scoreCanvas.add(new GraphicsText("Cards left in deck: ", 5,15));
+        scoreCanvas.add(new GraphicsText("Population: ", 5, 45));
+        scoreCanvas.add(new GraphicsText("Economy: ", 5, 60));
+        scoreCanvas.add(new GraphicsText("Leisure: ", 5, 75));
         return this;
     }
 }

@@ -4,20 +4,21 @@ import java.util.Random;
 
 public class Hand {
 
-    private Deck deck;
     private List<Card> handArray = new ArrayList<>();
 
     public Hand(Deck deck) {
-        this.deck = deck;
+        handArray = deck.getCards();
     }
 
     /**
-     * Adds n random cards from the deck to the list of cards while removing them from the deck.
+     * Adds n random cards from the deck to a list of cards while removing them from the deck.
      */
-    public void drawCards(int n) {
+    public List<Card> drawCards(int n) {
+        List<Card> res = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            drawCard();
+            res.add(drawCard());
         }
+        return res;
     }
 
     /**
@@ -25,9 +26,9 @@ public class Hand {
      */
     private Card drawCard() {
         Random rand = new Random();
-        int rndm = rand.nextInt(deck.getSize());
-        Card card = deck.getCard(rndm);
-        deck.removeCard(rndm);
+        int rndm = rand.nextInt(handArray.size());
+        Card card = handArray.get(rndm);
+        handArray.remove(rndm);
         return card;
     }
 
@@ -35,8 +36,8 @@ public class Hand {
         return handArray;
     }
 
-    public Deck getDeck() {
-        return deck;
+    public int numCardsRemaining() {
+        return handArray.size();
     }
 
 }

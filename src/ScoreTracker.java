@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * GameManager for the game to run under
+ * ScoreTracker to keep track of the three stats
  */
 
 public class ScoreTracker {

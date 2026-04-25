@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class GameManager {
 
     BoardScreen boardScreen;
@@ -17,6 +19,14 @@ public class GameManager {
         scoreScreen = new ScoreScreen();
     }
 
+   public List<Card> drawCards(int n) {
+        return hand.drawCards(n);
+   }
+
+   public int numCardsRemaining() {
+        return hand.numCardsRemaining();
+   }
+    
     public void placeCard(Card card, int x, int y) {
         board.addCard(x, y, card);
         System.out.println(board.getCard(x,y).getName());
@@ -31,32 +41,16 @@ public class GameManager {
         setBoard(newBoard);
     }
 
+    public BoardScreen getBoardScreen() {
+        return boardScreen;
+    }
+
     public Board getBoard() {
         return board;
     }
 
     public void setBoard(Board board) {
         this.board = board;
-    }
-
-    public BoardScreen getBoardScreen() {
-        return boardScreen;
-    }
-
-    public HandScreen getHandScreen() {
-        return handScreen;
-    }
-
-    public ScoreScreen getScoreScreen() {
-        return scoreScreen;
-    }
-
-    public ScoreTracker getScoreTracker() {
-        return scores;
-    }
-
-    public Hand getHand() {
-        return hand;
     }
 
     public void drawBoard(Board board) {

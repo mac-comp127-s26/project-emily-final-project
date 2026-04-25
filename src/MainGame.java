@@ -4,14 +4,13 @@ public class MainGame {
 
     public static void main(String[] args) {
         GameManager game = new GameManager(500, 3);
-        Deck deck = new Deck();
-        Card bank = deck.getCard("Bank");
-        Card park = deck.getCard("Park");
-        game.placeCard(bank);
+        Card card1 = game.drawCards(1).get(0);
+        System.out.println(game.numCardsRemaining());
+        game.placeCard(card1);
         game.drawBoard(game.getBoard());
 
         game.getBoardScreen().getScreen().onClick(e -> {
-            game.placeCard(park, 4, 4);
+            // game.placeCard(card2, 4, 4);
             game.drawBoard(game.getBoard());
         });
     }

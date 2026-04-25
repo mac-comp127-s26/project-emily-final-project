@@ -17,7 +17,6 @@ public class Board {
     public Board(int boardSize) {
         this.boardSize = boardSize;
         int doubleSize = (boardSize * 2) - 1;
-        scores = new ScoreTracker(1);
         boardArray = new Card[doubleSize][doubleSize];
         initializeValues(doubleSize);
     }
@@ -29,8 +28,7 @@ public class Board {
         maxY = doubleSize / 2;
     }
 
-    public Board(int width, int height, int boardSize, ScoreTracker scores) {
-        this.scores = scores;
+    public Board(int width, int height, int boardSize) {
         this.boardSize = boardSize;
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
@@ -43,7 +41,7 @@ public class Board {
      * Make a new board with the new size and card locations
      */
     public Board refreshBoard() {
-        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores);
+        Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize());
         newBoard.translateCards(this);
         return newBoard;
     }
