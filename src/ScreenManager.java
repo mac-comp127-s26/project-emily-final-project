@@ -24,4 +24,8 @@ public class ScreenManager {
     public CanvasWindow getCanvas() {
         return canvas;
     }
+
+    public void clear() {
+        canvas.removeAll();
+    }
 }

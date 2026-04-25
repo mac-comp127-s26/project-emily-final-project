@@ -12,12 +12,14 @@ public class MainGame {
         board.addCard(x, y, card);
         System.out.println(board.getCard(x,y).getName());
         Board newBoard = board.refreshBoard();
+        setBoard(newBoard);
     }
 
     public void placeCard(Card card) {
         board.addCard(card);
         System.out.println(board.getCard(board.getMargins().get(0),board.getMargins().get(3)).getName());
         Board newBoard = board.refreshBoard();
+        setBoard(newBoard);
     }
 
     public Board getBoard() {
@@ -29,6 +31,7 @@ public class MainGame {
     }
 
     public void drawBoard(Board board) {
+        screen.clear();
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
                 if (board.hasCard(x, y)) {
