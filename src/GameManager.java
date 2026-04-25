@@ -2,14 +2,19 @@ public class GameManager {
 
     BoardScreen boardScreen;
     HandScreen handScreen;
+    ScoreScreen scoreScreen;
     Board board;
     Hand hand;
+    ScoreTracker scores;
 
     public GameManager(int screenSize, int boardSize) {
+        Deck deck = new Deck();
+        board = new Board(boardSize);
+        hand = new Hand(deck);
+        scores = new ScoreTracker(1);
         boardScreen = new BoardScreen(screenSize);
         handScreen = new HandScreen(screenSize);
-        board = new Board(boardSize);
-        hand = new Hand(new Deck());
+        scoreScreen = new ScoreScreen();
     }
 
     public void placeCard(Card card, int x, int y) {
@@ -40,6 +45,18 @@ public class GameManager {
 
     public HandScreen getHandScreen() {
         return handScreen;
+    }
+
+    public ScoreScreen getScoreScreen() {
+        return scoreScreen;
+    }
+
+    public ScoreTracker getScoreTracker() {
+        return scores;
+    }
+
+    public Hand getHand() {
+        return hand;
     }
 
     public void drawBoard(Board board) {

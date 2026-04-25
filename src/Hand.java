@@ -7,7 +7,6 @@ public class Hand {
     private Deck deck;
     private List<Card> handArray = new ArrayList<>();
 
-
     public Hand(Deck deck) {
         this.deck = deck;
     }
@@ -34,6 +33,10 @@ public class Hand {
 
     public List<Card> getCards() {
         return handArray;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
 }
