@@ -4,10 +4,12 @@ import edu.macalester.graphics.GraphicsObject;
 public class ScreenManager {
 
     private CanvasWindow canvas;
-    private final double scale;
+    private int size;
+    private double scale;
 
 
     public ScreenManager(int size) {
+        this.size = size;
         canvas = new CanvasWindow("CardCity!", size, size);
         scale = 0.00009523809*size;
     }
@@ -27,5 +29,15 @@ public class ScreenManager {
 
     public void clear() {
         canvas.removeAll();
+    }
+
+    public void getNewScale(Board board) {
+        double y;
+        if (board.getArrayWidth() > board.getArrayHeight()) {
+            y = board.getArrayWidth();
+        } else {
+            y = board.getArrayHeight();
+        }
+        scale = size / (1500 * y);
     }
 }

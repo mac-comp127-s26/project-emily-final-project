@@ -61,12 +61,10 @@ public class Board {
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
                 if (board.hasCard(x,y)) {
-                    // System.out.println("Found card " + board.getCard(x,y).getName() + " at " + x + "," + y);
                     int destX = x;
                     int destY = y;
                     if (changeX) destX -= xDif;
                     if (changeY) destY -= yDif;
-                    // System.out.println("Moving card " + board.getCard(x,y).getName() + " to " + destX + "," + destY);
                     addCard(destX, destY, board.getCard(x,y));
                 }
             }

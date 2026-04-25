@@ -1,3 +1,5 @@
+import edu.macalester.graphics.CanvasWindow;
+
 public class MainGame {
 
     ScreenManager screen;
@@ -30,8 +32,13 @@ public class MainGame {
         this.board = board;
     }
 
+    public CanvasWindow getScreen() {
+        return screen.getCanvas();
+    }
+
     public void drawBoard(Board board) {
         screen.clear();
+        screen.getNewScale(board);
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
                 if (board.hasCard(x, y)) {

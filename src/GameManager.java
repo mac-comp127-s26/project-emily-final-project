@@ -7,8 +7,11 @@ public class GameManager {
         Card park = deck.getCard("Park");
         game.placeCard(bank);
         game.drawBoard(game.getBoard());
-        game.placeCard(park, 4,4);
-        game.drawBoard(game.getBoard());
+
+        game.getScreen().onClick(e -> {
+            game.placeCard(park, 4,4);
+            game.drawBoard(game.getBoard());
+        });
     }
 
     }
