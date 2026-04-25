@@ -7,7 +7,6 @@ public class BoardScreen {
 
     private CanvasWindow boardCanvas;
     private double scale;
-    private double cardSize;
 
 
     public BoardScreen(int size) {
@@ -20,7 +19,6 @@ public class BoardScreen {
         icon.setScale(scale);
         double adjW = icon.getWidth()*scale;
         double adjH = icon.getHeight()*scale;
-        cardSize = adjW;
         boardCanvas.add(icon);
         icon.setCenter((x*adjW)+(adjW/2), (y*adjH)+(adjH/2));
     }

@@ -67,7 +67,6 @@ public class Board {
                 }
             }
         }
-
     }
 
     public boolean hasCard(int x, int y) {

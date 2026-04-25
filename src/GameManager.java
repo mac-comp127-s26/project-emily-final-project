@@ -1,5 +1,3 @@
-import edu.macalester.graphics.CanvasWindow;
-
 public class GameManager {
 
     BoardScreen boardScreen;
@@ -55,5 +53,4 @@ public class GameManager {
             }
         }
     }
-
 }
