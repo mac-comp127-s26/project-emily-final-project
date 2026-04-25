@@ -35,41 +35,47 @@ public class Board {
         int w = (boardSize * 2) - width;
         int h = (boardSize * 2) - height;
         boardArray = new Card[w][h];
+        int doubleSize = (boardSize * 2) - 1;
+        initializeValues(doubleSize);
     }
 
-     /**
+    /**
      * Make a new board with the new size and card locations
      */
     public Board refreshBoard() {
+        System.out.println("New board width: " + getMargins().get(2));
+        System.out.println("New board height: " + getMargins().get(5));
         Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores);
-        newBoard.translateCardsFrom(this);
+        newBoard.translateCards(this);
         return newBoard;
     }
 
     /**
      * Move all cards from oldBoard to their relative location on newBoard
      */
-    private void translateCardsFrom(Board oldBoard) {
-        System.out.println("Current width: " + oldBoard.getArrayWidth() + " New width: " + getArrayWidth());
-        System.out.println("Current height: " + oldBoard.getArrayHeight() + " New height: " + getArrayHeight());
-        int xDif = oldBoard.getArrayWidth() - getArrayWidth();
-        int yDif = oldBoard.getArrayHeight() - getArrayHeight();
-        System.out.println("xDif: " + xDif + " yDif: " + yDif);
-        for (int x = 0; x < oldBoard.getArrayWidth(); x++) {
-            for (int y = 0; y < oldBoard.getArrayHeight(); y++) {
-                int newX = x - xDif;
-                int newY = y - yDif;
-                System.out.println("Checking position: " + x + "," + y);
-                System.out.println("New position: " + newX + "," + newY);
-                if (newX >= 0 && newY >= 0) {
-                    Card card = oldBoard.getCard(x, y);
-                    if (card != null) {
-                        System.out.println("Moving card " + card.getName() + " from " + x + "," + y + " to " + newX + "," + newY);
-                        addCard(newX, newY, card);
-                    }
+    private void translateCards(Board board) {
+        int xDif = board.getArrayWidth() - getArrayWidth();
+        int yDif = board.getArrayHeight() - getArrayHeight();
+        boolean changeX = (getMargins().get(1) < board.getMargins().get(1));
+        boolean changeY = (getMargins().get(4) < board.getMargins().get(4));
+        for (int x = 0; x < board.getArrayWidth(); x++) {
+            for (int y = 0; y < board.getArrayHeight(); y++) {
+                if (board.hasCard(x,y)) {
+                    // System.out.println("Found card " + board.getCard(x,y).getName() + " at " + x + "," + y);
+                    int destX = x;
+                    int destY = y;
+                    if (changeX) destX -= xDif;
+                    if (changeY) destY -= yDif;
+                    // System.out.println("Moving card " + board.getCard(x,y).getName() + " to " + destX + "," + destY);
+                    addCard(destX, destY, board.getCard(x,y));
                 }
             }
         }
+
+    }
+
+    public boolean hasCard(int x, int y) {
+        return (getCard(x, y) != null);
     }
 
     /**
@@ -86,17 +92,18 @@ public class Board {
      * If card is not already in the array, place card at (x, y)
      */
     public void addCard(int x, int y, Card card) {
-            boardArray[x][y] = card;
-            card.setPosition(x, y);
-            activateAbility(card, AbilityTrigger.PLACEMENT);
-            if (x > maxX)
-                maxX = x;
-            else if (x < minX)
-                minX = x;
-            if (y > maxY)
-                maxY = y;
-            else if (y < minY)
-                minY = y;
+        boardArray[x][y] = card;
+        card.setPosition(x, y);
+        activateAbility(card, AbilityTrigger.PLACEMENT);
+        if (x > maxX) {
+            maxX = x;
+            System.out.println("Max X set to " + maxX);
+        } else if (x < minX)
+            minX = x;
+        if (y > maxY)
+            maxY = y;
+        else if (y < minY)
+            minY = y;
     }
 
     /**
@@ -128,20 +135,22 @@ public class Board {
         String res = "";
         for (int x = 0; x < getArrayWidth(); x++) {
             for (int y = 0; y < getArrayHeight(); y++) {
-                if (getCard(x, y) != null) {
-                res += (getCard(x,y).getName());
+                if (hasCard(x, y)) {
+                    res += (getCard(x, y).getName());
+                }
             }
         }
+        return res;
     }
-    return res;
-}
 
     /**
      * Returns card at (x, y)
      */
     public Card getCard(int x, int y) {
-        if (boardArray[x][y] != null) return boardArray[x][y];
-        else return null;
+        if (boardArray[x][y] != null)
+            return boardArray[x][y];
+        else
+            return null;
     }
 
     public Position getMaxes() {
@@ -164,7 +173,7 @@ public class Board {
         return adjacents;
     }
 
-     /**
+    /**
      * Return the number of @param typeGoal in @param listTypes
      */
     private int countAdjacents(BuildingType typeGoal, List<BuildingType> listTypes) {
@@ -176,7 +185,7 @@ public class Board {
         return res;
     }
 
-      /**
+    /**
      * Return the number of @param typeGoal cards adjacent to the card at (x, y)
      */
     public int getAdjacentsOfType(BuildingType typeGoal, int x, int y) {
@@ -191,7 +200,7 @@ public class Board {
      * Returns the type of the card at (x, y)
      */
     private BuildingType typeOf(int x, int y) {
-        if (inBounds(x, y) && getCard(x, y) != null) {
+        if (inBounds(x, y) && hasCard(x, y)) {
             return getCard(x, y).getType();
         } else
             return null;
@@ -226,9 +235,11 @@ public class Board {
     public boolean isFull() {
         for (int x = 0; x < boardArray.length; x++) {
             for (int y = 0; y < boardArray[0].length; y++) {
-                if (boardArray[x][y] == null) return false;
+                if (boardArray[x][y] == null)
+                    return false;
             }
-        } return true;
+        }
+        return true;
     }
 
     public ScoreTracker getScoreboard() {

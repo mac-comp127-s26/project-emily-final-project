@@ -1,14 +1,13 @@
 public class GameManager {
 
     public static void main(String[] args) {
-        MainGame game = new MainGame(600, 3);
+        MainGame game = new MainGame(500, 3);
         Deck deck = new Deck();
-        game.getBoard().addCard(deck.getCard("Bank"));
-        game.getBoard().addCard(4,4,deck.getCard("Park"));
-        game.getBoard().refreshBoard();
-        // Deck deck = new Deck();
-        // game.placeCard(deck.getCard("Bank"));
-        // game.placeCard(deck.getCard("Park"), 3, 3);
+        Card bank = deck.getCard("Bank");
+        Card park = deck.getCard("Park");
+        game.placeCard(bank);
+        game.drawBoard(game.getBoard());
+        // game.placeCard(park, 4,3);
     }
 
     }

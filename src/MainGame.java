@@ -10,16 +10,32 @@ public class MainGame {
 
     public void placeCard(Card card, int x, int y) {
         board.addCard(x, y, card);
-        board = board.refreshBoard();
+        System.out.println(board.getCard(x,y).getName());
+        Board newBoard = board.refreshBoard();
     }
 
     public void placeCard(Card card) {
         board.addCard(card);
-        board = board.refreshBoard();
+        System.out.println(board.getCard(board.getMargins().get(0),board.getMargins().get(3)).getName());
+        Board newBoard = board.refreshBoard();
     }
 
     public Board getBoard() {
         return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void drawBoard(Board board) {
+        for (int x = 0; x < board.getArrayWidth(); x++) {
+            for (int y = 0; y < board.getArrayHeight(); y++) {
+                if (board.hasCard(x, y)) {
+                    screen.addCardtoScreen(board.getCard(x,y), x, y);
+                }
+            }
+        }
     }
 
 }
