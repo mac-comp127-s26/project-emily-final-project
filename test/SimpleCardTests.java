@@ -199,7 +199,13 @@ board = board.refreshBoard();
     }
 
     @Test
-    public void checkBoardFull() {
+    public void mainGameMovesCards() {
+        MainGame game = new MainGame(600, 3);
+        game.placeCard(bank);
+        assertEquals("Bank", game.getBoard().getCard(2,2).getName());
+        // game.placeCard(park, 4,1);
+        // assertEquals("Park", game.getBoard().getCard(4,1).getName());
+        // assertEquals("Bank", game.getBoard().getCard(0,2).getName());
     }
     
 }

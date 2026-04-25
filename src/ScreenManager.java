@@ -1,44 +1,27 @@
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 
 public class ScreenManager {
-    
-    // private GraphicsGroup handDisplay = new GraphicsGroup();
-    private GraphicsGroup boardDisplay = new GraphicsGroup();
+
     private CanvasWindow canvas;
-    double width;
-    double boardHeight;
+    private final double scale;
+
 
     public ScreenManager(int size) {
-        double width = size;
-        this.width = width;
-        double boardHeight = size/1.5;
-        this.boardHeight = boardHeight;
-        boardDisplay.setScale(0.075);
-
-        canvas = new CanvasWindow("CardCity", size, size);
-        canvas.add(boardDisplay);
+        canvas = new CanvasWindow("CardCity!", size, size);
+        scale = 0.00009523809*size;
     }
 
-    private void drawCardAt(Board board, Card card) {
+    public void addCardtoScreen(Card card, int x, int y) {
         GraphicsObject icon = card.getIcon();
-        icon.setCenter(
-            (card.getPos().getX() * icon.getWidth()) + icon.getWidth()/2, 
-            (card.getPos().getY() * icon.getHeight()) + icon.getHeight()/2
-        );
-        boardDisplay.add(card.getIcon());
+        icon.setScale(scale);
+        double adjW = icon.getWidth()*scale;
+        double adjH = icon.getHeight()*scale;
+        canvas.add(icon);
+        icon.setCenter((x*adjW)+(adjW/2), (y*adjH)+(adjH/2));
     }
 
-    public void drawScreen(Board board) {
-        boardDisplay.removeAll();
-        for (int x = 0; x < board.getArrayWidth(); x++) {
-            for (int y = 0; y < board.getArrayHeight(); y++) {
-                if (board.getCard(x, y) != null) {
-                    drawCardAt(board, board.getCard(x,y));
-                }
-            }
-        }
+    public CanvasWindow getCanvas() {
+        return canvas;
     }
-
 }

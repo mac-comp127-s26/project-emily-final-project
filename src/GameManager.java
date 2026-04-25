@@ -1,23 +1,14 @@
 public class GameManager {
 
-    private Board board;
-    private ScreenManager screen;
-    
-    public GameManager() {
-        board = new Board(4);
-        screen = new ScreenManager(750);
-    }
-
-    public void placeCard(Card card, int x, int y) {
-        board.addCard(x, y, card);
-        board.refreshBoard();
-        screen.drawScreen(board);
-    }
-
-    public void placeCard(Card card) {
-        board.addCard(card);
-        board.refreshBoard();
-        screen.drawScreen(board);
+    public static void main(String[] args) {
+        MainGame game = new MainGame(600, 3);
+        Deck deck = new Deck();
+        game.getBoard().addCard(deck.getCard("Bank"));
+        game.getBoard().addCard(4,4,deck.getCard("Park"));
+        game.getBoard().refreshBoard();
+        // Deck deck = new Deck();
+        // game.placeCard(deck.getCard("Bank"));
+        // game.placeCard(deck.getCard("Park"), 3, 3);
     }
 
     }

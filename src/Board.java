@@ -50,15 +50,21 @@ public class Board {
      * Move all cards from oldBoard to their relative location on newBoard
      */
     private void translateCardsFrom(Board oldBoard) {
+        System.out.println("Current width: " + oldBoard.getArrayWidth() + " New width: " + getArrayWidth());
+        System.out.println("Current height: " + oldBoard.getArrayHeight() + " New height: " + getArrayHeight());
         int xDif = oldBoard.getArrayWidth() - getArrayWidth();
         int yDif = oldBoard.getArrayHeight() - getArrayHeight();
+        System.out.println("xDif: " + xDif + " yDif: " + yDif);
         for (int x = 0; x < oldBoard.getArrayWidth(); x++) {
             for (int y = 0; y < oldBoard.getArrayHeight(); y++) {
                 int newX = x - xDif;
                 int newY = y - yDif;
+                System.out.println("Checking position: " + x + "," + y);
+                System.out.println("New position: " + newX + "," + newY);
                 if (newX >= 0 && newY >= 0) {
                     Card card = oldBoard.getCard(x, y);
                     if (card != null) {
+                        System.out.println("Moving card " + card.getName() + " from " + x + "," + y + " to " + newX + "," + newY);
                         addCard(newX, newY, card);
                     }
                 }
@@ -118,12 +124,28 @@ public class Board {
         return boardArray;
     }
 
+    public String getCardNames() {
+        String res = "";
+        for (int x = 0; x < getArrayWidth(); x++) {
+            for (int y = 0; y < getArrayHeight(); y++) {
+                if (getCard(x, y) != null) {
+                res += (getCard(x,y).getName());
+            }
+        }
+    }
+    return res;
+}
+
     /**
      * Returns card at (x, y)
      */
     public Card getCard(int x, int y) {
         if (boardArray[x][y] != null) return boardArray[x][y];
         else return null;
+    }
+
+    public Position getMaxes() {
+        return new Position(maxX, maxY);
     }
 
     /**
