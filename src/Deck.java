@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Deck {
 
@@ -39,22 +38,6 @@ public class Deck {
         }
     }
 
-
-    /**
-     * Returns a list of n random cards from deck
-     */
-    public List<Card> drawCards(int n) {
-        List<Card> result = new ArrayList<>(deck);
-        List<Card> cards = new ArrayList<>(deck);
-        for (int i = 0; i < n; i++) {
-            Random rand = new Random();
-            int rndm = rand.nextInt(cards.size());
-            result.add(cards.get(rndm));
-            cards.remove(rndm);
-        }
-        return result;
-    }
-
     public List<Card> getCards() {
         return deck;
     }
@@ -70,6 +53,13 @@ public class Deck {
             }
         }
         return null;
+    }
+
+    /**
+     * Removes the card at index i from the list of cards in the deck
+     */
+    public void removeCard(int i) {
+        deck.remove(i);
     }
 
     public int getSize() {

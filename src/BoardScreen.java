@@ -1,15 +1,16 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
+import java.awt.Point;
+import java.awt.MouseInfo;
 
 public class BoardScreen {
 
     private CanvasWindow boardCanvas;
-    private int size;
     private double scale;
+    private double cardSize;
 
 
     public BoardScreen(int size) {
-        this.size = size;
         boardCanvas = new CanvasWindow("Board!", size, size);
         scale = 0.00009523809*size;
     }
@@ -19,6 +20,7 @@ public class BoardScreen {
         icon.setScale(scale);
         double adjW = icon.getWidth()*scale;
         double adjH = icon.getHeight()*scale;
+        cardSize = adjW;
         boardCanvas.add(icon);
         icon.setCenter((x*adjW)+(adjW/2), (y*adjH)+(adjH/2));
     }
@@ -47,5 +49,20 @@ public class BoardScreen {
             y = board.getArrayHeight();
         }
         scale = getSmallestSize() / (1500 * y);
+    }
+
+    private Point getMousePos() {
+        return MouseInfo.getPointerInfo().getLocation();
+    }
+
+/**
+ * Return the (x,y) coordinate of the board the mouse is on.
+ */
+    public Position getMouseCoordinates(Board board) {
+        double modX = boardCanvas.getWidth() / board.getArrayWidth();
+        double mouseX = getMousePos().getX() / modX;
+        double modY = boardCanvas.getHeight() / board.getArrayHeight();
+        double mouseY = getMousePos().getY() / modY;
+        return new Position((int) mouseX, (int) mouseY);
     }
 }

@@ -2,14 +2,16 @@ import edu.macalester.graphics.CanvasWindow;
 
 public class GameManager {
 
-    BoardScreen screen;
-    HandScreen hand;
+    BoardScreen boardScreen;
+    HandScreen handScreen;
     Board board;
+    Hand hand;
 
     public GameManager(int screenSize, int boardSize) {
-        screen = new BoardScreen(screenSize);
-        hand = new HandScreen(screenSize);
+        boardScreen = new BoardScreen(screenSize);
+        handScreen = new HandScreen(screenSize);
         board = new Board(boardSize);
+        hand = new Hand(new Deck());
     }
 
     public void placeCard(Card card, int x, int y) {
@@ -34,25 +36,21 @@ public class GameManager {
         this.board = board;
     }
 
-    public CanvasWindow getBoardScreen() {
-        return screen.getScreen();
+    public BoardScreen getBoardScreen() {
+        return boardScreen;
     }
 
-    public HandScreen getHand() {
-        return hand;
-    }
-
-    public CanvasWindow getHandScreen() {
-        return hand.getScreen();
+    public HandScreen getHandScreen() {
+        return handScreen;
     }
 
     public void drawBoard(Board board) {
-        screen.clear();
-        screen.getNewScale(board);
+        boardScreen.clear();
+        boardScreen.getNewScale(board);
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
                 if (board.hasCard(x, y)) {
-                    screen.addCardtoScreen(board.getCard(x,y), x, y);
+                    boardScreen.addCardtoScreen(board.getCard(x,y), x, y);
                 }
             }
         }
