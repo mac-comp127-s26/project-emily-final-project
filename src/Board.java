@@ -43,8 +43,6 @@ public class Board {
      * Make a new board with the new size and card locations
      */
     public Board refreshBoard() {
-        System.out.println("New board width: " + getMargins().get(2));
-        System.out.println("New board height: " + getMargins().get(5));
         Board newBoard = new Board(getMargins().get(2), getMargins().get(5), getBoardSize(), scores);
         newBoard.translateCards(this);
         return newBoard;
@@ -95,7 +93,6 @@ public class Board {
         activateAbility(card, AbilityTrigger.PLACEMENT);
         if (x > maxX) {
             maxX = x;
-            System.out.println("Max X set to " + maxX);
         } else if (x < minX)
             minX = x;
         if (y > maxY)
@@ -212,19 +209,6 @@ public class Board {
             return true;
         else
             return false;
-    }
-
-    /**
-     * Returns whether or not @param card is in the array.
-     */
-    private boolean contains(Card card) {
-        for (int i = 0; i < boardArray.length; i++) {
-            for (int j = 0; j < boardArray[0].length; j++) {
-                if (boardArray[i][j] == card)
-                    return true;
-            }
-        }
-        return false;
     }
 
     /**
