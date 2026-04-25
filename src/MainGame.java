@@ -1,51 +1,22 @@
-import edu.macalester.graphics.CanvasWindow;
-
 public class MainGame {
 
-    ScreenManager screen;
-    Board board;
+    public static void main(String[] args) {
+        GameManager game = new GameManager(500, 3);
+        Deck deck = new Deck();
+        Card bank = deck.getCard("Bank");
+        Card park = deck.getCard("Park");
+        Card complex = deck.getCard("Complex");
+        game.placeCard(bank);
+        game.drawBoard(game.getBoard());
 
-    public MainGame(int screenSize, int boardSize) {
-        screen = new ScreenManager(screenSize);
-        board = new Board(boardSize);
+        game.getBoardScreen().onClick(e -> {
+            game.placeCard(park, 2, 0);
+            game.drawBoard(game.getBoard());
+        });
+
+        game.getHandScreen().onClick(e -> {
+            game.getHand().addCardToHand(complex);
+        });
     }
-
-    public void placeCard(Card card, int x, int y) {
-        board.addCard(x, y, card);
-        System.out.println(board.getCard(x,y).getName());
-        Board newBoard = board.refreshBoard();
-        setBoard(newBoard);
-    }
-
-    public void placeCard(Card card) {
-        board.addCard(card);
-        System.out.println(board.getCard(board.getMargins().get(0),board.getMargins().get(3)).getName());
-        Board newBoard = board.refreshBoard();
-        setBoard(newBoard);
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public CanvasWindow getScreen() {
-        return screen.getCanvas();
-    }
-
-    public void drawBoard(Board board) {
-        screen.clear();
-        screen.getNewScale(board);
-        for (int x = 0; x < board.getArrayWidth(); x++) {
-            for (int y = 0; y < board.getArrayHeight(); y++) {
-                if (board.hasCard(x, y)) {
-                    screen.addCardtoScreen(board.getCard(x,y), x, y);
-                }
-            }
-        }
-    }
-
 }
+

@@ -200,7 +200,7 @@ board = board.refreshBoard();
 
     @Test
     public void mainGameMovesCards() {
-        MainGame game = new MainGame(600, 3);
+        GameManager game = new GameManager(600, 3);
         game.placeCard(bank);
         assertEquals("Bank", game.getBoard().getCard(2,2).getName());
         // game.placeCard(park, 4,1);

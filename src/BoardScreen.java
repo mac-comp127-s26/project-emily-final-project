@@ -1,16 +1,16 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 
-public class ScreenManager {
+public class BoardScreen {
 
-    private CanvasWindow canvas;
+    private CanvasWindow boardCanvas;
     private int size;
     private double scale;
 
 
-    public ScreenManager(int size) {
+    public BoardScreen(int size) {
         this.size = size;
-        canvas = new CanvasWindow("CardCity!", size, size);
+        boardCanvas = new CanvasWindow("Board!", size, size);
         scale = 0.00009523809*size;
     }
 
@@ -19,16 +19,24 @@ public class ScreenManager {
         icon.setScale(scale);
         double adjW = icon.getWidth()*scale;
         double adjH = icon.getHeight()*scale;
-        canvas.add(icon);
+        boardCanvas.add(icon);
         icon.setCenter((x*adjW)+(adjW/2), (y*adjH)+(adjH/2));
     }
 
-    public CanvasWindow getCanvas() {
-        return canvas;
+    public CanvasWindow getScreen() {
+        return boardCanvas;
     }
 
     public void clear() {
-        canvas.removeAll();
+        boardCanvas.removeAll();
+    }
+
+    private int getSmallestSize() {
+        if (boardCanvas.getWidth() < boardCanvas.getHeight()) {
+            return boardCanvas.getWidth();
+        } else {
+            return boardCanvas.getHeight();
+        }
     }
 
     public void getNewScale(Board board) {
@@ -38,6 +46,6 @@ public class ScreenManager {
         } else {
             y = board.getArrayHeight();
         }
-        scale = size / (1500 * y);
+        scale = getSmallestSize() / (1500 * y);
     }
 }
