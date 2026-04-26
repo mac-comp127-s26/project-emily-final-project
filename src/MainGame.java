@@ -9,10 +9,13 @@ public class MainGame {
         game.placeCard(card1);
         game.drawBoard(game.getBoard());
         System.out.println(game.getStats());
+        game.drawScoreScreen();
 
         game.getBoardScreen().getScreen().onClick(e -> {
-            // game.placeCard(card2, 4, 4);
+            Card card2 = game.drawCards(1).get(0);
+            game.placeCard(card2, 4, 4);
             game.drawBoard(game.getBoard());
+            game.drawScoreScreen();
         });
     }
 

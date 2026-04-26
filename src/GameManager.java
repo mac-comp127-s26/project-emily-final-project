@@ -76,4 +76,8 @@ public class GameManager {
     public List<Integer> getStats() {
         return scores.getStats();
     }
+
+    public void drawScoreScreen() {
+        scoreScreen.update(this);
+    }
 }
