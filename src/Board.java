@@ -14,6 +14,8 @@ public class Board {
     private int maxX;
     private int maxY;
 
+    private List<AbilityChange> abilityChanges = new ArrayList<>();
+
     public Board(int boardSize) {
         this.boardSize = boardSize;
         int doubleSize = (boardSize * 2) - 1;
@@ -87,7 +89,7 @@ public class Board {
     public void addCard(int x, int y, Card card) {
         boardArray[x][y] = card;
         card.setPosition(x, y);
-        activateAbility(card, AbilityTrigger.PLACEMENT);
+        // activateAbility(card, AbilityTrigger.PLACEMENT);
         if (x > maxX) {
             maxX = x;
         } else if (x < minX)
@@ -104,7 +106,7 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
-        activateAbility(card, AbilityTrigger.PLACEMENT);
+        // activateAbility(card, AbilityTrigger.PLACEMENT);
     }
 
     public int getBoardSize() {
@@ -184,8 +186,15 @@ public class Board {
         return countAdjacents(typeGoal, getAdjacentsOf(x, y));
     }
 
-    public void changeStat(Stat stat, int change) {
-        scores.changeStat(stat, change);
+    public void queueStat(Stat stat, int change) {
+        abilityChanges.add(new AbilityChange(stat, change));
+    }
+
+    /**
+     * Return a list of AbilityChanges that will affect stats.
+     */
+    public List<AbilityChange> getAbilityChanges() {
+        return abilityChanges;
     }
 
     /**
@@ -229,16 +238,17 @@ public class Board {
      * Activate all abilities of @param trigger for @param card.
      */
     public void activateAbility(Card card, AbilityTrigger trigger) {
+        abilityChanges.clear();
         for (Ability i : card.getAbility(trigger)) {
             if (i.getTrigger() == trigger) {
                 if (i.getAdjacentType() != null) {
                     for (int a = 0; a < i.getNumChanges(); a++) {
                         int num = getAdjacentsOfType(i.getAdjacentType(), card.getPos().getX(), card.getPos().getY());
-                        changeStat(i.getStat(a), i.getChange(a) * num);
+                        queueStat(i.getStat(a), i.getChange(a) * num);
                     }
                 } else {
                     for (int b = 0; b < i.getNumChanges(); b++) {
-                        changeStat(i.getStat(b), i.getChange(b));
+                        queueStat(i.getStat(b), i.getChange(b));
                     }
                 }
 

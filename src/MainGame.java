@@ -8,6 +8,7 @@ public class MainGame {
         System.out.println(game.numCardsRemaining());
         game.placeCard(card1);
         game.drawBoard(game.getBoard());
+        System.out.println(game.getStats());
 
         game.getBoardScreen().getScreen().onClick(e -> {
             // game.placeCard(card2, 4, 4);

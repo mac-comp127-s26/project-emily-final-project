@@ -37,6 +37,12 @@ public class ScoreTracker {
         return List.of(pop, econ, leis);
     }
 
+    public void setStats(List<Integer> statsList) {
+        econ = statsList.get(0);
+        pop = statsList.get(1);
+        leis = statsList.get(2);
+    }
+
     public void changeStat(Stat stat, int change) {
         if (stat == Stat.ECONOMY)
             econ += change;
