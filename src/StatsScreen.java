@@ -59,4 +59,9 @@ public class StatsScreen {
     public void selectCard(Card card) {
         selectedCard = card;
     }
+
+    public void gameOver() {
+        System.out.println("Game over!");
+        gameOver = true;
+    }
 }
