@@ -1,6 +1,11 @@
+package userInterface;
+
+import dataStorage.Position;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
+import gameData.Board;
+import gameData.Card;
 
 public class BoardScreen {
 

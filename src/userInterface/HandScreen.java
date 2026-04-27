@@ -1,7 +1,10 @@
+package userInterface;
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
+import gameData.Card;
+import gameData.Hand;
 
 public class HandScreen {
 

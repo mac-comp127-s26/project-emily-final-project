@@ -1,3 +1,7 @@
+package managers;
+
+import gameData.*;
+
 public class MainGame {
 
     private Card selectedCard;

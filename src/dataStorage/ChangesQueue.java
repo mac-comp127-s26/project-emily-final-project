@@ -1,3 +1,6 @@
+package dataStorage;
+import enums.Stat;
+
 public class ChangesQueue {
 
     private Stat stat;

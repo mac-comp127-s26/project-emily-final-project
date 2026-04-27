@@ -1,5 +1,10 @@
+package dataStorage;
 import java.util.ArrayList;
 import java.util.List;
+
+import enums.AbilityTrigger;
+import enums.BuildingType;
+import enums.Stat;
 
 public class Ability {
   private AbilityTrigger trigger;

@@ -1,4 +1,14 @@
+package managers;
 import java.util.List;
+
+import dataStorage.ChangesQueue;
+import enums.*;
+import gameData.Board;
+import gameData.Card;
+import gameData.Deck;
+import gameData.Hand;
+import gameData.ScoreTracker;
+import userInterface.*;
 
 public class GameManager {
 

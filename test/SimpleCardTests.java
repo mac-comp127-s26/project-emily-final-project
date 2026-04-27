@@ -3,6 +3,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+import enums.AbilityTrigger;
+import enums.Stat;
+import gameData.Board;
+import gameData.Card;
+import gameData.Deck;
+import gameData.ScoreTracker;
+import managers.GameManager;
+
 public class SimpleCardTests {
 
     ScoreTracker scores = new ScoreTracker(1);

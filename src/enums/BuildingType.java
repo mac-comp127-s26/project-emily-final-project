@@ -1,3 +1,4 @@
+package enums;
 /**
  * Type enum for Card objects
  */

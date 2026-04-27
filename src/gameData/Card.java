@@ -1,8 +1,14 @@
+package gameData;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataStorage.Ability;
+import dataStorage.Position;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Image;
+import enums.AbilityTrigger;
+import enums.BuildingType;
+import enums.Stat;
 
 /**
  * Card object

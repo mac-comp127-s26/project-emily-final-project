@@ -1,6 +1,9 @@
+package gameData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import enums.Stat;
 
 /**
  * ScoreTracker to keep track of the three stats
