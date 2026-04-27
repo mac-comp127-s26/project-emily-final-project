@@ -1,16 +1,17 @@
 package managers;
 
-import gameData.*;
+import game.*;
+import enums.*;
 
-public class MainGame {
+public class GameRunner {
 
     private Card selectedCard;
     private GameManager game;
     private boolean firstCardPlaced = false;
     private boolean readyToDraw = true;
 
-    public MainGame(int screenSize, int boardSize) {
-        game = new GameManager(screenSize, boardSize);
+    public GameRunner(int screenSize, int boardSize, IconPath iconType) {
+        game = new GameManager(screenSize, boardSize, iconType);
     }
 
     public void run() {

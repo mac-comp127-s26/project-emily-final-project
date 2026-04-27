@@ -4,11 +4,8 @@ import java.util.List;
 
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Image;
-import enums.AbilityTrigger;
-import enums.BuildingType;
-import enums.Stat;
-import storage.Ability;
-import storage.Position;
+import enums.*;
+import storage.*;
 
 /**
  * Card object
@@ -43,8 +40,8 @@ public class Card {
             return this;
         }
 
-        public CardBuilder addIcon(String cardName) {
-            String pathToImage = cardName + ".png";
+        public CardBuilder addIcon(String cardName, IconPath path) {
+            String pathToImage = "Cards" + path + "/" + cardName + ".png";
             icon = new Image(pathToImage);
             return this;
         } 

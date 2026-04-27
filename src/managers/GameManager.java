@@ -1,14 +1,14 @@
 package managers;
 import java.util.List;
 
-import dataStorage.ChangesQueue;
 import enums.*;
-import gameData.Board;
-import gameData.Card;
-import gameData.Deck;
-import gameData.Hand;
-import gameData.ScoreTracker;
-import userInterface.*;
+import game.Board;
+import game.Card;
+import game.Deck;
+import game.Hand;
+import game.ScoreTracker;
+import storage.ChangesQueue;
+import ui.*;
 
 public class GameManager {
 
@@ -20,8 +20,8 @@ public class GameManager {
     private ScoreTracker scores = new ScoreTracker(1);
     private boolean gameFinished = false;
 
-    public GameManager(int screenSize, int boardSize) {
-        Deck deck = new Deck();
+    public GameManager(int screenSize, int boardSize, IconPath iconType) {
+        Deck deck = new Deck(iconType);
         board = new Board(boardSize);
         hand = new Hand(deck, 6);
         boardScreen = new BoardScreen(screenSize);

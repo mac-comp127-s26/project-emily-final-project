@@ -3,21 +3,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import enums.AbilityTrigger;
-import enums.Stat;
-import gameData.Board;
-import gameData.Card;
-import gameData.Deck;
-import gameData.ScoreTracker;
+import enums.*;
+import game.*;
 import managers.GameManager;
 
 public class SimpleCardTests {
 
     ScoreTracker scores = new ScoreTracker(1);
     Board board = new Board(3);
-    Deck deck = new Deck();
-    Deck deck2 = new Deck();
-    Deck deck3 = new Deck();
+    Deck deck = new Deck(IconPath.Basic);
+    Deck deck2 = new Deck(IconPath.Basic);
+    Deck deck3 = new Deck(IconPath.Basic);
     Card bank = deck.getCard("Bank");
     Card bank2 = deck2.getCard("Bank");
     Card bank3 = deck3.getCard("Bank");
@@ -161,63 +157,10 @@ board = board.refreshBoard();
         assertEquals("City Hall", deck.getCard(0).getName());
     }
 
-    // @Test
-    // public void complexAbilityWorksOnPlacement() {
-    //     Card card = deck.getCard("Complex");
-    //     board.activateAbility(card, AbilityTrigger.PLACEMENT);
-    //     assertEquals(1, board.getScoreboard().getEcon());
-    //     assertEquals(3, board.getScoreboard().getPop());
-    //     assertEquals(0, board.getScoreboard().getLeis());
-    // }
-
-    // @Test
-    // public void zeroAbilityWorksOnEndgame() {
-    //     Card complex = deck.getCard("Complex");
-    //     board.addCard(complex);
-    //     assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
-    //     board.activateAbility(complex, AbilityTrigger.ENDGAME);
-    //     assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
-    // }
-
-    // @Test
-    // public void statsKeepTrackAcrossPlacement() {
-    //     Card complex = deck.getCard("Complex");
-    //     board.addCard(complex);
-    //     assertEquals(List.of(3,1,0), board.getScoreboard().getStats());
-    //     board.addCard(1, 2, park);
-    //     assertEquals(List.of(3,0,1), board.getScoreboard().getStats());
-    //     board.addCard(3, 2, park2);
-    //     assertEquals(List.of(3,-1,2), board.getScoreboard().getStats());
-    //     board.addCard(2, 3, bank);
-    //     assertEquals(List.of(3,-3,2), board.getScoreboard().getStats());
-    //     board.activateAbility(complex, AbilityTrigger.ENDGAME);
-    //     assertEquals(List.of(1,-3,2), board.getScoreboard().getStats());
-    // }
-
-    // @Test
-    // public void cardWithSingleAbilityDescription() {
-    //     Card landfill = deck.getCard("Landfill");
-    //     assertEquals("When placed, -1 Population and -1 Leisure.\nAt end of game, +2 Econ.", landfill.getDescription());
-    // }
-
-    // @Test
-    // public void cardWithComplexDescription() {
-    //     Card coffee = deck.getCard("Coffeeshop");
-    //     assertEquals("When placed, -1 Econ and -1 Population and -1 Leisure.", coffee.getDescription());
-    // }
-
-    // @Test
-    // public void mainGameMovesCards() {
-    //     GameManager game = new GameManager(600, 3);
-    //     assertEquals("Bank", game.getBoard().getCard(2,2).getName());
-    //     // game.placeCard(park, 4,1);
-    //     // assertEquals("Park", game.getBoard().getCard(4,1).getName());
-    //     // assertEquals("Bank", game.getBoard().getCard(0,2).getName());
-    // }
 
     @Test
     public void statsCanBeRead() {
-        GameManager game = new GameManager(600, 3);
+        GameManager game = new GameManager(600, 3, IconPath.Basic);
         assertEquals(1, game.getScoreTracker().getEcon());
         assertEquals(1, game.getScoreTracker().getPop());
         assertEquals(1, game.getScoreTracker().getLeis());
@@ -225,7 +168,7 @@ board = board.refreshBoard();
 
     @Test
     public void finalScoreCalculatesCorrectly() {
-        GameManager game = new GameManager(600, 3);
+        GameManager game = new GameManager(600, 3, IconPath.Basic);
         game.getScoreTracker().changeStat(Stat.ECONOMY, -2);
         game.getScoreTracker().changeStat(Stat.POPULATION, +4);
         assertEquals(List.of(5,-1,1), game.getScoreTracker().getStats());
@@ -234,7 +177,7 @@ board = board.refreshBoard();
 
     @Test
     public void scoreCheckTwo() {
-        GameManager game = new GameManager(600, 3);
+        GameManager game = new GameManager(600, 3, IconPath.Basic);
         game.getScoreTracker().changeStat(Stat.ECONOMY, +1);
         game.getScoreTracker().changeStat(Stat.POPULATION, +1);
         assertEquals(List.of(2,2,1), game.getScoreTracker().getStats());
