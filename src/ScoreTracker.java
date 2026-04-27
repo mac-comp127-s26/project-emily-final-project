@@ -58,5 +58,18 @@ public class ScoreTracker {
         boolean debt3 = (econ < 0 && leis < 0);
         return (debt1 || debt2 || debt3);
     }
-    
+
+    public double finalScore() {
+        List<Integer> finals = getStats();
+        int lowestVal = getStats().get(0);
+        for (int i : getStats()) {
+            if (i < lowestVal) {
+                lowestVal = i;
+            }
+        }
+        finals.remove(lowestVal);
+        int highAvg = ((finals.get(0) + finals.get(1)) / 2) * 10;
+        return highAvg - lowestVal;
+    }
+
 }

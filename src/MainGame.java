@@ -12,15 +12,19 @@ public class MainGame {
     public void run() {
         game.drawStatsScreen();
 
-        game.getHandScreen().getScreen().onClick(e -> { drawCards(e.getPosition().getX()); });
-        game.getHandScreen().getScreen().onClick(e -> { selectCardFromHand(e.getPosition().getX()); });
-        game.getBoardScreen().getScreen().onClick(e -> { selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY()); });
-        game.getBoardScreen().getScreen().onClick(e -> { placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY()); });
-        game.getHandScreen().getScreen().onClick(e -> { updateScreens(); });
-        game.getBoardScreen().getScreen().onClick(e -> {  updateScreens();});
+        game.getHandScreen().getScreen().onClick(e -> { 
+            drawCards(e.getPosition().getX()); 
+            selectCardFromHand(e.getPosition().getX());
+        });
+        game.getBoardScreen().getScreen().onClick(e -> { 
+            selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY()); 
+            placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
+        });
+        
+        game.getHandScreen().getScreen().onMouseMove(e -> { updateScreens(); });
 
         game.getBoardScreen().getScreen().onMouseMove(e -> { 
-                System.out.println("Mouse moving");
+                updateScreens();
                 previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY()); }
         );
     }

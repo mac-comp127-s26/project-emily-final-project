@@ -7,7 +7,6 @@ public class GameManager {
     private StatsScreen scoreScreen;
     private Board board;
     private Hand hand;
-
     private ScoreTracker scores = new ScoreTracker(1);
 
     public GameManager(int screenSize, int boardSize) {
@@ -17,6 +16,10 @@ public class GameManager {
         boardScreen = new BoardScreen(screenSize);
         handScreen = new HandScreen(screenSize);
         scoreScreen = new StatsScreen(screenSize);
+    }
+
+    public ScoreTracker getScoreTracker() {
+        return scores;
     }
 
     public Hand getHand() {
@@ -89,11 +92,20 @@ public class GameManager {
 
     public EndCondition testEndConditions() {
         if (board.isFull()) {
+            runEndAbilities();
             return EndCondition.WIN;
         } else if (scores.inDebt()) {
             return EndCondition.LOSE;
         } else {
             return EndCondition.NONE;
+        }
+    }
+
+    public void runEndAbilities() {
+        for (int x = 0; x < board.getArrayWidth(); x++) {
+            for (int y = 0; y < board.getArrayHeight(); y++) {
+                board.activateAbility(board.getCard(x,y), AbilityTrigger.ENDGAME);
+            }
         }
     }
 }
