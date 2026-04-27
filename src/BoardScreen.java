@@ -14,10 +14,9 @@ public class BoardScreen {
     }
 
     public void placeCursor(Board board, Card card, int x, int y) {
-        System.out.println("X: " + x + " Y: " + y);
+        removeCursor();
         if (x < board.getArrayWidth() && y < board.getArrayHeight()) {
             if (cursor == null) {
-                System.out.println("Cursor created");
                 cursor = new Ellipse(x, y, 750 * scale, 750 * scale);
                 boardCanvas.add(cursor);
             }
