@@ -4,18 +4,19 @@ public class MainGame {
 
     public static void main(String[] args) {
         GameManager game = new GameManager(500, 3);
-        Card card1 = game.drawCards(1).get(0);
-        System.out.println(game.numCardsRemaining());
+        game.getHand().drawCards(1);
+        Card card1 = game.getHand().getCurrentHand().get(0);
         game.placeCard(card1);
-        game.drawBoard(game.getBoard());
-        System.out.println(game.getStats());
-        game.drawScoreScreen();
+        game.visualizeBoard(game.getBoard());
+        game.drawStatsScreen();
 
         game.getBoardScreen().getScreen().onClick(e -> {
-            Card card2 = game.drawCards(1).get(0);
+            game.getHand().drawCards(1);
+            Card card2 = game.getHand().getCurrentHand().get(1);
+            game.getStatsScreen().selectCard(card2);
             game.placeCard(card2, 4, 4);
-            game.drawBoard(game.getBoard());
-            game.drawScoreScreen();
+            game.visualizeBoard(game.getBoard());
+            game.drawStatsScreen();
         });
     }
 

@@ -56,22 +56,32 @@ public class Card {
     }
 
     public String getDescription() {
-        String desc = "";
-        desc += getDescriptionFor(AbilityTrigger.PLACEMENT);
-        desc += getDescriptionFor(AbilityTrigger.ENDGAME);
-        return desc.trim();
+        String res = "";
+        for (int p = 0; p < numAbilitiesWithTrigger(AbilityTrigger.PLACEMENT); p++) {
+            res+= getDescriptionFor(AbilityTrigger.PLACEMENT, p) + "\n";
+        }
+        for (int e = 0; e < numAbilitiesWithTrigger(AbilityTrigger.ENDGAME); e++) {
+            res+= getDescriptionFor(AbilityTrigger.ENDGAME, e) + "\n";
+        }
+        return res;
     }
 
-    private String getDescriptionFor(AbilityTrigger trigger) {
+    /**
+     * Returns the description of the i ability with trigger trigger.
+     * @param trigger
+     * @param i
+     * @return
+     */
+    private String getDescriptionFor(AbilityTrigger trigger, int i) {
         String starter = "";
         if (trigger == AbilityTrigger.PLACEMENT)
             starter = "When placed, ";
         if (trigger == AbilityTrigger.ENDGAME)
             starter = "At end of game, ";
         String desc = "";
-        for (int i = 0; i < numAbilitiesWithTrigger(trigger); i++) {
+        if (abilityWithTrigger(trigger, i) != null) {
             desc += starter;
-            Ability ab = abilityWithTrigger(trigger);
+            Ability ab = abilityWithTrigger(trigger, i);
             if (ab.getAdjacentType() == null) {
                 if (ab.getNumChanges() > 1) {
                     for (int x = 0; x < ab.getNumChanges() - 1; x++) {
@@ -115,15 +125,28 @@ public class Card {
     }
 
     /**
-     * Returns the first ability of card with trigger @param trig
+     * Returns the i ability of card with trigger @param trig
      */
-    private Ability abilityWithTrigger(AbilityTrigger trig) {
+    private Ability abilityWithTrigger(AbilityTrigger trig, int i) {
+        int n = -1;
         for (Ability ab : abilities) {
             if (ab.getTrigger() == trig) {
+                n+= 1;
+            }
+            if (n == i) {
                 return ab;
             }
+        } return null;
+    }
+
+    public int numAbilitiesWithTrigger(AbilityTrigger trig) {
+        int n = 0;
+        for (Ability ab : abilities) {
+            if (ab.getTrigger() == trig) {
+                n += 1;
+            }
         }
-        return null;
+        return n;
     }
 
 
@@ -135,15 +158,6 @@ public class Card {
             return "+";
         else
             return "";
-    }
-
-    private int numAbilitiesWithTrigger(AbilityTrigger trigger) {
-        int t = 0;
-        for (Ability ab : abilities) {
-            if (ab.getTrigger() == trigger)
-                t += 1;
-        }
-        return t;
     }
 
     public BuildingType getType() {

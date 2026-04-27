@@ -1,9 +1,9 @@
-public class AbilityChange {
+public class ChangesQueue {
 
     private Stat stat;
     private int change;
     
-    public AbilityChange(Stat stat, int change) {
+    public ChangesQueue(Stat stat, int change) {
         this.stat = stat;
         this.change = change;
     }

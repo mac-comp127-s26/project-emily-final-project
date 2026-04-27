@@ -14,7 +14,7 @@ public class Board {
     private int maxX;
     private int maxY;
 
-    private List<AbilityChange> abilityChanges = new ArrayList<>();
+    private List<ChangesQueue> abilityChanges = new ArrayList<>();
 
     public Board(int boardSize) {
         this.boardSize = boardSize;
@@ -187,13 +187,13 @@ public class Board {
     }
 
     public void queueStat(Stat stat, int change) {
-        abilityChanges.add(new AbilityChange(stat, change));
+        abilityChanges.add(new ChangesQueue(stat, change));
     }
 
     /**
      * Return a list of AbilityChanges that will affect stats.
      */
-    public List<AbilityChange> getAbilityChanges() {
+    public List<ChangesQueue> getAbilityChanges() {
         return abilityChanges;
     }
 

@@ -4,7 +4,7 @@ public class GameManager {
 
     private BoardScreen boardScreen;
     private HandScreen handScreen;
-    private ScoreScreen scoreScreen;
+    private StatsScreen scoreScreen;
     private Board board;
     private Hand hand;
 
@@ -16,15 +16,11 @@ public class GameManager {
         hand = new Hand(deck);
         boardScreen = new BoardScreen(screenSize);
         handScreen = new HandScreen(screenSize);
-        scoreScreen = new ScoreScreen();
+        scoreScreen = new StatsScreen(screenSize);
     }
 
-    public List<Card> drawCards(int n) {
-        return hand.drawCards(n);
-    }
-
-    public int numCardsRemaining() {
-        return hand.numCardsRemaining();
+    public Hand getHand() {
+        return hand;
     }
 
     public void placeCard(Card card, int x, int y) {
@@ -53,7 +49,7 @@ public class GameManager {
         this.board = board;
     }
 
-    public void drawBoard(Board board) {
+    public void visualizeBoard(Board board) {
         boardScreen.clear();
         boardScreen.getNewScale(board);
         for (int x = 0; x < board.getArrayWidth(); x++) {
@@ -65,10 +61,14 @@ public class GameManager {
         }
     }
 
+    public void visualizeHand(Hand hand) {
+        handScreen.clear();
+    }
+
     public void activateAbility(Card card, AbilityTrigger trigger) {
         board.activateAbility(card, trigger);
-        List<AbilityChange> changes = board.getAbilityChanges();
-        for (AbilityChange change : changes) {
+        List<ChangesQueue> changes = board.getAbilityChanges();
+        for (ChangesQueue change : changes) {
             scores.changeStat(change.getStat(), change.getChange());
         }
     }
@@ -77,7 +77,11 @@ public class GameManager {
         return scores.getStats();
     }
 
-    public void drawScoreScreen() {
+    public StatsScreen getStatsScreen() {
+        return scoreScreen;
+    }
+
+    public void drawStatsScreen() {
         scoreScreen.update(this);
     }
 }

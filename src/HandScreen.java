@@ -35,4 +35,8 @@ public class HandScreen {
         else return h;
     }
 
+    public void clear() {
+        handCanvas.removeAll();
+    }
+
 }
