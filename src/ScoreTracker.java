@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,16 +61,14 @@ public class ScoreTracker {
     }
 
     public double finalScore() {
-        List<Integer> finals = getStats();
-        int lowestVal = getStats().get(0);
-        for (int i : getStats()) {
-            if (i < lowestVal) {
-                lowestVal = i;
-            }
-        }
-        finals.remove(lowestVal);
+        List<Integer> finals = new ArrayList<>();
+        finals.addAll(getStats());
+        int lowestVal = getEcon();
+        if (getPop() < lowestVal) lowestVal = getPop();
+        if (getLeis() < lowestVal) lowestVal = getLeis();
+        finals.remove(finals.indexOf(lowestVal));
         int highAvg = ((finals.get(0) + finals.get(1)) / 2) * 10;
-        return highAvg - lowestVal;
+        return highAvg + lowestVal;
     }
 
 }

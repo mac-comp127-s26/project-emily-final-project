@@ -40,7 +40,6 @@ public class GameManager {
         activateAbility(card, AbilityTrigger.PLACEMENT);
         Board newBoard = board.refreshBoard();
         setBoard(newBoard);
-        testEndGame();
     }
 
     public BoardScreen getBoardScreen() {
@@ -107,12 +106,6 @@ public class GameManager {
             for (int y = 0; y < board.getArrayHeight(); y++) {
                 board.activateAbility(board.getCard(x,y), AbilityTrigger.ENDGAME);
             }
-        }
-    }
-
-    public void testEndGame() {
-        if (testEndConditions() != EndCondition.NONE) {
-            scoreScreen.gameOver();
         }
     }
 }

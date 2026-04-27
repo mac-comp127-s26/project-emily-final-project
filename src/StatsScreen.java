@@ -5,7 +5,6 @@ public class StatsScreen {
 
     private CanvasWindow scoreCanvas;
     private Card selectedCard;
-    private boolean gameOver = false;
 
     public StatsScreen(int size) {
         scoreCanvas = new CanvasWindow("Stats!", size, 175);
@@ -18,7 +17,6 @@ public class StatsScreen {
     public StatsScreen update(GameManager game) {
         int y = 15;
         scoreCanvas.removeAll();
-        if (!gameOver) {
             scoreCanvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
             y += 30;
             scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
@@ -34,7 +32,11 @@ public class StatsScreen {
                 y += 15;
                 scoreCanvas.add(new GraphicsText(selectedCard.getDescription(), 5, y));
             }
-        } else if (game.testEndConditions() == EndCondition.LOSE) {
+        if (game.testEndConditions() != EndCondition.NONE) {
+            y = 15;
+            scoreCanvas.removeAll();
+        }
+        if (game.testEndConditions() == EndCondition.LOSE) {
             scoreCanvas.add(new GraphicsText("Game over!"), 5, y);
             y += 30;
             scoreCanvas.add(new GraphicsText("Your city fell into debt."), 5, y);
@@ -60,8 +62,4 @@ public class StatsScreen {
         selectedCard = card;
     }
 
-    public void gameOver() {
-        System.out.println("Game over!");
-        gameOver = true;
-    }
 }

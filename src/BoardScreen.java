@@ -15,7 +15,6 @@ public class BoardScreen {
 
     public void placeCursor(Board board, Card card, int x, int y) {
         removeCursor();
-        if (x < board.getArrayWidth() && y < board.getArrayHeight()) {
             if (cursor == null) {
                 cursor = new Ellipse(x, y, 750 * scale, 750 * scale);
                 boardCanvas.add(cursor);
@@ -23,10 +22,7 @@ public class BoardScreen {
             double adjW = card.getIcon().getWidth() * scale;
             double adjH = card.getIcon().getHeight() * scale;
             cursor.setCenter((x * adjW) + (adjW / 2), (y * adjH) + (adjH / 2));
-        } else {
-            removeCursor();
         }
-    }
 
     public void addCardtoScreen(Card card, int x, int y) {
         GraphicsObject icon = card.getIcon();
@@ -66,11 +62,9 @@ public class BoardScreen {
     /**
      * Return the (x,y) coordinate of the board the mouse is on.
      */
-    public Position getMouseCoordinates(Board board, double mX, double mY) {
-        double modX = getSmallestSize() / board.getArrayWidth();
-        double mouseX = mX / modX;
-        double modY = getSmallestSize() / board.getArrayHeight();
-        double mouseY = mY / modY;
+    public Position getMouseCoordinates(Board board, double mX, double mY) {     
+        double mouseX = mX / (1500*scale);
+        double mouseY = mY / (1500*scale);
         return new Position((int) mouseX, (int) mouseY);
     }
 

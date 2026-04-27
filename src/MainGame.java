@@ -54,15 +54,18 @@ public class MainGame {
     public void selectCardFromBoard(double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
-        if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
+        if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
+            if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
             selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
+        }
         }
     }
 
     public void placeCardOnBoard(double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
-        if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
+        if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
+            if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 if (!firstCardPlaced) {
                     firstCardPlaced = true;
                     game.placeCard(selectedCard);
@@ -73,14 +76,20 @@ public class MainGame {
                 }
             }
         }
+        }
 
     public void previewCursor(Board board, double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
-            if (firstCardPlaced && mouseX > 0 && mouseX < game.getBoardScreen().getScreen().getWidth() && mouseY > 0 && mouseY < game.getBoardScreen().getScreen().getHeight()) {
+            if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth() && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
                 game.getBoardScreen().placeCursor(board, selectedCard, mouseXIndex, mouseYIndex);
             }
         }
+    
+
+    public boolean inBounds(Board board, int x, int y) {
+        return (x < board.getArrayWidth() && y < board.getArrayHeight());
     }
+}
 
 
