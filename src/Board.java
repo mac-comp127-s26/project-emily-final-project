@@ -260,7 +260,6 @@ public class Board {
                         queueStat(i.getStat(b), i.getChange(b));
                     }
                 }
-
             }
         }
     }
