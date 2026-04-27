@@ -13,7 +13,7 @@ public class GameManager {
     public GameManager(int screenSize, int boardSize) {
         Deck deck = new Deck();
         board = new Board(boardSize);
-        hand = new Hand(deck);
+        hand = new Hand(deck, 6);
         boardScreen = new BoardScreen(screenSize);
         handScreen = new HandScreen(screenSize);
         scoreScreen = new StatsScreen(screenSize);
@@ -41,6 +41,10 @@ public class GameManager {
         return boardScreen;
     }
 
+    public HandScreen getHandScreen() {
+        return handScreen;
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -49,7 +53,7 @@ public class GameManager {
         this.board = board;
     }
 
-    public void visualizeBoard(Board board) {
+    public void drawBoard(Board board) {
         boardScreen.clear();
         boardScreen.getNewScale(board);
         for (int x = 0; x < board.getArrayWidth(); x++) {
@@ -59,10 +63,6 @@ public class GameManager {
                 }
             }
         }
-    }
-
-    public void visualizeHand(Hand hand) {
-        handScreen.clear();
     }
 
     public void activateAbility(Card card, AbilityTrigger trigger) {

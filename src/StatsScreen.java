@@ -10,6 +10,10 @@ public class StatsScreen {
         scoreCanvas = new CanvasWindow("Stats!", size, 175);
     }
 
+    public CanvasWindow getScreen() {
+        return scoreCanvas;
+    }
+
     public StatsScreen update(GameManager game) {
         int y = 15;
         scoreCanvas.removeAll();

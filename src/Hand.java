@@ -4,11 +4,13 @@ import java.util.Random;
 
 public class Hand {
 
+    private final int maxHandSize;
     private List<Card> remainingCardList = new ArrayList<>();
     private List<Card> currentHand = new ArrayList<>();
 
-    public Hand(Deck deck) {
+    public Hand(Deck deck, int maxHandSize) {
         remainingCardList = deck.getCards();
+        this.maxHandSize = maxHandSize;
     }
 
     /**
@@ -16,8 +18,14 @@ public class Hand {
      */
     public void drawCards(int n) {
         for (int i = 0; i < n; i++) {
-            currentHand.add(drawCard());
+            if (currentHand.size() < maxHandSize) {
+                currentHand.add(drawCard());
+            }
         }
+    }
+
+    public Card getCardInHand(int i) {
+        return currentHand.get(i);
     }
 
     /**

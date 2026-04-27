@@ -1,25 +1,55 @@
 public class MainGame {
 
-    Card selectedCard;
+    private Card selectedCard;
+    private GameManager game;
 
-    public static void main(String[] args) {
-        GameManager game = new GameManager(500, 3);
-        game.getHand().drawCards(1);
-        Card card1 = game.getHand().getCurrentHand().get(0);
-        game.placeCard(card1);
-        game.visualizeBoard(game.getBoard());
+    public MainGame(int screenSize, int boardSize) {
+        game = new GameManager(screenSize, boardSize);
+    }
+
+    public void run() {
         game.drawStatsScreen();
 
+        game.getHandScreen().getScreen().onClick(e -> { drawCards(e.getPosition().getX()); });
+        game.getHandScreen().getScreen().onClick(e -> { selectCardFromHand(e.getPosition().getX()); });
+        game.getBoardScreen().getScreen().onClick(e -> { selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY()); });
+
+        game.getHandScreen().getScreen().onClick(e -> {
+            updateScreens();
+        });
+
         game.getBoardScreen().getScreen().onClick(e -> {
-            game.getHand().drawCards(1);
-            Card card2 = game.getHand().getCurrentHand().get(1);
-            game.getStatsScreen().selectCard(card2);
-            game.placeCard(card2, 4, 4);
-            game.visualizeBoard(game.getBoard());
-            game.drawStatsScreen();
+            updateScreens();
         });
     }
 
-   
+    public void updateScreens() {
+        game.getHandScreen().update(game.getHand());
+        game.getStatsScreen().selectCard(selectedCard);
+        game.getStatsScreen().update(game);
+    }
+
+    public void drawCards(double mouseX) {
+        if (game.getHandScreen().getMouseIndex(mouseX) > game.getHand().getCurrentHand().size()) {
+            game.getHand().drawCards(2);
+            game.getHandScreen().update(game.getHand());
+        }
+    }
+
+    public void selectCardFromHand(double mouseX) {
+        if (game.getHandScreen().getMouseIndex(mouseX) < game.getHand().getCurrentHand().size()) {
+            selectedCard = game.getHand().getCardInHand(game.getHandScreen().getMouseIndex(mouseX));
+        }
+    }
+
+    public void selectCardFromBoard(double mouseX, double mouseY) {
+        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
+        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
+        if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
+            selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
+        }
+    }
+
+
 }
 

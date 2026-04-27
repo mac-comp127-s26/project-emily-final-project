@@ -89,7 +89,6 @@ public class Board {
     public void addCard(int x, int y, Card card) {
         boardArray[x][y] = card;
         card.setPosition(x, y);
-        // activateAbility(card, AbilityTrigger.PLACEMENT);
         if (x > maxX) {
             maxX = x;
         } else if (x < minX)
