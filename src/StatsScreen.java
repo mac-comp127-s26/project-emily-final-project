@@ -26,7 +26,7 @@ public class StatsScreen {
             scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
             y += 30;
             if (selectedCard != null) {
-                scoreCanvas.add(new GraphicsText("Selected card: " + selectedCard.getName()), 5, y);
+                scoreCanvas.add(new GraphicsText("Selected card: " + selectedCard.getName() + " (" + selectedCard.getTypeName() + ")"), 5, y);
                 y += 30;
                 scoreCanvas.add(new GraphicsText("Ability: ", 5, y));
                 y += 15;
@@ -44,7 +44,8 @@ public class StatsScreen {
             scoreCanvas.add(new GraphicsText("Game over!"), 5, y);
             y += 30;
             scoreCanvas.add(new GraphicsText("Your city is thriving."), 5, y);
-            y+= 15;
+            y+= 30;
+            game.runEndAbilities();
             scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += 15;
             scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));

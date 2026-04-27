@@ -164,6 +164,11 @@ public class Card {
         return type;
     }
 
+    public String getTypeName() {
+        if (type == BuildingType.COMMERCIAL) return "Commercial";
+        else return "Community";
+    }
+
     public String getName() {
         return name;
     }
