@@ -1,4 +1,4 @@
-package dataStorage;
+package storage;
 import enums.Stat;
 
 public class ChangesQueue {

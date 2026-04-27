@@ -1,9 +1,9 @@
-package userInterface;
+package ui;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 import enums.EndCondition;
-import gameData.Card;
+import game.Card;
 import managers.GameManager;
 
 public class StatsScreen {

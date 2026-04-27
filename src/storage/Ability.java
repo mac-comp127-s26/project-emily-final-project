@@ -1,4 +1,4 @@
-package dataStorage;
+package storage;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,13 +1,13 @@
-package gameData;
+package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataStorage.Ability;
-import dataStorage.ChangesQueue;
-import dataStorage.Position;
 import enums.AbilityTrigger;
 import enums.BuildingType;
 import enums.Stat;
+import storage.Ability;
+import storage.ChangesQueue;
+import storage.Position;
 
 /**
  * Board object.

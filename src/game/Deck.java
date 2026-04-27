@@ -1,11 +1,11 @@
-package gameData;
+package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataStorage.Ability;
 import enums.AbilityTrigger;
 import enums.BuildingType;
 import enums.Stat;
+import storage.Ability;
 
 public class Deck {
 

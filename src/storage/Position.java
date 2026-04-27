@@ -1,4 +1,4 @@
-package dataStorage;
+package storage;
 
 public class Position {
 
