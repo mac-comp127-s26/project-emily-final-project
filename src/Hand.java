@@ -24,6 +24,9 @@ public class Hand {
         }
     }
 
+    /**
+     * Return the card at position i in currentHand.
+     */
     public Card getCardInHand(int i) {
         return currentHand.get(i);
     }
