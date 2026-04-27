@@ -51,5 +51,12 @@ public class ScoreTracker {
         if (stat == Stat.LEISURE)
             leis += change;
     }
+
+    public boolean inDebt() {
+        boolean debt1 = (econ < 0 && pop < 0);
+        boolean debt2 = (pop < 0 && leis < 0);
+        boolean debt3 = (econ < 0 && leis < 0);
+        return (debt1 || debt2 || debt3);
+    }
     
 }

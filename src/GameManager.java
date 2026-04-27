@@ -86,4 +86,14 @@ public class GameManager {
     public void drawStatsScreen() {
         scoreScreen.update(this);
     }
+
+    public EndCondition testEndConditions() {
+        if (board.isFull()) {
+            return EndCondition.WIN;
+        } else if (scores.inDebt()) {
+            return EndCondition.LOSE;
+        } else {
+            return EndCondition.NONE;
+        }
+    }
 }
