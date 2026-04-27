@@ -223,5 +223,13 @@ board = board.refreshBoard();
         assertEquals(List.of(5,-1,1), game.getScoreTracker().getStats());
         assertEquals(29, game.getScoreTracker().finalScore());
     }
-    
+
+    @Test
+    public void scoreCheckTwo() {
+        GameManager game = new GameManager(600, 3);
+        game.getScoreTracker().changeStat(Stat.ECONOMY, +1);
+        game.getScoreTracker().changeStat(Stat.POPULATION, +1);
+        assertEquals(List.of(2,2,1), game.getScoreTracker().getStats());
+        assertEquals(21, game.getScoreTracker().finalScore());
+    }
 }

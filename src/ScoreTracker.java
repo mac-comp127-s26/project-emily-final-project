@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,12 +64,11 @@ public class ScoreTracker {
     public double finalScore() {
         List<Integer> finals = new ArrayList<>();
         finals.addAll(getStats());
-        int lowestVal = getEcon();
-        if (getPop() < lowestVal) lowestVal = getPop();
-        if (getLeis() < lowestVal) lowestVal = getLeis();
-        finals.remove(finals.indexOf(lowestVal));
-        int highAvg = ((finals.get(0) + finals.get(1)) / 2) * 10;
-        return highAvg + lowestVal;
+        Collections.sort(finals);
+        double average = (finals.get(1) + finals.get(2))/2;
+        double highAvg = average*10;
+        double total = highAvg+finals.get(0);
+        return total;
     }
 
 }
