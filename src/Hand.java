@@ -51,4 +51,8 @@ public class Hand {
         return remainingCardList.size();
     }
 
+    public void removeCardFromHand(Card card) {
+        currentHand.remove(card);
+    }
+
 }

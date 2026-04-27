@@ -73,6 +73,16 @@ public class Board {
         return (getCard(x, y) != null);
     }
 
+    public boolean hasCard(Card card) {
+        for (int x = 0; x < boardArray.length; x++) {
+            for (int y = 0; y < boardArray[0].length; y++) {
+                if (boardArray[x][y] == card) {
+                    return true;
+                }
+            }
+        } return false;
+    }
+
     /**
      * Get a list of coordinates and margins/widths, used primarily for testing.
      */

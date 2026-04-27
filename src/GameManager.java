@@ -24,6 +24,7 @@ public class GameManager {
     }
 
     public void placeCard(Card card, int x, int y) {
+        hand.removeCardFromHand(card);
         board.addCard(x, y, card);
         activateAbility(card, AbilityTrigger.PLACEMENT);
         Board newBoard = board.refreshBoard();
@@ -31,6 +32,7 @@ public class GameManager {
     }
 
     public void placeCard(Card card) {
+        hand.removeCardFromHand(card);
         board.addCard(card);
         activateAbility(card, AbilityTrigger.PLACEMENT);
         Board newBoard = board.refreshBoard();
