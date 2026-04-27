@@ -113,7 +113,7 @@ public class Deck {
     private Card mallStadium(String name) {
         Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
         .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).addChange(+1, Stat.LEISURE).buildAbility())
-        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
+        .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(-1, Stat.ECONOMY).addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
         .addIcon(name)
         .buildCard();
         return card;

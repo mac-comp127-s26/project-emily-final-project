@@ -104,11 +104,9 @@ public class GameManager {
     public void runEndAbilities() {
         if (!gameFinished) {
             gameFinished = true;
-            System.out.println("Game ending!");
             for (int x = 0; x < board.getArrayWidth(); x++) {
                 for (int y = 0; y < board.getArrayHeight(); y++) {
-                    System.out.println("Activating ability: " + board.getCard(x,y));
-                    board.activateAbility(board.getCard(x,y), AbilityTrigger.ENDGAME);
+                    activateAbility(board.getCard(x,y), AbilityTrigger.ENDGAME);
                 }
             }
         }

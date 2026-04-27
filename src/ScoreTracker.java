@@ -62,12 +62,18 @@ public class ScoreTracker {
     }
 
     public double finalScore() {
-        List<Integer> finals = new ArrayList<>();
-        finals.addAll(getStats());
+        List<Double> finals = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            finals.add((double) getStats().get(i));
+        }
+        System.out.println("CALCULATING>>>");
         Collections.sort(finals);
         double average = (finals.get(1) + finals.get(2))/2;
+        System.out.println("Averaging " + finals.get(1) + " and " + finals.get(2) + " to get " + average);
         double highAvg = average*10;
+        System.out.println("Multiplying by 10 to get " + highAvg);
         double total = highAvg+finals.get(0);
+        System.out.println("Adding " + finals.get(0));
         return total;
     }
 

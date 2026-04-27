@@ -17,21 +17,23 @@ public class StatsScreen {
     public StatsScreen update(GameManager game) {
         int y = 15;
         scoreCanvas.removeAll();
-            scoreCanvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
+        scoreCanvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
+        y += 30;
+        scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
+        y += 15;
+        scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
+        y += 15;
+        scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
+        y += 30;
+        if (selectedCard != null) {
+            scoreCanvas.add(
+                new GraphicsText("Selected card: " + selectedCard.getName() + " (" + selectedCard.getTypeName() + ")"),
+                5, y);
             y += 30;
-            scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
+            scoreCanvas.add(new GraphicsText("Ability: ", 5, y));
             y += 15;
-            scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
-            y += 15;
-            scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
-            y += 30;
-            if (selectedCard != null) {
-                scoreCanvas.add(new GraphicsText("Selected card: " + selectedCard.getName() + " (" + selectedCard.getTypeName() + ")"), 5, y);
-                y += 30;
-                scoreCanvas.add(new GraphicsText("Ability: ", 5, y));
-                y += 15;
-                scoreCanvas.add(new GraphicsText(selectedCard.getDescription(), 5, y));
-            }
+            scoreCanvas.add(new GraphicsText(selectedCard.getDescription(), 5, y));
+        }
         if (game.testEndConditions() != EndCondition.NONE) {
             y = 15;
             scoreCanvas.removeAll();
@@ -44,7 +46,7 @@ public class StatsScreen {
             scoreCanvas.add(new GraphicsText("Game over!"), 5, y);
             y += 30;
             scoreCanvas.add(new GraphicsText("Your city is thriving."), 5, y);
-            y+= 30;
+            y += 30;
             game.runEndAbilities();
             scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += 15;
