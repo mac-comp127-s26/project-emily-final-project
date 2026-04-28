@@ -64,7 +64,7 @@ public class BoardScreen {
     /**
      * Readjust the scale variable so that the size of the card icons will fit on the screen, determined
      * by the smaller of the dimensions of the screen.
-    */
+     */
     public double getNewScale(Board board) {
         double wScale = boardCanvas.getWidth() / (1500.0 * board.getArrayWidth());
         double hScale = boardCanvas.getHeight() / (1500.0 * board.getArrayHeight());
