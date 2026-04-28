@@ -123,9 +123,8 @@ public class MouseRunner {
     public void previewCursor(Board board, double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
-        if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth()
-            && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
-            game.getBoardScreen().placeCursor(board, mouseXIndex, mouseYIndex);
+        if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth() && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
+            game.getBoardScreen().placeCursor(board, selectedCard, mouseXIndex, mouseYIndex);
         }
     }
 
