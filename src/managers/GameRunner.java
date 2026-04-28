@@ -20,23 +20,39 @@ public class GameRunner {
     public void run() {
         game.drawStatsScreen();
 
+        /**
+         * When the hand screen is clicked, try to draw cards and select a card.
+         */
         game.getHandScreen().getScreen().onClick(e -> {
             drawCards(e.getPosition().getX());
             selectCardFromHand(e.getPosition().getX());
         });
+
+        /**
+         * When the board screen is clicked, try to place a card and select a card.
+         */
         game.getBoardScreen().getScreen().onClick(e -> {
             selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
             placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
         });
 
+        /**
+         * When the mouse moves over the hand screen, update all the screens.
+         */
         game.getHandScreen().getScreen().onMouseMove(e -> { updateScreens(); });
 
+        /**
+         * When the mouse moves over the board screen, update all the screens and try to set the cursor.
+         */
         game.getBoardScreen().getScreen().onMouseMove(e -> {
             updateScreens();
             previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
         });
     }
 
+    /**
+     * Call all of the update functions for the screens.
+     */
     public void updateScreens() {
         game.getBoardScreen().removeCursor();
         game.getStatsScreen().selectCard(selectedCard);
@@ -45,6 +61,9 @@ public class GameRunner {
         game.getStatsScreen().update(game);
     }
 
+    /**
+     * If the mouse position is not over a current card, draw 2 cards up to a maximum of 6.
+     */
     public void drawCards(double mouseX) {
         if (readyToDraw && game.getHandScreen().getMouseIndex(mouseX) >= game.getHand().getCurrentHand().size()) {
             game.getHand().drawCards(2);
@@ -53,12 +72,18 @@ public class GameRunner {
         }
     }
 
+    /**
+     * If the mouse position is over a current card, select that card.
+     */
     public void selectCardFromHand(double mouseX) {
         if (game.getHandScreen().getMouseIndex(mouseX) < game.getHand().getCurrentHand().size()) {
             selectedCard = game.getHand().getCardInHand(game.getHandScreen().getMouseIndex(mouseX));
         }
     }
 
+    /**
+     * If the mouse position is over a current card, select that card.
+     */
     public void selectCardFromBoard(double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
@@ -69,6 +94,9 @@ public class GameRunner {
         }
     }
 
+    /**
+     * If the mouse position is valid and not over a current card, place the selected card.
+     */
     public void placeCardOnBoard(double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
@@ -86,6 +114,9 @@ public class GameRunner {
         }
     }
 
+    /**
+     * If the mouse position is valid, place the cursor at the equivalant (x,y) position of the board.
+     */
     public void previewCursor(Board board, double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
@@ -95,7 +126,9 @@ public class GameRunner {
         }
     }
 
-
+    /**
+     * Return if the mouse position is in bounds of the board array.
+     */
     public boolean inBounds(Board board, int x, int y) {
         return (x < board.getArrayWidth() && y < board.getArrayHeight());
     }
