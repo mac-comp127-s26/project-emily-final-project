@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.List;
-
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Rectangle;
@@ -16,13 +14,11 @@ public class HandScreen {
 
     private double scale;
     private CanvasWindow handCanvas;
-    private double cardSize;
     private Rectangle cursor;
 
     public HandScreen(int size) {
-        scale = (0.00011111111 * size);
-        cardSize = 1500 * scale;
-        handCanvas = new CanvasWindow("Hand!", (int) cardSize * 6, (int) cardSize);
+        scale = 0.00011111111 * size;
+        handCanvas = new CanvasWindow("Hand!", (int) (1500 * scale) * 6, (int) (1500 * scale));
     }
 
     /**
@@ -31,9 +27,8 @@ public class HandScreen {
     public void update(Hand hand) {
         handCanvas.removeAll();
         scale = getNewScale(hand);
-        List<Card> cards = hand.getCurrentHand();
-        for (int i = 0; i < cards.size(); i++) {
-            addCardToScreen(cards.get(i), i);
+        for (int i = 0; i < hand.getCurrentHand().size(); i++) {
+            addCardToScreen(hand.getCurrentHand().get(i), i);
         }
     }
 
@@ -41,10 +36,9 @@ public class HandScreen {
      * Show given card on the hand at index position @param pos
      */
     public void addCardToScreen(Card card, int x) {
-        cardSize = scale * 1500;
         GraphicsObject icon = card.getIcon();
         icon.setScale(scale);
-        icon.setCenter((x * cardSize) + (cardSize / 2), 0 + (cardSize / 2));
+        icon.setCenter((x * scale * 1500) + (scale * 1500 / 2), 0 + (scale * 1500 / 2));
         handCanvas.add(icon);
     }
 

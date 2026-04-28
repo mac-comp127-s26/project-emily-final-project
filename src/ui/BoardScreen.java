@@ -17,8 +17,8 @@ public class BoardScreen {
     private Rectangle cursor;
 
     public BoardScreen(int size) {
-        boardCanvas = new CanvasWindow("Board!", size, size);
         scale = 0.00009523809 * size;
+        boardCanvas = new CanvasWindow("Board!", size, size);
     }
 
     /**
