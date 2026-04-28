@@ -162,7 +162,7 @@ public class Deck {
         Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
             .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY)
                 .addChange(-1, Stat.POPULATION).addChange(-1, Stat.LEISURE).buildAbility())
-            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.LEISURE)
+            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+2, Stat.LEISURE)
                 .addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
             .addIcon(name, path)
             .buildCard();
