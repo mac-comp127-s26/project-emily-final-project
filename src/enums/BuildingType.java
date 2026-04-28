@@ -1,6 +1,6 @@
 package enums;
 /**
- * Type enum for Card objects
+ * The two types of Cards.
  */
 public enum BuildingType {
     COMMERCIAL,

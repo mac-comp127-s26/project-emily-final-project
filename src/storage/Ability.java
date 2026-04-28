@@ -6,6 +6,9 @@ import enums.AbilityTrigger;
 import enums.BuildingType;
 import enums.Stat;
 
+/**
+ * An ability for a card.
+ */
 public class Ability {
   private AbilityTrigger trigger;
   private List<Integer> vals = new ArrayList<>();

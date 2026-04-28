@@ -10,6 +10,9 @@ import game.ScoreTracker;
 import storage.ChangesQueue;
 import ui.*;
 
+/**
+ * A large class that holds all of the different game objects and manages their interactions.
+ */
 public class GameManager {
 
     private BoardScreen boardScreen;

@@ -10,7 +10,7 @@ import storage.ChangesQueue;
 import storage.Position;
 
 /**
- * Board object.
+ * A Board object that holds cards.
  */
 public class Board {
 
@@ -21,9 +21,11 @@ public class Board {
     private int minY;
     private int maxX;
     private int maxY;
-
     private List<ChangesQueue> abilityChanges = new ArrayList<>();
 
+    /**
+     * Creates a board array that is big enough to hold any orientation of boardSizeXboardSize cards
+     */
     public Board(int boardSize) {
         this.boardSize = boardSize;
         int doubleSize = (boardSize * 2) - 1;
@@ -77,10 +79,16 @@ public class Board {
         }
     }
 
+    /**
+     * Return if there is a card at (x,y) on the board
+     */
     public boolean hasCard(int x, int y) {
         return (getCard(x, y) != null);
     }
 
+    /**
+     * Return if the given card exists on the board
+     */
     public boolean hasCard(Card card) {
         for (int x = 0; x < boardArray.length; x++) {
             for (int y = 0; y < boardArray[0].length; y++) {
@@ -123,7 +131,6 @@ public class Board {
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
         card.setPosition(minX, minY);
-        // activateAbility(card, AbilityTrigger.PLACEMENT);
     }
 
     public int getBoardSize() {
@@ -140,18 +147,6 @@ public class Board {
 
     public Card[][] getCards() {
         return boardArray;
-    }
-
-    public String getCardNames() {
-        String res = "";
-        for (int x = 0; x < getArrayWidth(); x++) {
-            for (int y = 0; y < getArrayHeight(); y++) {
-                if (hasCard(x, y)) {
-                    res += (getCard(x, y).getName());
-                }
-            }
-        }
-        return res;
     }
 
     /**

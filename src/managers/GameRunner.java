@@ -3,6 +3,9 @@ package managers;
 import game.*;
 import enums.*;
 
+/**
+ * A large class that keeps track of mouse clicks and interactions.
+ */
 public class GameRunner {
 
     private Card selectedCard;
