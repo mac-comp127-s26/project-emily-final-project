@@ -24,8 +24,8 @@ public class MouseRunner {
          * When the hand screen is clicked, try to draw cards and select a card and update all screens.
          */
         game.getHandScreen().getScreen().onClick(e -> {
-            drawCards(e.getPosition().getX());
-            selectCardFromHand(e.getPosition().getX());
+            drawCards(e.getPosition().getX(), e.getPosition().getY());
+            selectCardFromHand(e.getPosition().getX(), e.getPosition().getY());
             updateScreens();
         });
 
@@ -68,8 +68,8 @@ public class MouseRunner {
     /**
      * If the mouse position is not over a current card, draw 2 cards up to a maximum of 6.
      */
-    public void drawCards(double mouseX) {
-        if (readyToDraw && game.getHandScreen().getMouseIndex(mouseX) >= game.getHand().getCurrentHand().size()) {
+    public void drawCards(double mouseX, double mouseY) {
+        if (readyToDraw && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand().getCurrentHand().size()) {
             game.getHand().drawCards(2);
             game.getHandScreen().update(game.getHand());
             readyToDraw = false;
@@ -79,9 +79,9 @@ public class MouseRunner {
     /**
      * If the mouse position is over a current card, select that card.
      */
-    public void selectCardFromHand(double mouseX) {
-        if (game.getHandScreen().getMouseIndex(mouseX) < game.getHand().getCurrentHand().size()) {
-            selectedCard = game.getHand().getCardInHand(game.getHandScreen().getMouseIndex(mouseX));
+    public void selectCardFromHand(double mouseX, double mouseY) {
+        if (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() < game.getHand().getCurrentHand().size() && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() < 1) {
+            selectedCard = game.getHand().getCardInHand(game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX());
         }
     }
 
@@ -89,8 +89,8 @@ public class MouseRunner {
      * If the mouse position is over a current card, select that card.
      */
     public void selectCardFromBoard(double mouseX, double mouseY) {
-        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
-        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
+        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
+        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
             if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
@@ -102,8 +102,8 @@ public class MouseRunner {
      * If the mouse position is valid and not over a current card, place the selected card.
      */
     public void placeCardOnBoard(double mouseX, double mouseY) {
-        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
-        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
+        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
+        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
             if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 if (!firstCardPlaced) {
@@ -122,8 +122,8 @@ public class MouseRunner {
      * If the mouse position is valid, place the cursor at the equivalant (x,y) position of the board.
      */
     public void previewCursorBoard(Board board, double mouseX, double mouseY) {
-        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
-        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
+        int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
+        int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth()
             && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
             game.getBoardScreen().placeCursor(board, mouseXIndex, mouseYIndex);
@@ -131,8 +131,9 @@ public class MouseRunner {
     }
 
     public void previewCursorHand(Hand hand, double mouseX, double mouseY) {
-        int mouseXIndex = game.getHandScreen().getMouseIndex(mouseX);
-        if (mouseXIndex < hand.getCurrentHand().size()) {
+        int mouseXIndex = game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX();
+        int mouseYIndex = game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY();
+        if (mouseXIndex < hand.getCurrentHand().size() && mouseYIndex < 1) {
             game.getHandScreen().placeCursor(mouseXIndex);
         }
     }
