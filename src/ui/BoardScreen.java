@@ -12,20 +12,20 @@ import storage.Position;
  */
 public class BoardScreen {
 
-    private CanvasWindow boardCanvas;
+    private CanvasWindow canvas;
     private double scale;
     private Rectangle cursor;
 
     public BoardScreen(int size) {
         scale = 0.00009523809 * size;
-        boardCanvas = new CanvasWindow("Board!", size, size);
+        canvas = new CanvasWindow("Board!", size, size);
     }
 
     /**
      * Using the data from @param board, clear the boardScreen and redraw all cards onto the board.
      */
     public void update(Board board) {
-        boardCanvas.removeAll();
+        canvas.removeAll();
         scale = getNewScale(board);
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
@@ -43,12 +43,12 @@ public class BoardScreen {
         GraphicsObject icon = card.getIcon();
         icon.setScale(scale);
         double adj = 1500 * scale;
-        boardCanvas.add(icon);
+        canvas.add(icon);
         icon.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
     public CanvasWindow getScreen() {
-        return boardCanvas;
+        return canvas;
     }
 
     /**
@@ -56,7 +56,7 @@ public class BoardScreen {
      */
     public void placeCursor(int x, int y) {
         cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
-        boardCanvas.add(cursor);
+        canvas.add(cursor);
         double adj = 1500 * scale;
         cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
@@ -66,8 +66,8 @@ public class BoardScreen {
      * by the smaller of the dimensions of the screen.
      */
     public double getNewScale(Board board) {
-        double wScale = boardCanvas.getWidth() / (1500.0 * board.getArrayWidth());
-        double hScale = boardCanvas.getHeight() / (1500.0 * board.getArrayHeight());
+        double wScale = canvas.getWidth() / (1500.0 * board.getArrayWidth());
+        double hScale = canvas.getHeight() / (1500.0 * board.getArrayHeight());
         if (wScale < hScale) {
             return wScale;
         } else {
