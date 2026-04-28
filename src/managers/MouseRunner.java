@@ -129,7 +129,7 @@ public class MouseRunner {
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth()
             && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
-            game.getBoardScreen().placeCursor(board, mouseXIndex, mouseYIndex);
+            game.getBoardScreen().placeCursor(mouseXIndex, mouseYIndex);
         }
     }
 

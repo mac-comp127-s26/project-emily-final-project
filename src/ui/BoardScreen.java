@@ -21,14 +21,16 @@ public class BoardScreen {
         scale = 0.00009523809 * size;
     }
 
-    /**
-     * Place a rectangle at the position on the screen that corresponds to (x,y) on the given board
-     */
-    public void placeCursor(Board board, int x, int y) {
-        cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
-        boardCanvas.add(cursor);
-        double adj = 1500 * scale;
-        cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
+    public void update(Board board) {
+        boardCanvas.removeAll();
+        scale = getNewScale(board);
+        for (int x = 0; x < board.getArrayWidth(); x++) {
+            for (int y = 0; y < board.getArrayHeight(); y++) {
+                if (board.hasCard(x, y)) {
+                    addCardtoScreen(board.getCard(x, y), x, y);
+                }
+            }
+        }
     }
 
     /**
@@ -42,31 +44,18 @@ public class BoardScreen {
         icon.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
-    public void update(Board board) {
-        boardCanvas.removeAll();
-        scale = getNewScale(board);
-        for (int x = 0; x < board.getArrayWidth(); x++) {
-            for (int y = 0; y < board.getArrayHeight(); y++) {
-                if (board.hasCard(x, y)) {
-                    addCardtoScreen(board.getCard(x, y), x, y);
-                }
-            }
-        }
-    }
-
     public CanvasWindow getScreen() {
         return boardCanvas;
     }
 
     /**
-     * Return the size of the smaller length of the screen.
+     * Place a rectangle at the position on the screen that corresponds to (x,y) on the given board
      */
-    private double getSmallestSize() {
-        if (boardCanvas.getWidth() < boardCanvas.getHeight()) {
-            return boardCanvas.getWidth();
-        } else {
-            return boardCanvas.getHeight();
-        }
+    public void placeCursor(int x, int y) {
+        cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
+        boardCanvas.add(cursor);
+        double adj = 1500 * scale;
+        cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
     /**
@@ -74,13 +63,19 @@ public class BoardScreen {
      * by the smaller of the dimensions of the screen.
      */
     public double getNewScale(Board board) {
+        double x;
         double y;
+        if (boardCanvas.getWidth() < boardCanvas.getHeight()) {
+            x = boardCanvas.getWidth();
+        } else {
+            x = boardCanvas.getHeight();
+        }
         if (board.getArrayWidth() > board.getArrayHeight()) {
             y = board.getArrayWidth();
         } else {
             y = board.getArrayHeight();
         }
-        return ((int) getSmallestSize()) / (1500 * y);
+        return x / (1500 * y);
     }
 
     /**
