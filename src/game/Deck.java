@@ -53,6 +53,9 @@ public class Deck {
         return deck;
     }
 
+    /**
+     * Return the card with the name @param cardName
+     */
     public Card getCard(String cardName) {
         for (Card c : deck) {
             if (c.getName() == cardName) {
