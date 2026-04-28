@@ -68,9 +68,8 @@ public class MouseRunner {
     /**
      * If the mouse position is not over a current card, draw 2 cards up to a maximum of 6.
      */
-    public void drawCards(double mouseX, double mouseY) {
-        if (readyToDraw && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand()
-            .getCurrentHand().size()) {
+    public void drawCards(double mouseX, double mouseY)  {
+        if (readyToDraw && (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand().getCurrentHand().size() || game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() > 0)) {
             game.getHand().drawCards(2);
             game.getHandScreen().update(game.getHand());
             readyToDraw = false;
