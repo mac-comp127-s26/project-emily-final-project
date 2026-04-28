@@ -24,17 +24,14 @@ public class BoardScreen {
     /**
      * Place an ellipse at the position on the screen that corresponds to (x,y) on the given board
      */
-    public void placeCursor(Board board, Card card, int x, int y) {
-        System.out.println("Trying to place!");
-        // removeCursor();
+    public void placeCursor(Board board, int x, int y) {
+        removeCursor();
         if (cursor == null) {
-            cursor = new Ellipse(x, y, 1000 * scale, 1000 * scale);
-            System.out.println("Trying to create!");
+            cursor = new Ellipse(x, y, 750 * scale, 750 * scale);
             boardCanvas.add(cursor);
         }
-        double adjW = 1500.0 * scale;
-        double adjH = 1500.0 * scale;
-        System.out.println("Trying to center!");
+        double adjW = 1500 * scale;
+        double adjH = 1500 * scale;
         cursor.setCenter((x * adjW) + (adjW / 2), (y * adjH) + (adjH / 2));
     }
 
@@ -44,8 +41,8 @@ public class BoardScreen {
     public void addCardtoScreen(Card card, int x, int y) {
         GraphicsObject icon = card.getIcon();
         icon.setScale(scale);
-        double adjW = 1500 * scale;
-        double adjH = 1500 * scale;
+        double adjW = icon.getWidth() * scale;
+        double adjH = icon.getHeight() * scale;
         boardCanvas.add(icon);
         icon.setCenter((x * adjW) + (adjW / 2), (y * adjH) + (adjH / 2));
     }
