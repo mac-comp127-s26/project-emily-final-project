@@ -161,7 +161,7 @@ board = board.refreshBoard();
     }
 
     @Test
-    public void scoreCheckTwo() {
+    public void secondScoreCheck() {
         GameManager game = new GameManager(600, 3, IconPath.Basic);
         game.getScoreTracker().changeStat(Stat.ECONOMY, +1);
         game.getScoreTracker().changeStat(Stat.POPULATION, +1);

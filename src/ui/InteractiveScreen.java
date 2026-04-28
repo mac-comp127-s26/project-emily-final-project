@@ -4,7 +4,7 @@ import edu.macalester.graphics.CanvasWindow;
 import game.*;
 import storage.Position;
 
-public interface InteractiveScreen<T> {
+public interface InteractiveScreen {
     
     public void update(Board board);
     public void update(Hand hand);
