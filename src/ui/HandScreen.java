@@ -68,7 +68,7 @@ public class HandScreen {
     private double getNewScale(Hand hand) {
         double w = handCanvas.getWidth() / 9000.0;
         if (hand.getCurrentHand().size() < 6) {
-             w = handCanvas.getWidth() / (1500.0 * (hand.getCurrentHand().size()+0.5));
+            w = handCanvas.getWidth() / (1500.0 * (hand.getCurrentHand().size() + 0.5));
         }
         double h = 0.00066666666 * handCanvas.getHeight();
         if (w < h)
