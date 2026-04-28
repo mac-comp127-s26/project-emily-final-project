@@ -1,10 +1,10 @@
 import enums.IconPath;
-import managers.MouseRunner;
+import managers.GameRunner;
 
 public class CardCity {
 
     public static void main(String[] args) {
-        MouseRunner game = new MouseRunner(500, 4, IconPath.Basic);
+        GameRunner game = new GameRunner(500, 4, IconPath.Basic);
         game.run();
     }
 }

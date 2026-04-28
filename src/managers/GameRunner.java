@@ -6,14 +6,14 @@ import enums.*;
 /**
  * A large class that keeps track of mouse clicks and interactions.
  */
-public class MouseRunner {
+public class GameRunner {
 
     private Card selectedCard;
     private GameManager game;
     private boolean firstCardPlaced = false;
     private boolean readyToDraw = true;
 
-    public MouseRunner(int screenSize, int boardSize, IconPath iconType) {
+    public GameRunner(int screenSize, int boardSize, IconPath iconType) {
         game = new GameManager(screenSize, boardSize, iconType);
     }
 
