@@ -3,7 +3,10 @@ package ui;
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Rectangle;
+import game.Board;
 import game.Card;
 import game.Hand;
 
@@ -15,6 +18,7 @@ public class HandScreen {
     private double scale;
     private CanvasWindow handCanvas;
     private double cardSize;
+    private Rectangle cursor;
 
     public HandScreen(int size) {
         scale = (0.00011111111 * size);
@@ -67,5 +71,23 @@ public class HandScreen {
     public int getMouseIndex(double mouseX) {
         double index = mouseX / cardSize;
         return (int) index;
+    }
+
+    /**
+     * Place a rectangle at the position on the screen that corresponds to the (x) index on the screen
+     */
+    public void placeCursor(int x) {
+        cursor = new Rectangle(x, 0, 1500 * scale, 1500 * scale);
+        handCanvas.add(cursor);
+        double adj = 1500 * scale;
+        cursor.setCenter((x * adj) + (adj / 2), (adj / 2));
+    }
+
+    public void removeCursor() {
+        if (cursor != null) {
+            System.out.println(cursor.getParent());
+            handCanvas.remove(cursor);
+            cursor = null;
+        }
     }
 }

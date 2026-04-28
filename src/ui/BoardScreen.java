@@ -22,14 +22,11 @@ public class BoardScreen {
     }
 
     /**
-     * Place an ellipse at the position on the screen that corresponds to (x,y) on the given board
+     * Place a rectangle at the position on the screen that corresponds to (x,y) on the given board
      */
     public void placeCursor(Board board, int x, int y) {
-        removeCursor();
-        if (cursor == null) {
-            cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
-            boardCanvas.add(cursor);
-        }
+        cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
+        boardCanvas.add(cursor);
         double adj = 1500 * scale;
         cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
@@ -84,15 +81,5 @@ public class BoardScreen {
         double mouseX = mX / (1500 * scale);
         double mouseY = mY / (1500 * scale);
         return new Position((int) mouseX, (int) mouseY);
-    }
-
-    /**
-     * If the cursor exists, remove it.
-     */
-    public void removeCursor() {
-        if (cursor != null) {
-            boardCanvas.remove(cursor);
-            cursor = null;
-        }
     }
 }

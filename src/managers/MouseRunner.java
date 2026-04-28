@@ -39,16 +39,19 @@ public class MouseRunner {
         });
 
         /**
-         * When the mouse moves over the hand screen, update all the screens.
+         * When the mouse moves over the hand screen, update all the screen and try to set the cursor.
          */
-        game.getHandScreen().getScreen().onMouseMove(e -> { updateScreens(); });
+        game.getHandScreen().getScreen().onMouseMove(e -> { 
+            updateScreens(); 
+            previewCursorHand(game.getHand(), e.getPosition().getX(), e.getPosition().getY());
+        });
 
         /**
          * When the mouse moves over the board screen, update all the screens and try to set the cursor.
          */
         game.getBoardScreen().getScreen().onMouseMove(e -> {
             updateScreens();
-            previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
+            previewCursorBoard(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
         });
     }
 
@@ -56,7 +59,6 @@ public class MouseRunner {
      * Call all of the update functions for the screens.
      */
     public void updateScreens() {
-        game.getBoardScreen().removeCursor();
         game.getStatsScreen().selectCard(selectedCard);
         game.getHandScreen().update(game.getHand());
         game.drawBoard(game.getBoard());
@@ -119,12 +121,19 @@ public class MouseRunner {
     /**
      * If the mouse position is valid, place the cursor at the equivalant (x,y) position of the board.
      */
-    public void previewCursor(Board board, double mouseX, double mouseY) {
+    public void previewCursorBoard(Board board, double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
         if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth()
             && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
             game.getBoardScreen().placeCursor(board, mouseXIndex, mouseYIndex);
+        }
+    }
+
+    public void previewCursorHand(Hand hand, double mouseX, double mouseY) {
+        int mouseXIndex = game.getHandScreen().getMouseIndex(mouseX);
+        if (mouseXIndex < hand.getCurrentHand().size()) {
+            game.getHandScreen().placeCursor(mouseXIndex);
         }
     }
 
