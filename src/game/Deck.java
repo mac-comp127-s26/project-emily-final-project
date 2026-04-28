@@ -148,7 +148,7 @@ public class Deck {
     }
 
     private Card schoolUniversity(String name, IconPath path) {
-        Card card = new Card.CardBuilder(name, BuildingType.COMMERCIAL)
+        Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
             .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY)
                 .addChange(+2, Stat.LEISURE).buildAbility())
             .addAbility(

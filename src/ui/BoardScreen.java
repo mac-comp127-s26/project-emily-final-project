@@ -1,8 +1,8 @@
 package ui;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Rectangle;
 import game.Board;
 import game.Card;
 import storage.Position;
@@ -14,7 +14,7 @@ public class BoardScreen {
 
     private CanvasWindow boardCanvas;
     private double scale;
-    private Ellipse cursor;
+    private Rectangle cursor;
 
     public BoardScreen(int size) {
         boardCanvas = new CanvasWindow("Board!", size, size);
@@ -27,7 +27,7 @@ public class BoardScreen {
     public void placeCursor(Board board, int x, int y) {
         removeCursor();
         if (cursor == null) {
-            cursor = new Ellipse(x, y, 500 * scale, 500 * scale);
+            cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
             boardCanvas.add(cursor);
         }
         double adj = 1500 * scale;
