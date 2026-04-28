@@ -25,8 +25,8 @@ public class HandScreen {
     /**
      * Show given card on the hand at index position @param pos
      */
-    public void addCardToHand(Card card, int pos) {
-        scale = getNewScale();
+    public void addCardToHand(Hand hand, Card card, int pos) {
+        scale = getNewScale(hand);
         cardSize = scale * 1500;
         GraphicsObject icon = card.getIcon();
         icon.setScale(scale);
@@ -41,8 +41,9 @@ public class HandScreen {
     /**
      * Readjust the scale so that the card icons will fit in the hand window
      */
-    private double getNewScale() {
-        double w = 0.00011111111 * handCanvas.getWidth();
+    private double getNewScale(Hand hand) {
+        double w = handCanvas.getWidth()/(1500.0*hand.getCurrentHand().size());
+        // double w = 0.00011111111 * handCanvas.getWidth();
         double h = 0.00066666666 * handCanvas.getHeight();
         if (w < h)
             return w;
@@ -57,7 +58,7 @@ public class HandScreen {
         handCanvas.removeAll();
         List<Card> cards = hand.getCurrentHand();
         for (int i = 0; i < cards.size(); i++) {
-            addCardToHand(cards.get(i), i);
+            addCardToHand(hand, cards.get(i), i);
         }
     }
 
