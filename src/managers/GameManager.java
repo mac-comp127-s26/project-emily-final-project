@@ -41,6 +41,10 @@ public class GameManager {
         return hand;
     }
 
+    /**
+     * Places @param card at position (x,y) in the array, removing the card from hand and activating its
+     * abilities.
+     */
     public void placeCard(Card card, int x, int y) {
         hand.removeCardFromHand(card);
         board.addCard(x, y, card);
@@ -49,6 +53,10 @@ public class GameManager {
         setBoard(newBoard);
     }
 
+    /**
+     * Places @param card at the center of the array, removing the card from hand and activating its
+     * abilities.
+     */
     public void placeCard(Card card) {
         hand.removeCardFromHand(card);
         board.addCard(card);
@@ -73,6 +81,9 @@ public class GameManager {
         this.board = board;
     }
 
+    /**
+     * Refresh the boardScreen and redraw all cards on @param board
+     */
     public void drawBoard(Board board) {
         boardScreen.clear();
         boardScreen.getNewScale(board);
@@ -85,6 +96,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * Activate all abilities of @param card with the trigger @param trigger
+     */
     public void activateAbility(Card card, AbilityTrigger trigger) {
         board.activateAbility(card, trigger);
         List<ChangeQueue> changes = board.getAbilityChanges();

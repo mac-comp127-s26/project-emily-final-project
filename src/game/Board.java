@@ -102,7 +102,7 @@ public class Board {
     }
 
     /**
-     * Get a list of coordinates and margins/widths, used primarily for testing.
+     * Get a list of coordinates and margins/widths.
      */
     public List<Integer> getMargins() {
         int xWidth = (maxX + 1) - minX;
@@ -128,7 +128,7 @@ public class Board {
     }
 
     /**
-     * Place card at center.
+     * Place card at center of array.
      */
     public void addCard(Card card) {
         boardArray[minX][minY] = card;
@@ -158,7 +158,7 @@ public class Board {
     }
 
     /**
-     * Returns a list of the Types of the cards adjacent to the card at x, y
+     * Returns a list of the Types of the cards adjacent to the card at (x, y)
      */
     private List<BuildingType> getAdjacentsOf(int x, int y) {
         List<BuildingType> adjacents = new ArrayList<>();

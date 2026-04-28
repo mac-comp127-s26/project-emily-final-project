@@ -29,6 +29,9 @@ public class ScoreTracker {
         return List.of(pop, econ, leis);
     }
 
+    /**
+     * Changes @param stat by @param int
+     */
     public void changeStat(Stat stat, int change) {
         if (stat == Stat.ECONOMY)
             econ += change;
@@ -38,6 +41,9 @@ public class ScoreTracker {
             leis += change;
     }
 
+    /**
+     * Returns if two or more values are below 0.
+     */
     public boolean inDebt() {
         boolean debt1 = (econ < 0 && pop < 0);
         boolean debt2 = (pop < 0 && leis < 0);
@@ -45,6 +51,10 @@ public class ScoreTracker {
         return (debt1 || debt2 || debt3);
     }
 
+    /**
+     * Returns the final score by averaging the highest two values, multiplying by ten, and adding the
+     * lowest value.
+     */
     public double finalScore() {
         List<Double> finals = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
