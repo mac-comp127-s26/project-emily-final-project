@@ -41,8 +41,8 @@ public class MouseRunner {
         /**
          * When the mouse moves over the hand screen, update all the screen and try to set the cursor.
          */
-        game.getHandScreen().getScreen().onMouseMove(e -> { 
-            updateScreens(); 
+        game.getHandScreen().getScreen().onMouseMove(e -> {
+            updateScreens();
             previewCursorHand(game.getHand(), e.getPosition().getX(), e.getPosition().getY());
         });
 
@@ -69,7 +69,8 @@ public class MouseRunner {
      * If the mouse position is not over a current card, draw 2 cards up to a maximum of 6.
      */
     public void drawCards(double mouseX, double mouseY) {
-        if (readyToDraw && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand().getCurrentHand().size()) {
+        if (readyToDraw && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand()
+            .getCurrentHand().size()) {
             game.getHand().drawCards(2);
             game.getHandScreen().update(game.getHand());
             readyToDraw = false;
@@ -80,8 +81,10 @@ public class MouseRunner {
      * If the mouse position is over a current card, select that card.
      */
     public void selectCardFromHand(double mouseX, double mouseY) {
-        if (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() < game.getHand().getCurrentHand().size() && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() < 1) {
-            selectedCard = game.getHand().getCardInHand(game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX());
+        if (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() < game.getHand().getCurrentHand().size()
+            && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() < 1) {
+            selectedCard = game.getHand()
+                .getCardInHand(game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX());
         }
     }
 

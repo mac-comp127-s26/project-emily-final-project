@@ -70,7 +70,8 @@ public class BoardScreen {
     }
 
     /**
-     * Readjust the scale variable so that the size of the card icons will fit on the screen, determined by the smaller of the dimensions of the screen.
+     * Readjust the scale variable so that the size of the card icons will fit on the screen, determined
+     * by the smaller of the dimensions of the screen.
      */
     public double getNewScale(Board board) {
         double y;
