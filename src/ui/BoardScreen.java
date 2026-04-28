@@ -21,6 +21,9 @@ public class BoardScreen {
         scale = 0.00009523809 * size;
     }
 
+    /**
+     * Using the data from @param board, clear the boardScreen and redraw all cards onto the board.
+     */
     public void update(Board board) {
         boardCanvas.removeAll();
         scale = getNewScale(board);
