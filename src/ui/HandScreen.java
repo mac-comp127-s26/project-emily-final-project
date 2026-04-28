@@ -66,10 +66,9 @@ public class HandScreen {
      * Readjust the scale so that the card icons will fit in the hand window
      */
     private double getNewScale(Hand hand) {
-        int handSize = hand.getCurrentHand().size();
-        double w = handCanvas.getWidth() / 9000;
-        if (handSize < 6) {
-            w = handCanvas.getWidth() / (1500.0 * (hand.getCurrentHand().size()+0.5));
+        double w = handCanvas.getWidth() / 9000.0;
+        if (hand.getCurrentHand().size() < 6) {
+             w = handCanvas.getWidth() / (1500.0 * (hand.getCurrentHand().size()+0.5));
         }
         double h = 0.00066666666 * handCanvas.getHeight();
         if (w < h)
