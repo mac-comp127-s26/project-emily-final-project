@@ -61,7 +61,7 @@ public class MouseRunner {
     public void updateScreens() {
         game.getStatsScreen().selectCard(selectedCard);
         game.getHandScreen().update(game.getHand());
-        game.drawBoard(game.getBoard());
+        game.getBoardScreen().update(game.getBoard());
         game.getStatsScreen().update(game);
     }
 

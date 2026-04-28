@@ -82,21 +82,6 @@ public class GameManager {
     }
 
     /**
-     * Refresh the boardScreen and redraw all cards on @param board
-     */
-    public void drawBoard(Board board) {
-        boardScreen.clear();
-        boardScreen.getNewScale(board);
-        for (int x = 0; x < board.getArrayWidth(); x++) {
-            for (int y = 0; y < board.getArrayHeight(); y++) {
-                if (board.hasCard(x, y)) {
-                    boardScreen.addCardtoScreen(board.getCard(x, y), x, y);
-                }
-            }
-        }
-    }
-
-    /**
      * Activate all abilities of @param card with the trigger @param trigger
      */
     public void activateAbility(Card card, AbilityTrigger trigger) {

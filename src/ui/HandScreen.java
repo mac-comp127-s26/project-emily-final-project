@@ -28,7 +28,7 @@ public class HandScreen {
     /**
      * Show given card on the hand at index position @param pos
      */
-    public void addCardToHand(Hand hand, Card card, int pos) {
+    public void addCardToScreen(Hand hand, Card card, int pos) {
         scale = getNewScale(hand);
         cardSize = scale * 1500;
         GraphicsObject icon = card.getIcon();
@@ -60,7 +60,7 @@ public class HandScreen {
         handCanvas.removeAll();
         List<Card> cards = hand.getCurrentHand();
         for (int i = 0; i < cards.size(); i++) {
-            addCardToHand(hand, cards.get(i), i);
+            addCardToScreen(hand, cards.get(i), i);
         }
     }
 
@@ -81,13 +81,5 @@ public class HandScreen {
         handCanvas.add(cursor);
         double adj = 1500 * scale;
         cursor.setCenter((x * adj) + (adj / 2), (adj / 2));
-    }
-
-    public void removeCursor() {
-        if (cursor != null) {
-            System.out.println(cursor.getParent());
-            handCanvas.remove(cursor);
-            cursor = null;
-        }
     }
 }

@@ -42,12 +42,20 @@ public class BoardScreen {
         icon.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
-    public CanvasWindow getScreen() {
-        return boardCanvas;
+    public void update(Board board) {
+        boardCanvas.removeAll();
+        scale = getNewScale(board);
+        for (int x = 0; x < board.getArrayWidth(); x++) {
+            for (int y = 0; y < board.getArrayHeight(); y++) {
+                if (board.hasCard(x, y)) {
+                    addCardtoScreen(board.getCard(x, y), x, y);
+                }
+            }
+        }
     }
 
-    public void clear() {
-        boardCanvas.removeAll();
+    public CanvasWindow getScreen() {
+        return boardCanvas;
     }
 
     /**
@@ -64,14 +72,14 @@ public class BoardScreen {
     /**
      * Readjust the scale variable so that the size of the card icons will fit on the screen, determined by the smaller of the dimensions of the screen.
      */
-    public void getNewScale(Board board) {
+    public double getNewScale(Board board) {
         double y;
         if (board.getArrayWidth() > board.getArrayHeight()) {
             y = board.getArrayWidth();
         } else {
             y = board.getArrayHeight();
         }
-        scale = ((int) getSmallestSize()) / (1500 * y);
+        return ((int) getSmallestSize()) / (1500 * y);
     }
 
     /**
