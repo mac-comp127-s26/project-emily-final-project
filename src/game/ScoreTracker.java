@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +51,7 @@ public class ScoreTracker {
             finals.add((double) getStats().get(i));
         }
         Collections.sort(finals);
-        return (((finals.get(1) + finals.get(2))/2)*10)+finals.get(0);
+        return (((finals.get(1) + finals.get(2)) / 2) * 10) + finals.get(0);
     }
 
 }

@@ -62,14 +62,13 @@ public class StatsScreen {
             scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
             y += 30;
             scoreCanvas.add(new GraphicsText("Final score: " + game.getScoreTracker().finalScore(), 5, y));
-
         }
         return this;
-
     }
-/**
- * Set @param card to the selected card.
- */
+
+    /**
+     * Set @param card to the selected card.
+     */
     public void selectCard(Card card) {
         selectedCard = card;
     }

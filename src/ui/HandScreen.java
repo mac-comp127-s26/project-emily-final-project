@@ -1,4 +1,5 @@
 package ui;
+
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
@@ -21,6 +22,9 @@ public class HandScreen {
         handCanvas = new CanvasWindow("Hand!", (int) cardSize * 6, (int) cardSize);
     }
 
+    /**
+     * Show given card on the hand at index position @param pos
+     */
     public void addCardToHand(Card card, int pos) {
         scale = getNewScale();
         cardSize = scale * 1500;
@@ -34,6 +38,9 @@ public class HandScreen {
         return handCanvas;
     }
 
+    /**
+     * Readjust the scale so that the card icons will fit in the hand window
+     */
     private double getNewScale() {
         double w = 0.00011111111 * handCanvas.getWidth();
         double h = 0.00066666666 * handCanvas.getHeight();
@@ -43,6 +50,9 @@ public class HandScreen {
             return h;
     }
 
+    /**
+     * Using the data from @param hand, clear the handScreen and redraw all cards onto the hand.
+     */
     public void update(Hand hand) {
         handCanvas.removeAll();
         List<Card> cards = hand.getCurrentHand();

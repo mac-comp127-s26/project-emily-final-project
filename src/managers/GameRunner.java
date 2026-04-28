@@ -20,21 +20,21 @@ public class GameRunner {
     public void run() {
         game.drawStatsScreen();
 
-        game.getHandScreen().getScreen().onClick(e -> { 
-            drawCards(e.getPosition().getX()); 
+        game.getHandScreen().getScreen().onClick(e -> {
+            drawCards(e.getPosition().getX());
             selectCardFromHand(e.getPosition().getX());
         });
-        game.getBoardScreen().getScreen().onClick(e -> { 
-            selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY()); 
+        game.getBoardScreen().getScreen().onClick(e -> {
+            selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
             placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
         });
-        
+
         game.getHandScreen().getScreen().onMouseMove(e -> { updateScreens(); });
 
-        game.getBoardScreen().getScreen().onMouseMove(e -> { 
-                updateScreens();
-                previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY()); }
-        );
+        game.getBoardScreen().getScreen().onMouseMove(e -> {
+            updateScreens();
+            previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
+        });
     }
 
     public void updateScreens() {
@@ -47,11 +47,11 @@ public class GameRunner {
 
     public void drawCards(double mouseX) {
         if (readyToDraw && game.getHandScreen().getMouseIndex(mouseX) >= game.getHand().getCurrentHand().size()) {
-                game.getHand().drawCards(2);
-                game.getHandScreen().update(game.getHand());
-                readyToDraw = false;
-            }
+            game.getHand().drawCards(2);
+            game.getHandScreen().update(game.getHand());
+            readyToDraw = false;
         }
+    }
 
     public void selectCardFromHand(double mouseX) {
         if (game.getHandScreen().getMouseIndex(mouseX) < game.getHand().getCurrentHand().size()) {
@@ -64,8 +64,8 @@ public class GameRunner {
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
             if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
-            selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
-        }
+                selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
+            }
         }
     }
 
@@ -84,20 +84,20 @@ public class GameRunner {
                 }
             }
         }
-        }
+    }
 
     public void previewCursor(Board board, double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(game.getBoard(), mouseX, mouseY).getY();
-            if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth() && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
-                game.getBoardScreen().placeCursor(board, selectedCard, mouseXIndex, mouseYIndex);
-            }
+        if (firstCardPlaced && mouseX < game.getBoardScreen().getScreen().getWidth()
+            && mouseY < game.getBoardScreen().getScreen().getHeight() && inBounds(board, mouseXIndex, mouseYIndex)) {
+            game.getBoardScreen().placeCursor(board, mouseXIndex, mouseYIndex);
         }
-    
+    }
+
 
     public boolean inBounds(Board board, int x, int y) {
         return (x < board.getArrayWidth() && y < board.getArrayHeight());
     }
 }
-
 

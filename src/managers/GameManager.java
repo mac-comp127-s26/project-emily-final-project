@@ -1,4 +1,5 @@
 package managers;
+
 import java.util.List;
 
 import enums.*;
@@ -125,7 +126,7 @@ public class GameManager {
             gameFinished = true;
             for (int x = 0; x < board.getArrayWidth(); x++) {
                 for (int y = 0; y < board.getArrayHeight(); y++) {
-                    activateAbility(board.getCard(x,y), AbilityTrigger.ENDGAME);
+                    activateAbility(board.getCard(x, y), AbilityTrigger.ENDGAME);
                 }
             }
         }

@@ -1,4 +1,5 @@
 package storage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class Ability {
   }
 
   private Ability(AbilityBuilder builder) {
-    trigger = builder.trigger;    
+    trigger = builder.trigger;
     changes = builder.changes;
     type = builder.type;
   }
@@ -71,7 +72,7 @@ public class Ability {
 
   /**
    * Return the stat that changes per adjacent card of the right type.
-
+   * 
    */
   public Stat getStat(int n) {
     return changes.get(n).getStat();

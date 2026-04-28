@@ -1,4 +1,5 @@
 package enums;
+
 /**
  * The two types of Cards.
  */

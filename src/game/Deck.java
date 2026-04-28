@@ -13,7 +13,7 @@ public class Deck {
 
     private List<Card> deck = new ArrayList<>();
 
-    /** 
+    /**
      * Initializes every card in the game.
      */
     public Deck(IconPath path) {
