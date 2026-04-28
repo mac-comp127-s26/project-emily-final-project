@@ -21,21 +21,19 @@ public class MouseRunner {
         game.drawStatsScreen();
 
         /**
-         * When the hand screen is clicked, try to draw cards and select a card and update all the screens.
+         * When the hand screen is clicked, try to draw cards and select a card.
          */
         game.getHandScreen().getScreen().onClick(e -> {
             drawCards(e.getPosition().getX());
             selectCardFromHand(e.getPosition().getX());
-            updateScreens();
         });
 
         /**
-         * When the board screen is clicked, try to place a card and select a card and update all the screens.
+         * When the board screen is clicked, try to place a card and select a card.
          */
         game.getBoardScreen().getScreen().onClick(e -> {
             selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
             placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
-            updateScreens();
         });
 
         /**
@@ -49,7 +47,6 @@ public class MouseRunner {
         game.getBoardScreen().getScreen().onMouseMove(e -> {
             updateScreens();
             previewCursor(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
-            updateScreens();
         });
     }
 
