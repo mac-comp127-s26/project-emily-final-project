@@ -104,6 +104,9 @@ public class GameManager {
         scoreScreen.update(this);
     }
 
+    /**
+     * Checks if the board is full or if the scores are in debt. Returns the appropriate EndCondition
+     */
     public EndCondition testEndConditions() {
         if (board.isFull()) {
             return EndCondition.WIN;
@@ -114,6 +117,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * Activates the "End of Game" abilities for all cards on the board.
+     */
     public void runEndAbilities() {
         if (!gameFinished) {
             gameFinished = true;

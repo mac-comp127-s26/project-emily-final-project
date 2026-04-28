@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import enums.BuildingType;
 import enums.Stat;
 import storage.Ability;
 import storage.ChangeQueue;
-import storage.Position;
 
 /**
  * A Board object that holds cards.
@@ -16,7 +16,6 @@ public class Board {
 
     private Card[][] boardArray;
     private int boardSize;
-    private ScoreTracker scores;
     private int minX;
     private int minY;
     private int maxX;
@@ -33,13 +32,6 @@ public class Board {
         initializeValues(doubleSize);
     }
 
-    private void initializeValues(int doubleSize) {
-        minX = doubleSize / 2;
-        maxX = doubleSize / 2;
-        minY = doubleSize / 2;
-        maxY = doubleSize / 2;
-    }
-
     public Board(int width, int height, int boardSize) {
         this.boardSize = boardSize;
         int w = (boardSize * 2) - width;
@@ -47,6 +39,13 @@ public class Board {
         boardArray = new Card[w][h];
         int doubleSize = (boardSize * 2) - 1;
         initializeValues(doubleSize);
+    }
+
+    private void initializeValues(int doubleSize) {
+        minX = doubleSize / 2;
+        maxX = doubleSize / 2;
+        minY = doubleSize / 2;
+        maxY = doubleSize / 2;
     }
 
     /**
@@ -68,12 +67,14 @@ public class Board {
         boolean changeY = (getMargins().get(4) < board.getMargins().get(4));
         for (int x = 0; x < board.getArrayWidth(); x++) {
             for (int y = 0; y < board.getArrayHeight(); y++) {
-                if (board.hasCard(x,y)) {
+                if (board.hasCard(x, y)) {
                     int destX = x;
                     int destY = y;
-                    if (changeX) destX -= xDif;
-                    if (changeY) destY -= yDif;
-                    addCard(destX, destY, board.getCard(x,y));
+                    if (changeX)
+                        destX -= xDif;
+                    if (changeY)
+                        destY -= yDif;
+                    addCard(destX, destY, board.getCard(x, y));
                 }
             }
         }
@@ -96,7 +97,8 @@ public class Board {
                     return true;
                 }
             }
-        } return false;
+        }
+        return false;
     }
 
     /**
@@ -145,10 +147,6 @@ public class Board {
         return boardArray[0].length;
     }
 
-    public Card[][] getCards() {
-        return boardArray;
-    }
-
     /**
      * Returns card at (x, y)
      */
@@ -157,10 +155,6 @@ public class Board {
             return boardArray[x][y];
         else
             return null;
-    }
-
-    public Position getMaxes() {
-        return new Position(maxX, maxY);
     }
 
     /**
@@ -240,10 +234,6 @@ public class Board {
             }
         }
         return true;
-    }
-
-    public ScoreTracker getScoreboard() {
-        return scores;
     }
 
     /**

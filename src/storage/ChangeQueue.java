@@ -1,6 +1,9 @@
 package storage;
 import enums.Stat;
 
+/**
+ * A pair of stat and change for abilities to remember.
+ */
 public class ChangeQueue {
 
     private Stat stat;

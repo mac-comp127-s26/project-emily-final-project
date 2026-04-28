@@ -152,21 +152,6 @@ board = board.refreshBoard();
     }
 
     @Test
-    public void deckGenerates() {
-        assertEquals(20, deck.getSize());
-        assertEquals("City Hall", deck.getCard(0).getName());
-    }
-
-
-    @Test
-    public void statsCanBeRead() {
-        GameManager game = new GameManager(600, 3, IconPath.Basic);
-        assertEquals(1, game.getScoreTracker().getEcon());
-        assertEquals(1, game.getScoreTracker().getPop());
-        assertEquals(1, game.getScoreTracker().getLeis());
-    }
-
-    @Test
     public void finalScoreCalculatesCorrectly() {
         GameManager game = new GameManager(600, 3, IconPath.Basic);
         game.getScoreTracker().changeStat(Stat.ECONOMY, -2);

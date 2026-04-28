@@ -18,10 +18,9 @@ public class StatsScreen {
         scoreCanvas = new CanvasWindow("Stats!", size, 175);
     }
 
-    public CanvasWindow getScreen() {
-        return scoreCanvas;
-    }
-
+    /**
+     * Reading data from @param game, update the text on the screen to match the respective values.
+     */
     public StatsScreen update(GameManager game) {
         int y = 15;
         scoreCanvas.removeAll();
@@ -68,7 +67,9 @@ public class StatsScreen {
         return this;
 
     }
-
+/**
+ * Set @param card to the selected card.
+ */
     public void selectCard(Card card) {
         selectedCard = card;
     }

@@ -43,10 +43,6 @@ public class Hand {
         return card;
     }
 
-    public List<Card> getRemainingCards() {
-        return remainingCardList;
-    }
-
     public List<Card> getCurrentHand() {
         return currentHand;
     }

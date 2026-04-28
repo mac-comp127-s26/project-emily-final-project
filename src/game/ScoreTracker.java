@@ -21,31 +21,11 @@ public class ScoreTracker {
         leis = initial;
     }
 
-    public int getEcon() {
-        return econ;
-    }
-
-    public int getPop() {
-        return pop;
-    }
-
-    public int getLeis() {
-        return leis;
-    }
-
     /**
-     * Returns a list of pop, econ, leisure
-     * 
-     * @return
+     * Returns a list of the current pop, econ, leisure scores
      */
     public List<Integer> getStats() {
         return List.of(pop, econ, leis);
-    }
-
-    public void setStats(List<Integer> statsList) {
-        econ = statsList.get(0);
-        pop = statsList.get(1);
-        leis = statsList.get(2);
     }
 
     public void changeStat(Stat stat, int change) {
@@ -69,15 +49,8 @@ public class ScoreTracker {
         for (int i = 0; i < 3; i++) {
             finals.add((double) getStats().get(i));
         }
-        System.out.println("CALCULATING>>>");
         Collections.sort(finals);
-        double average = (finals.get(1) + finals.get(2))/2;
-        System.out.println("Averaging " + finals.get(1) + " and " + finals.get(2) + " to get " + average);
-        double highAvg = average*10;
-        System.out.println("Multiplying by 10 to get " + highAvg);
-        double total = highAvg+finals.get(0);
-        System.out.println("Adding " + finals.get(0));
-        return total;
+        return (((finals.get(1) + finals.get(2))/2)*10)+finals.get(0);
     }
 
 }

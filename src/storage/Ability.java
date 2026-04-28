@@ -46,8 +46,6 @@ public class Ability {
 
   /**
    * Return the type of adjacent card that matters for the ability.
-   * 
-   * @return
    */
   public BuildingType getAdjacentType() {
     return type;
@@ -55,8 +53,6 @@ public class Ability {
 
   /**
    * Return the name of the adjacent card type that matters for the ability.
-   * 
-   * @return
    */
   public String getAdjacentTypeName() {
     if (type == BuildingType.COMMERCIAL)
@@ -68,8 +64,6 @@ public class Ability {
 
   /**
    * Return the value of change per adjacent card of the right type.
-   * 
-   * @return
    */
   public int getChange(int n) {
     return changes.get(n).getChange();
@@ -77,8 +71,7 @@ public class Ability {
 
   /**
    * Return the stat that changes per adjacent card of the right type.
-   * 
-   * @return
+
    */
   public Stat getStat(int n) {
     return changes.get(n).getStat();

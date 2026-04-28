@@ -43,10 +43,6 @@ public class HandScreen {
             return h;
     }
 
-    public void clear() {
-        handCanvas.removeAll();
-    }
-
     public void update(Hand hand) {
         handCanvas.removeAll();
         List<Card> cards = hand.getCurrentHand();
