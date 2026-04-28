@@ -27,12 +27,11 @@ public class BoardScreen {
     public void placeCursor(Board board, int x, int y) {
         removeCursor();
         if (cursor == null) {
-            cursor = new Ellipse(x, y, 750 * scale, 750 * scale);
+            cursor = new Ellipse(x, y, 500 * scale, 500 * scale);
             boardCanvas.add(cursor);
         }
-        double adjW = 1500 * scale;
-        double adjH = 1500 * scale;
-        cursor.setCenter((x * adjW) + (adjW / 2), (y * adjH) + (adjH / 2));
+        double adj = 1500 * scale;
+        cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
     /**
@@ -41,10 +40,9 @@ public class BoardScreen {
     public void addCardtoScreen(Card card, int x, int y) {
         GraphicsObject icon = card.getIcon();
         icon.setScale(scale);
-        double adjW = icon.getWidth() * scale;
-        double adjH = icon.getHeight() * scale;
+        double adj = 1500 * scale;
         boardCanvas.add(icon);
-        icon.setCenter((x * adjW) + (adjW / 2), (y * adjH) + (adjH / 2));
+        icon.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
     }
 
     public CanvasWindow getScreen() {
