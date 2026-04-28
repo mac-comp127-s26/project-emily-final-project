@@ -76,7 +76,7 @@ public class BoardScreen {
     }
 
     /**
-     * Return the (x,y) coordinate of the board the mouse is on.
+     * Return the (x,y) coordinate of the position (x,y) on the screen.
      */
     public Position getMouseCoordinates(double mX, double mY) {
         double mouseX = mX / (1500 * scale);

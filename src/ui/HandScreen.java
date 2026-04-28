@@ -12,8 +12,8 @@ import storage.Position;
  */
 public class HandScreen {
 
-    private double scale;
     private CanvasWindow handCanvas;
+    private double scale;
     private Rectangle cursor;
 
     public HandScreen(int size) {
@@ -72,7 +72,7 @@ public class HandScreen {
     }
 
     /**
-     * Return the (x,y) coordinate of the board the mouse is on.
+     * Return the (x,y) coordinate of the position (x,y) on the screen.
      */
     public Position getMouseCoordinates(double mX, double mY) {
         double mouseX = mX / (1500 * scale);
