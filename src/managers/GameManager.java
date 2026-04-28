@@ -7,7 +7,7 @@ import game.Card;
 import game.Deck;
 import game.Hand;
 import game.ScoreTracker;
-import storage.ChangesQueue;
+import storage.ChangeQueue;
 import ui.*;
 
 /**
@@ -86,8 +86,8 @@ public class GameManager {
 
     public void activateAbility(Card card, AbilityTrigger trigger) {
         board.activateAbility(card, trigger);
-        List<ChangesQueue> changes = board.getAbilityChanges();
-        for (ChangesQueue change : changes) {
+        List<ChangeQueue> changes = board.getAbilityChanges();
+        for (ChangeQueue change : changes) {
             scores.changeStat(change.getStat(), change.getChange());
         }
     }

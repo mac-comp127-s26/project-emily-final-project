@@ -1,12 +1,12 @@
 package storage;
 import enums.Stat;
 
-public class ChangesQueue {
+public class ChangeQueue {
 
     private Stat stat;
     private int change;
     
-    public ChangesQueue(Stat stat, int change) {
+    public ChangeQueue(Stat stat, int change) {
         this.stat = stat;
         this.change = change;
     }

@@ -6,7 +6,7 @@ import enums.AbilityTrigger;
 import enums.BuildingType;
 import enums.Stat;
 import storage.Ability;
-import storage.ChangesQueue;
+import storage.ChangeQueue;
 import storage.Position;
 
 /**
@@ -21,7 +21,7 @@ public class Board {
     private int minY;
     private int maxX;
     private int maxY;
-    private List<ChangesQueue> abilityChanges = new ArrayList<>();
+    private List<ChangeQueue> abilityChanges = new ArrayList<>();
 
     /**
      * Creates a board array that is big enough to hold any orientation of boardSizeXboardSize cards
@@ -199,13 +199,13 @@ public class Board {
     }
 
     public void queueStat(Stat stat, int change) {
-        abilityChanges.add(new ChangesQueue(stat, change));
+        abilityChanges.add(new ChangeQueue(stat, change));
     }
 
     /**
      * Return a list of AbilityChanges that will affect stats.
      */
-    public List<ChangesQueue> getAbilityChanges() {
+    public List<ChangeQueue> getAbilityChanges() {
         return abilityChanges;
     }
 

@@ -6,6 +6,9 @@ import enums.EndCondition;
 import game.Card;
 import managers.GameManager;
 
+/**
+ * A screen that updates with current scores, messages, and details.
+ */
 public class StatsScreen {
 
     private CanvasWindow scoreCanvas;

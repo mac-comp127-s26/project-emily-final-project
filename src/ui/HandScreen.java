@@ -6,6 +6,9 @@ import edu.macalester.graphics.GraphicsObject;
 import game.Card;
 import game.Hand;
 
+/**
+ * A screen that holds the hand and drawn cards.
+ */
 public class HandScreen {
 
     private double scale;

@@ -1,5 +1,8 @@
 package storage;
 
+/**
+ * An integer (x,y) coordinate.
+ */
 public class Position {
 
     private int x;

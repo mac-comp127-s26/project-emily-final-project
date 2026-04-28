@@ -7,6 +7,9 @@ import game.Board;
 import game.Card;
 import storage.Position;
 
+/**
+ * A screen that holds the board and cursor.
+ */
 public class BoardScreen {
 
     private CanvasWindow boardCanvas;

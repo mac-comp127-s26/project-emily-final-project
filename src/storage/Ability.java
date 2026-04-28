@@ -11,14 +11,12 @@ import enums.Stat;
  */
 public class Ability {
   private AbilityTrigger trigger;
-  private List<Integer> vals = new ArrayList<>();
-  private List<Stat> stats = new ArrayList<>();
+  private List<ChangeQueue> changes = new ArrayList<>();
   private BuildingType type;
 
   public static class AbilityBuilder {
     private final AbilityTrigger trigger;
-    private List<Integer> vals = new ArrayList<>();
-    private List<Stat> stats = new ArrayList<>();
+    private List<ChangeQueue> changes = new ArrayList<>();
     private BuildingType type;
 
     public AbilityBuilder(AbilityTrigger trigger) {
@@ -31,8 +29,7 @@ public class Ability {
     }
 
     public AbilityBuilder addChange(int val, Stat stat) {
-      this.stats.add(stat);
-      this.vals.add(val);
+      changes.add(new ChangeQueue(stat, val));
       return this;
     }
 
@@ -42,9 +39,8 @@ public class Ability {
   }
 
   private Ability(AbilityBuilder builder) {
-    trigger = builder.trigger;
-    vals = builder.vals;
-    stats = builder.stats;
+    trigger = builder.trigger;    
+    changes = builder.changes;
     type = builder.type;
   }
 
@@ -76,7 +72,7 @@ public class Ability {
    * @return
    */
   public int getChange(int n) {
-    return vals.get(n);
+    return changes.get(n).getChange();
   }
 
   /**
@@ -85,11 +81,11 @@ public class Ability {
    * @return
    */
   public Stat getStat(int n) {
-    return stats.get(n);
+    return changes.get(n).getStat();
   }
 
   public int getNumChanges() {
-    return stats.size();
+    return changes.size();
   }
 
   /**
