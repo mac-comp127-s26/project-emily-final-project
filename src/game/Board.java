@@ -237,6 +237,20 @@ public class Board {
     }
 
     /**
+     * Return the number of open spaces left on the board.
+     */
+    public int getOpenSpaces() {
+        int currentCards = 0;
+        for (int x = 0; x < boardArray.length; x++) {
+            for (int y = 0; y < boardArray[0].length; y++) {
+                if (boardArray[x][y] != null)
+                    currentCards += 1;
+            }
+        }
+        return (boardSize * boardSize) - currentCards;
+    }
+
+    /**
      * Activate all abilities of @param trigger for @param card.
      */
     public void activateAbility(Card card, AbilityTrigger trigger) {

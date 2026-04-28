@@ -16,7 +16,7 @@ public class StatsScreen {
     private boolean gameOn = true;
 
     public StatsScreen(int size) {
-        scoreCanvas = new CanvasWindow("Stats!", size, 175);
+        scoreCanvas = new CanvasWindow("Stats!", size, 190);
     }
 
     /**
@@ -27,6 +27,8 @@ public class StatsScreen {
             int y = 15;
             scoreCanvas.removeAll();
             scoreCanvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
+            y += 15;
+            scoreCanvas.add(new GraphicsText("Spaces left on board: " + game.getBoard().getOpenSpaces(), 5, y));
             y += 30;
             scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += 15;
