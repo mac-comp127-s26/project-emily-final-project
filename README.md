@@ -19,7 +19,7 @@ The game can be played entirely with the mouse or trackpad. The game will open t
 [Click here](https://docs.google.com/document/d/1kTQqoPUOeiTYOyPAKrsAQBfg8MBgd8o2JUXtb9ZWSJg/edit?usp=sharing) to read the rules of the game.
 
 ## Known Issues
-All major bugs and errors have been thoroughly tested for and fixed. The only known issue is that due to the game having multiple windows, sometimes users must click multiple times for the game to register their attempted action.
+All major bugs and errors have been thoroughly tested for and fixed. There are only two known issues: Firstly, due to the game having multiple windows, sometimes users must click multiple times for the game to register their attempted action. Secondly, if you resize the "Stats!" window to be too small, some text may overlap.
 
 ## Societal Impact
 Firstly, with consideration for both artists and the environment, no generative AI was used in the making of the game. That being said, there is some controversy to the game itself. The game’s messages of cities, debt, and capitalism could be harmful to people with real-world struggles. However, it is just a game, so there are not many malicious and oppressive ways to abuse the software.
