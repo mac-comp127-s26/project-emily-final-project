@@ -11,12 +11,13 @@ import managers.GameManager;
  */
 public class StatsScreen {
 
-    private CanvasWindow scoreCanvas;
+    private CanvasWindow canvas;
     private Card previewedCard;
+    private Card selectedCard;
     private boolean gameOn = true;
 
     public StatsScreen(int size) {
-        scoreCanvas = new CanvasWindow("Stats!", size, 190);
+        canvas = new CanvasWindow("Stats!", size, 190);
     }
 
     /**
@@ -25,50 +26,56 @@ public class StatsScreen {
     public void update(GameManager game) {
         if (gameOn) {
             int y = 15;
-            scoreCanvas.removeAll();
-            scoreCanvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
+            canvas.removeAll();
+            canvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
+            if (selectedCard != null) {
+                canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-100, y);
+            }
             y += 15;
-            scoreCanvas.add(new GraphicsText("Spaces left on board: " + game.getBoard().getOpenSpaces(), 5, y));
+            canvas.add(new GraphicsText("Spaces left on board: " + game.getBoard().getOpenSpaces(), 5, y));
+            if (selectedCard != null) {
+                canvas.add(new GraphicsText(selectedCard.getName()), canvas.getWidth()-100, y);
+            }
             y += 30;
-            scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
+            canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += 15;
-            scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
+            canvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
             y += 15;
-            scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
+            canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
             y += 30;
             if (previewedCard != null) {
                 y = detailSelectedCard(y);
             }
             if (game.testEndConditions() != EndCondition.NONE) {
                 y = 15;
-                scoreCanvas.removeAll();
+                canvas.removeAll();
             }
             if (game.testEndConditions() == EndCondition.LOSE) {
-                scoreCanvas.add(new GraphicsText("Game over!"), 5, y);
+                canvas.add(new GraphicsText("Game over!"), 5, y);
                 y += 30;
-                scoreCanvas.add(new GraphicsText("Your city fell into debt."), 5, y);
+                canvas.add(new GraphicsText("Your city fell into debt."), 5, y);
                 y += 30;
-                scoreCanvas.add(new GraphicsText("Your final scores:"), 5, y);
+                canvas.add(new GraphicsText("Your final scores:"), 5, y);
                 y += 30;
-                scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
+                canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
                 y += 15;
-                scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
+                canvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
                 y += 15;
-                scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
+                canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
                 gameOn = false;
             } else if (game.testEndConditions() == EndCondition.WIN) {
-                scoreCanvas.add(new GraphicsText("Game over!"), 5, y);
+                canvas.add(new GraphicsText("Game over!"), 5, y);
                 y += 30;
-                scoreCanvas.add(new GraphicsText("Your city is thriving."), 5, y);
+                canvas.add(new GraphicsText("Your city is thriving."), 5, y);
                 y += 30;
                 game.runEndAbilities();
-                scoreCanvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
+                canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
                 y += 15;
-                scoreCanvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
+                canvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
                 y += 15;
-                scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
+                canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
                 y += 30;
-                scoreCanvas.add(new GraphicsText("Final score: " + game.getScoreTracker().finalScore(), 5, y));
+                canvas.add(new GraphicsText("Final score: " + game.getScoreTracker().finalScore(), 5, y));
             }
         }
     }
@@ -77,13 +84,13 @@ public class StatsScreen {
      * Add the details of the selectedCard to the screen.
      */
     public int detailSelectedCard(int y) {
-        scoreCanvas.add(
+        canvas.add(
             new GraphicsText("Previewed card: " + previewedCard.getName() + " (" + previewedCard.getTypeName() + ")"),
             5, y);
         y += 30;
-        scoreCanvas.add(new GraphicsText("Ability: ", 5, y));
+        canvas.add(new GraphicsText("Ability: ", 5, y));
         y += 15;
-        scoreCanvas.add(new GraphicsText(previewedCard.getDescription(), 5, y));
+        canvas.add(new GraphicsText(previewedCard.getDescription(), 5, y));
         return y;
     }
 
@@ -95,6 +102,6 @@ public class StatsScreen {
     }
 
     public void selectCard(Card card) {
-        
+        selectedCard = card;
     }
 }

@@ -26,7 +26,7 @@ public class MouseRunner {
          */
         game.getHandScreen().getScreen().onClick(e -> {
             drawCards(e.getPosition().getX(), e.getPosition().getY());
-            selectCard(previewedCard);
+            selectCard();
             updateScreens();
         });
 
@@ -35,12 +35,14 @@ public class MouseRunner {
          */
         game.getBoardScreen().getScreen().onClick(e -> {
             placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
-            selectCard(previewedCard);
+            selectedCard = null;
+            selectCard();
             updateScreens();
         });
 
         /**
-         * When the mouse moves over the hand screen, preview the card hovered over, update all the screen and try to set the cursor.
+         * When the mouse moves over the hand screen, preview the card hovered over, update all the screen
+         * and try to set the cursor.
          */
         game.getHandScreen().getScreen().onMouseMove(e -> {
             updateScreens();
@@ -49,12 +51,13 @@ public class MouseRunner {
         });
 
         /**
-         * When the mouse moves over the board screen, update all the screens, preview the card hovered over, and try to set the cursor.
+         * When the mouse moves over the board screen, update all the screens, preview the card hovered
+         * over, and try to set the cursor.
          */
         game.getBoardScreen().getScreen().onMouseMove(e -> {
-            previewCursorBoard(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
-            previewCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
             updateScreens();
+            previewCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
+            previewCursorBoard(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
         });
     }
 
@@ -72,8 +75,9 @@ public class MouseRunner {
     /**
      * If the mouse position is not over a current card, draw 2 cards up to a maximum of 6.
      */
-    public void drawCards(double mouseX, double mouseY)  {
-        if (readyToDraw && (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand().getCurrentHand().size() || game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() > 0)) {
+    public void drawCards(double mouseX, double mouseY) {
+        if (readyToDraw && (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() >= game.getHand()
+            .getCurrentHand().size() || game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() > 0)) {
             game.getHand().drawCards(2);
             game.getHandScreen().update(game.getHand());
             readyToDraw = false;
@@ -89,8 +93,8 @@ public class MouseRunner {
             previewedCard = game.getHand()
                 .getCardInHand(game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX());
         } else {
-                previewedCard = null;
-            }
+            previewedCard = null;
+        }
     }
 
     /**
@@ -108,8 +112,10 @@ public class MouseRunner {
         }
     }
 
-    public void selectCard(Card card) {
-
+    public void selectCard() {
+        if (previewedCard != null) {
+            selectedCard = previewedCard;
+        }
     }
 
     /**
@@ -119,13 +125,15 @@ public class MouseRunner {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
-            if (!game.getBoard().hasCard(previewedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
+            if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 if (!firstCardPlaced) {
+                    System.out.println("Trying to place!");
                     firstCardPlaced = true;
-                    game.placeCard(previewedCard);
+                    game.placeCard(selectedCard);
                     readyToDraw = true;
                 } else {
-                    game.placeCard(previewedCard, mouseXIndex, mouseYIndex);
+                    System.out.println("Trying to place!");
+                    game.placeCard(selectedCard, mouseXIndex, mouseYIndex);
                     readyToDraw = true;
                 }
             }
