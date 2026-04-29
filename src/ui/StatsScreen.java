@@ -16,7 +16,6 @@ public class StatsScreen {
     private Card selectedCard;
     private boolean gameOn = true;
     private double textHeight;
-    private double scale;
     private double size;
 
     public StatsScreen(int size) {
@@ -24,19 +23,26 @@ public class StatsScreen {
         this.size = size;
     }
 
-
+    private double getNewScale() {
+        return 0.0;
+    }
+    
+    private GraphicsText createTextAndScale(String text, double y) {
+        double scale;
+        GraphicsText txt = new GraphicsText(text, size/130, y);
+        txt.setScale(getNewScale());
+        return txt;
+    }
 
     /**
      * Reading data from @param game, update the text on the screen to match the respective values.
      */
     public void update(GameManager game) {
-        textHeight = canvas.getHeight()/12.67;
-        scale = canvas.getHeight()/16.95;
+        textHeight = canvas.getHeight()/13;
         if (gameOn) {
             double y = textHeight;
             canvas.removeAll();
             canvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
-            System.out.println(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y).getHeight());
             if (selectedCard != null) {
                 canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-105, y);
             }
