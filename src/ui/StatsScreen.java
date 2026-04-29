@@ -29,12 +29,12 @@ public class StatsScreen {
             canvas.removeAll();
             canvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
             if (selectedCard != null) {
-                canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-100, y);
+                canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-105, y);
             }
             y += 15;
             canvas.add(new GraphicsText("Spaces left on board: " + game.getBoard().getOpenSpaces(), 5, y));
             if (selectedCard != null) {
-                canvas.add(new GraphicsText(selectedCard.getName()), canvas.getWidth()-100, y);
+                canvas.add(new GraphicsText(selectedCard.getName()), canvas.getWidth()-105, y);
             }
             y += 30;
             canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
@@ -44,7 +44,9 @@ public class StatsScreen {
             canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
             y += 30;
             if (previewedCard != null) {
-                y = detailSelectedCard(y);
+                y = detailCard(previewedCard, y, "Previewed");
+            } else if (selectedCard != null) {
+                y = detailCard(selectedCard, y, "Selected");
             }
             if (game.testEndConditions() != EndCondition.NONE) {
                 y = 15;
@@ -83,14 +85,14 @@ public class StatsScreen {
     /**
      * Add the details of the selectedCard to the screen.
      */
-    public int detailSelectedCard(int y) {
+    public int detailCard(Card card, int y, String typeOfPreview) {
         canvas.add(
-            new GraphicsText("Previewed card: " + previewedCard.getName() + " (" + previewedCard.getTypeName() + ")"),
+            new GraphicsText(typeOfPreview + " card: " + card.getName() + " (" + card.getTypeName() + ")"),
             5, y);
         y += 30;
         canvas.add(new GraphicsText("Ability: ", 5, y));
         y += 15;
-        canvas.add(new GraphicsText(previewedCard.getDescription(), 5, y));
+        canvas.add(new GraphicsText(card.getDescription(), 5, y));
         return y;
     }
 
