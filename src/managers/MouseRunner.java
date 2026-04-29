@@ -127,12 +127,10 @@ public class MouseRunner {
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
             if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 if (!firstCardPlaced) {
-                    System.out.println("Trying to place!");
                     firstCardPlaced = true;
                     game.placeCard(selectedCard);
                     readyToDraw = true;
                 } else {
-                    System.out.println("Trying to place!");
                     game.placeCard(selectedCard, mouseXIndex, mouseYIndex);
                     readyToDraw = true;
                 }
