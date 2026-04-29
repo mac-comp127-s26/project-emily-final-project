@@ -5,7 +5,6 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Rectangle;
 import game.Card;
 import game.Hand;
-import storage.Position;
 
 /**
  * A screen that holds the hand and drawn cards.
@@ -71,12 +70,7 @@ public class HandScreen {
             return h;
     }
 
-    /**
-     * Return the (x,y) coordinate of the position (x,y) on the screen.
-     */
-    public Position getMouseCoordinates(double mX, double mY) {
-        double mouseX = mX / (1500 * scale);
-        double mouseY = mY / (1500 * scale);
-        return new Position((int) mouseX, (int) mouseY);
+     public double getScale() {
+        return scale;
     }
 }
