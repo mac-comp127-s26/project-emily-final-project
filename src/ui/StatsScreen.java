@@ -16,22 +16,9 @@ public class StatsScreen {
     private Card selectedCard;
     private boolean gameOn = true;
     private double textHeight;
-    private double size;
 
     public StatsScreen(int size) {
         canvas = new CanvasWindow("Stats!", size, 190);
-        this.size = size;
-    }
-
-    private double getNewScale() {
-        return 0.0;
-    }
-    
-    private GraphicsText createTextAndScale(String text, double y) {
-        double scale;
-        GraphicsText txt = new GraphicsText(text, size/130, y);
-        txt.setScale(getNewScale());
-        return txt;
     }
 
     /**
