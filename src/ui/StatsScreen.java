@@ -12,7 +12,7 @@ import managers.GameManager;
 public class StatsScreen {
 
     private CanvasWindow scoreCanvas;
-    private Card selectedCard;
+    private Card previewedCard;
     private boolean gameOn = true;
 
     public StatsScreen(int size) {
@@ -36,7 +36,7 @@ public class StatsScreen {
             y += 15;
             scoreCanvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
             y += 30;
-            if (selectedCard != null) {
+            if (previewedCard != null) {
                 y = detailSelectedCard(y);
             }
             if (game.testEndConditions() != EndCondition.NONE) {
@@ -78,20 +78,23 @@ public class StatsScreen {
      */
     public int detailSelectedCard(int y) {
         scoreCanvas.add(
-            new GraphicsText("Selected card: " + selectedCard.getName() + " (" + selectedCard.getTypeName() + ")"),
+            new GraphicsText("Previewed card: " + previewedCard.getName() + " (" + previewedCard.getTypeName() + ")"),
             5, y);
         y += 30;
         scoreCanvas.add(new GraphicsText("Ability: ", 5, y));
         y += 15;
-        scoreCanvas.add(new GraphicsText(selectedCard.getDescription(), 5, y));
+        scoreCanvas.add(new GraphicsText(previewedCard.getDescription(), 5, y));
         return y;
     }
 
     /**
      * Set @param card to the selected card.
      */
-    public void selectCard(Card card) {
-        selectedCard = card;
+    public void previewCard(Card card) {
+        previewedCard = card;
     }
 
+    public void selectCard(Card card) {
+        
+    }
 }

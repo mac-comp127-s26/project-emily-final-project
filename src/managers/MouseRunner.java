@@ -8,6 +8,7 @@ import enums.*;
  */
 public class MouseRunner {
 
+    private Card previewedCard;
     private Card selectedCard;
     private GameManager game;
     private boolean firstCardPlaced = false;
@@ -21,37 +22,39 @@ public class MouseRunner {
         game.drawStatsScreen();
 
         /**
-         * When the hand screen is clicked, try to draw cards and select a card and update all screens.
+         * When the hand screen is clicked, try to draw cards, select a card, and update all screens.
          */
         game.getHandScreen().getScreen().onClick(e -> {
             drawCards(e.getPosition().getX(), e.getPosition().getY());
-            selectCardFromHand(e.getPosition().getX(), e.getPosition().getY());
+            selectCard(previewedCard);
             updateScreens();
         });
 
         /**
-         * When the board screen is clicked, try to place a card and select a card and update all screens.
+         * When the board screen is clicked, try to place a card, select a card and update all screens.
          */
         game.getBoardScreen().getScreen().onClick(e -> {
-            selectCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
             placeCardOnBoard(e.getPosition().getX(), e.getPosition().getY());
+            selectCard(previewedCard);
             updateScreens();
         });
 
         /**
-         * When the mouse moves over the hand screen, update all the screen and try to set the cursor.
+         * When the mouse moves over the hand screen, preview the card hovered over, update all the screen and try to set the cursor.
          */
         game.getHandScreen().getScreen().onMouseMove(e -> {
             updateScreens();
+            previewCardFromHand(e.getPosition().getX(), e.getPosition().getY());
             previewCursorHand(game.getHand(), e.getPosition().getX(), e.getPosition().getY());
         });
 
         /**
-         * When the mouse moves over the board screen, update all the screens and try to set the cursor.
+         * When the mouse moves over the board screen, update all the screens, preview the card hovered over, and try to set the cursor.
          */
         game.getBoardScreen().getScreen().onMouseMove(e -> {
-            updateScreens();
             previewCursorBoard(game.getBoard(), e.getPosition().getX(), e.getPosition().getY());
+            previewCardFromBoard(e.getPosition().getX(), e.getPosition().getY());
+            updateScreens();
         });
     }
 
@@ -59,6 +62,7 @@ public class MouseRunner {
      * Call all of the update functions for the screens.
      */
     public void updateScreens() {
+        game.getStatsScreen().previewCard(previewedCard);
         game.getStatsScreen().selectCard(selectedCard);
         game.getHandScreen().update(game.getHand());
         game.getBoardScreen().update(game.getBoard());
@@ -79,25 +83,33 @@ public class MouseRunner {
     /**
      * If the mouse position is over a current card, select that card.
      */
-    public void selectCardFromHand(double mouseX, double mouseY) {
+    public void previewCardFromHand(double mouseX, double mouseY) {
         if (game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX() < game.getHand().getCurrentHand().size()
             && game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getY() < 1) {
-            selectedCard = game.getHand()
+            previewedCard = game.getHand()
                 .getCardInHand(game.getHandScreen().getMouseCoordinates(mouseX, mouseY).getX());
-        }
+        } else {
+                previewedCard = null;
+            }
     }
 
     /**
      * If the mouse position is over a current card, select that card.
      */
-    public void selectCardFromBoard(double mouseX, double mouseY) {
+    public void previewCardFromBoard(double mouseX, double mouseY) {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
             if (game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
-                selectedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
+                previewedCard = game.getBoard().getCard(mouseXIndex, mouseYIndex);
+            } else {
+                previewedCard = null;
             }
         }
+    }
+
+    public void selectCard(Card card) {
+
     }
 
     /**
@@ -107,13 +119,13 @@ public class MouseRunner {
         int mouseXIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getX();
         int mouseYIndex = game.getBoardScreen().getMouseCoordinates(mouseX, mouseY).getY();
         if (inBounds(game.getBoard(), mouseXIndex, mouseYIndex)) {
-            if (!game.getBoard().hasCard(selectedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
+            if (!game.getBoard().hasCard(previewedCard) && !game.getBoard().hasCard(mouseXIndex, mouseYIndex)) {
                 if (!firstCardPlaced) {
                     firstCardPlaced = true;
-                    game.placeCard(selectedCard);
+                    game.placeCard(previewedCard);
                     readyToDraw = true;
                 } else {
-                    game.placeCard(selectedCard, mouseXIndex, mouseYIndex);
+                    game.placeCard(previewedCard, mouseXIndex, mouseYIndex);
                     readyToDraw = true;
                 }
             }
