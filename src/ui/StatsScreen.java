@@ -23,7 +23,6 @@ public class StatsScreen {
 
     private List<GraphicsText> texts = new ArrayList<>();
 
-
     public StatsScreen(int size) {
         canvas = new CanvasWindow("Stats!", size, 190);
     }
@@ -32,7 +31,7 @@ public class StatsScreen {
      * Creates a text object slightly indented from the left of the screen
      */
     private GraphicsText createText(String text, double y, double scale) {
-        return createText(text, canvas.getWidth()/130, y, scale);
+        return createText(text, canvas.getWidth() / 130, y, scale);
     }
 
     /**
@@ -41,7 +40,7 @@ public class StatsScreen {
     private GraphicsText createText(String text, double x, double y, double scale) {
         GraphicsText txt = new GraphicsText(text, x, y);
         txt.setScale(scale);
-        txt.setCenter((txt.getPosition().getX()*scale)+((txt.getWidth()*scale)/2), txt.getPosition().getY());
+        txt.setCenter((txt.getPosition().getX() * scale) + ((txt.getWidth() * scale) / 2), txt.getPosition().getY());
         texts.add(txt);
         return txt;
     }
