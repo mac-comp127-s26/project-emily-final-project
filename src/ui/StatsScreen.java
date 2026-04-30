@@ -1,8 +1,5 @@
 package ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 import enums.EndCondition;
@@ -20,15 +17,16 @@ public class StatsScreen {
     private boolean gameOn = true;
     private double textHeight;
 
-    private List<GraphicsText> texts = new ArrayList<>();
 
     public StatsScreen(int size) {
         canvas = new CanvasWindow("Stats!", size, 190);
     }
 
+    /**
+     * Creates a text object slightly indented from the left of the screen
+     */
     private GraphicsText createText(String text, double y) {
-        GraphicsText txt = new GraphicsText(text, canvas.getWidth()/130, y);
-        texts.add(txt);
+        GraphicsText txt = new GraphicsText(text, canvas.getWidth() / 130, y);
         return txt;
     }
 
@@ -36,22 +34,24 @@ public class StatsScreen {
      * Reading data from @param game, update the text on the screen to match the respective values.
      */
     public void update(GameManager game) {
-        textHeight = canvas.getHeight()/13;
+        textHeight = canvas.getHeight() / 13;
         if (gameOn) {
             double y = textHeight;
             canvas.removeAll();
             canvas.add(createText("Cards left in deck: " + game.getHand().numCardsRemaining(), y));
-            if (selectedCard != null) canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-110, y);
+            if (selectedCard != null)
+                canvas.add(new GraphicsText("Selected card:"), canvas.getWidth() - 110, y);
             y += textHeight;
-            if (selectedCard != null) canvas.add(new GraphicsText(selectedCard.getName(), canvas.getWidth()-110, y));
+            if (selectedCard != null)
+                canvas.add(new GraphicsText(selectedCard.getName(), canvas.getWidth() - 110, y));
             canvas.add(createText("Spaces left on board: " + game.getBoard().getOpenSpaces(), y));
-            y += textHeight*2;
+            y += textHeight * 2;
             canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += textHeight;
             canvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
             y += textHeight;
             canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
-            y += textHeight*2;
+            y += textHeight * 2;
             if (previewedCard != null) {
                 y = detailCard(previewedCard, y, textHeight, "Previewed");
             } else if (selectedCard != null) {
@@ -63,9 +63,9 @@ public class StatsScreen {
             }
             if (game.testEndConditions() == EndCondition.LOSE) {
                 canvas.add(new GraphicsText("Game over!"), 5, y);
-                y += textHeight*2;
+                y += textHeight * 2;
                 canvas.add(new GraphicsText("Your city fell into debt."), 5, y);
-                y += textHeight*2;
+                y += textHeight * 2;
                 canvas.add(new GraphicsText("Your final scores:"), 5, y);
                 y += textHeight;
                 canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
@@ -76,16 +76,16 @@ public class StatsScreen {
                 gameOn = false;
             } else if (game.testEndConditions() == EndCondition.WIN) {
                 canvas.add(new GraphicsText("Game over!"), 5, y);
-                y += textHeight*2;
+                y += textHeight * 2;
                 canvas.add(new GraphicsText("Your city is thriving."), 5, y);
-                y += textHeight*2;
+                y += textHeight * 2;
                 game.runEndAbilities();
                 canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
                 y += textHeight;
                 canvas.add(new GraphicsText("Economy: " + game.getStats().get(1), 5, y));
                 y += textHeight;
                 canvas.add(new GraphicsText("Leisure: " + game.getStats().get(2), 5, y));
-                y += textHeight*2;
+                y += textHeight * 2;
                 canvas.add(new GraphicsText("Final score: " + game.getScoreTracker().finalScore(), 5, y));
             }
         }
@@ -98,9 +98,9 @@ public class StatsScreen {
         canvas.add(
             new GraphicsText(typeOfPreview + " card: " + card.getName() + " (" + card.getTypeName() + ")"),
             5, y);
-        y += textHeight*2;
+        y += textHeight * 2;
         canvas.add(new GraphicsText("Ability: ", 5, y));
-        y += textHeight*2;
+        y += textHeight * 2;
         canvas.add(new GraphicsText(card.getDescription(), 5, y));
         return y;
     }

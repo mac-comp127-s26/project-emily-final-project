@@ -4,7 +4,7 @@ import storage.Position;
 
 public class ScreenUtils {
 
-     /**
+    /**
      * Return the (x,y) coordinate of the position (x,y) on the screen.
      */
     public static Position getMouseCoordinates(double mX, double mY, double scale) {
@@ -12,5 +12,5 @@ public class ScreenUtils {
         double mouseY = mY / (1500 * scale);
         return new Position((int) mouseX, (int) mouseY);
     }
-    
+
 }

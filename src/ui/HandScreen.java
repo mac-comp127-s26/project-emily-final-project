@@ -70,7 +70,7 @@ public class HandScreen {
             return h;
     }
 
-     public double getScale() {
+    public double getScale() {
         return scale;
     }
 }
