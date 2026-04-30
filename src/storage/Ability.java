@@ -3,9 +3,7 @@ package storage;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.AbilityTrigger;
-import enums.BuildingType;
-import enums.Stat;
+import enums.*;
 
 /**
  * An ability for a card.

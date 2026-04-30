@@ -3,8 +3,7 @@ package ui;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Rectangle;
-import game.Card;
-import game.Hand;
+import game.*;
 
 /**
  * A screen that holds the hand and drawn cards.

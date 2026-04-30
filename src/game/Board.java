@@ -3,11 +3,8 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.AbilityTrigger;
-import enums.BuildingType;
-import enums.Stat;
-import storage.Ability;
-import storage.ChangeQueue;
+import enums.*;
+import storage.*;
 
 /**
  * A Board object that holds cards.

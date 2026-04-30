@@ -3,8 +3,7 @@ package ui;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Rectangle;
-import game.Board;
-import game.Card;
+import game.*;
 
 /**
  * A screen that holds the board and cursor.

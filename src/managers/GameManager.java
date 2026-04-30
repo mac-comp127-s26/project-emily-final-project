@@ -3,11 +3,7 @@ package managers;
 import java.util.List;
 
 import enums.*;
-import game.Board;
-import game.Card;
-import game.Deck;
-import game.Hand;
-import game.ScoreTracker;
+import game.*;
 import storage.ChangeQueue;
 import ui.*;
 
