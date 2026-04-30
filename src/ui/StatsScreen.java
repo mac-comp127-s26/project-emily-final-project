@@ -75,10 +75,10 @@ public class StatsScreen {
             double y = textSpacing;
             canvas.removeAll();
             canvas.add(createText("Cards left in deck: " + game.getHand().numCardsRemaining(), y, scale));
-            if (selectedCard != null) {
-                canvas.add(createText("Selected card:", canvas.getWidth() - 110, y, scale));
+            if (selectedCard != null && scale > 0.7) {
+                canvas.add(createText("Selected card:", canvas.getWidth()-110, y, scale));
                 y += textSpacing;
-                canvas.add(createText(selectedCard.getName(), canvas.getWidth() - 110, y, scale));
+                canvas.add(createText(selectedCard.getName(), canvas.getWidth()-110, y, scale));
             } else {
                 y += textSpacing;
             }
