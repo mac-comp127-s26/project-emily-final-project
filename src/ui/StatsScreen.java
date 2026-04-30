@@ -1,5 +1,8 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 import enums.EndCondition;
@@ -17,8 +20,16 @@ public class StatsScreen {
     private boolean gameOn = true;
     private double textHeight;
 
+    private List<GraphicsText> texts = new ArrayList<>();
+
     public StatsScreen(int size) {
         canvas = new CanvasWindow("Stats!", size, 190);
+    }
+
+    private GraphicsText createText(String text, double y) {
+        GraphicsText txt = new GraphicsText(text, canvas.getWidth()/130, y);
+        texts.add(txt);
+        return txt;
     }
 
     /**
@@ -29,15 +40,11 @@ public class StatsScreen {
         if (gameOn) {
             double y = textHeight;
             canvas.removeAll();
-            canvas.add(new GraphicsText("Cards left in deck: " + game.getHand().numCardsRemaining(), 5, y));
-            if (selectedCard != null) {
-                canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-105, y);
-            }
+            canvas.add(createText("Cards left in deck: " + game.getHand().numCardsRemaining(), y));
+            if (selectedCard != null) canvas.add(new GraphicsText("Selected card:"), canvas.getWidth()-110, y);
             y += textHeight;
-            canvas.add(new GraphicsText("Spaces left on board: " + game.getBoard().getOpenSpaces(), 5, y));
-            if (selectedCard != null) {
-                canvas.add(new GraphicsText(selectedCard.getName()), canvas.getWidth()-105, y);
-            }
+            if (selectedCard != null) canvas.add(new GraphicsText(selectedCard.getName(), canvas.getWidth()-110, y));
+            canvas.add(createText("Spaces left on board: " + game.getBoard().getOpenSpaces(), y));
             y += textHeight*2;
             canvas.add(new GraphicsText("Population: " + game.getStats().get(0), 5, y));
             y += textHeight;
