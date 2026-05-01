@@ -78,7 +78,8 @@ public class Deck {
      */
     private Card cityhallMuseum(String name, IconPath path) {
         Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
-            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY).buildAbility())
+            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+2, Stat.ECONOMY)
+                .addChange(-1, Stat.POPULATION).buildAbility())
             .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(+1, Stat.POPULATION)
                 .addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
             .addIcon(name, path)
