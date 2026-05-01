@@ -87,8 +87,7 @@ public class MouseRunner {
     public void drawCards(double mouseX, double mouseY) {
         if (readyToDraw
             && (ScreenUtils.getMouseCoordinates(mouseX, mouseY, game.getHandScreen().getScale()).getX() >= game
-                .getHand()
-                .getCurrentHand().size()
+                .getHand().getCurrentHand().size()
                 || ScreenUtils.getMouseCoordinates(mouseX, mouseY, game.getHandScreen().getScale()).getY() > 0)) {
             game.getHand().drawCards(2);
             game.getHandScreen().update(game.getHand());
