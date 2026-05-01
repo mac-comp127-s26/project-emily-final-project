@@ -11,9 +11,9 @@ public class SimpleCardTests {
 
     ScoreTracker scores = new ScoreTracker(1);
     Board board = new Board(3);
-    Deck deck = new Deck(IconPath.Basic);
-    Deck deck2 = new Deck(IconPath.Basic);
-    Deck deck3 = new Deck(IconPath.Basic);
+    Deck deck = new Deck(IconPath.BASIC);
+    Deck deck2 = new Deck(IconPath.BASIC);
+    Deck deck3 = new Deck(IconPath.BASIC);
     Card bank = deck.getCard("Bank");
     Card bank2 = deck2.getCard("Bank");
     Card bank3 = deck3.getCard("Bank");
@@ -153,7 +153,7 @@ board = board.refreshBoard();
 
     @Test
     public void finalScoreCalculatesCorrectly() {
-        GameManager game = new GameManager(600, 3, IconPath.Basic);
+        GameManager game = new GameManager(600, 3, IconPath.BASIC);
         game.getScoreTracker().changeStat(Stat.ECONOMY, -2);
         game.getScoreTracker().changeStat(Stat.POPULATION, +4);
         assertEquals(List.of(5,-1,1), game.getScoreTracker().getStats());
@@ -162,7 +162,7 @@ board = board.refreshBoard();
 
     @Test
     public void secondScoreCheck() {
-        GameManager game = new GameManager(600, 3, IconPath.Basic);
+        GameManager game = new GameManager(600, 3, IconPath.BASIC);
         game.getScoreTracker().changeStat(Stat.ECONOMY, +1);
         game.getScoreTracker().changeStat(Stat.POPULATION, +1);
         assertEquals(List.of(2,2,1), game.getScoreTracker().getStats());
