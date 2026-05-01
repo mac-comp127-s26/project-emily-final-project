@@ -26,8 +26,7 @@ public class MouseRunner {
          * When the hand screen is clicked, try to draw cards, select a card, and update all screens.
          */
         game.getHandScreen().getScreen().onClick(e -> {
-            if (game.getHand().numCardsRemaining() > 0)
-                drawCards(e.getPosition().getX(), e.getPosition().getY());
+            drawCards(e.getPosition().getX(), e.getPosition().getY());
             selectCard();
             updateScreens();
         });

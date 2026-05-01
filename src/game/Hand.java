@@ -20,7 +20,7 @@ public class Hand {
      */
     public void drawCards(int n) {
         for (int i = 0; i < n; i++) {
-            if (currentHand.size() < maxHandSize) {
+            if (currentHand.size() < maxHandSize && numCardsRemaining() > 0) {
                 currentHand.add(drawCard());
             }
         }
