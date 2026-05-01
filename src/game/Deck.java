@@ -161,7 +161,7 @@ public class Deck {
 
     private Card coffeeshopBookstore(String name, IconPath path) {
         Card card = new Card.CardBuilder(name, BuildingType.COMMUNITY)
-            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.ECONOMY)
+            .addAbility(new Ability.AbilityBuilder(AbilityTrigger.PLACEMENT).addChange(-1, Stat.POPULATION)
                 .buildAbility())
             .addAbility(new Ability.AbilityBuilder(AbilityTrigger.ENDGAME).addChange(+1, Stat.LEISURE)
                 .addAdjacentType(BuildingType.COMMERCIAL).buildAbility())
