@@ -8,8 +8,8 @@ Firstly, I will continue cleaning up the code. Some JavaDoc comments are unclear
 
 Secondly, I will investigate text-scaling so that all text is visible and not overlapping after resizing the “Stats!” window. This, however, is lower on my priorities as it is not a major issue.
 
-Thirdly, I will take feedback from my peers during my presentation and work to think about and implement their ideas, if said ideas fit within the scope and idea of the game and the time I have left to work on it.
+Thirdly, the game is playable after losing, the stats simply do not update. I will fix this so that the game is no longer interactable once the game ends.
 
-Furthermore, the game is playable after losing, the stats simply do not update. I will fix this so that the game is no longer interactable once the game ends.
+Furthermore, I will take feedback from my peers during my presentation and work to think about and implement their ideas, if said ideas fit within the scope and idea of the game and the time I have left to work on it.
 
 Lastly, I will continue rigorously playtesting the game, fixing bugs I come across and balancing the abilities of cards in the game.
