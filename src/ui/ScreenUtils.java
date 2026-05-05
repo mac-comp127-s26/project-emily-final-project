@@ -17,7 +17,7 @@ public class ScreenUtils {
         return new Position((int) mouseX, (int) mouseY);
     }
 
-     /**
+    /**
      * Adds the icon of the given card at the position on the screen that corresponds to (x,y)
      */
     public static void addCardtoScreen(CanvasWindow canvas, Card card, int x, int y, double scale) {
