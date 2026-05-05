@@ -1,8 +1,6 @@
 package ui;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsObject;
-import edu.macalester.graphics.Rectangle;
 import game.*;
 
 /**
@@ -12,7 +10,6 @@ public class BoardScreen {
 
     private CanvasWindow canvas;
     private double scale;
-    private Rectangle cursor;
 
     public BoardScreen(int size) {
         scale = 0.00009523809 * size;
@@ -38,11 +35,7 @@ public class BoardScreen {
      * Adds the icon of the given card at the position on the screen that corresponds to (x,y)
      */
     public void addCardtoScreen(Card card, int x, int y) {
-        GraphicsObject icon = card.getIcon();
-        icon.setScale(scale);
-        double adj = 1500 * scale;
-        canvas.add(icon);
-        icon.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
+        ScreenUtils.addCardtoScreen(canvas, card, x, y, scale);
     }
 
     public CanvasWindow getScreen() {
@@ -53,10 +46,7 @@ public class BoardScreen {
      * Place a rectangle at the position on the screen that corresponds to (x,y) on the given board
      */
     public void placeCursor(int x, int y) {
-        cursor = new Rectangle(x, y, 1500 * scale, 1500 * scale);
-        canvas.add(cursor);
-        double adj = 1500 * scale;
-        cursor.setCenter((x * adj) + (adj / 2), (y * adj) + (adj / 2));
+        ScreenUtils.placeCursor(canvas, x, y, scale);
     }
 
     /**

@@ -1,7 +1,6 @@
 package ui;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Rectangle;
 import game.*;
 
@@ -34,10 +33,7 @@ public class HandScreen {
      * Show given card on the hand at index position @param pos
      */
     public void addCardToScreen(Card card, int x) {
-        GraphicsObject icon = card.getIcon();
-        icon.setScale(scale);
-        icon.setCenter((x * scale * 1500) + (scale * 1500 / 2), 0 + (scale * 1500 / 2));
-        canvas.add(icon);
+        ScreenUtils.addCardtoScreen(canvas, card, x, 0, scale);
     }
 
     public CanvasWindow getScreen() {
