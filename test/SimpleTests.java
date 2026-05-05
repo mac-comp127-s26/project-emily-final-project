@@ -7,7 +7,7 @@ import enums.*;
 import game.*;
 import managers.GameManager;
 
-public class SimpleCardTests {
+public class SimpleTests {
 
     ScoreTracker scores = new ScoreTracker(1);
     Board board = new Board(3);
