@@ -107,6 +107,7 @@ public class GameManager {
         if (board.isFull()) {
             return EndCondition.WIN;
         } else if (scores.inDebt()) {
+            handScreen.close();
             return EndCondition.LOSE;
         } else {
             return EndCondition.NONE;

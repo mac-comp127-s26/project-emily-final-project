@@ -56,4 +56,8 @@ public class HandScreen extends InteractiveScreen {
     public double getScale() {
         return scale;
     }
+
+    public void close() {
+        canvas.closeWindow();
+    }
 }
