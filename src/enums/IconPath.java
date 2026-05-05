@@ -5,6 +5,5 @@ package enums;
  */
 public enum IconPath {
     CLEAN,
-    BASIC,
     POLISHED
 }
