@@ -6,7 +6,7 @@ import game.*;
 /**
  * A screen that holds the drawn cards and cursor.
  */
-public class HandScreen {
+public class HandScreen extends InteractiveScreen {
 
     private CanvasWindow canvas;
     private double scale;
@@ -23,15 +23,8 @@ public class HandScreen {
         canvas.removeAll();
         scale = getNewScale(hand);
         for (int i = 0; i < hand.getCurrentHand().size(); i++) {
-            addCardToScreen(hand.getCurrentHand().get(i), i);
+            addCardtoScreen(hand.getCurrentHand().get(i), i, 0);
         }
-    }
-
-    /**
-     * Show given card on the hand at index position @param pos
-     */
-    public void addCardToScreen(Card card, int x) {
-        ScreenUtils.addCardtoScreen(canvas, card, x, 0, scale);
     }
 
     public CanvasWindow getScreen() {
@@ -42,7 +35,7 @@ public class HandScreen {
      * Place a rectangle at the position on the screen that corresponds to the (x) index on the screen
      */
     public void placeCursor(int x) {
-        ScreenUtils.placeCursor(canvas, x, 0, scale);
+        placeCursor(x, 0);
     }
 
     /**

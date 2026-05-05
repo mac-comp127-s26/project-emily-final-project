@@ -6,7 +6,7 @@ import game.*;
 /**
  * A screen that holds the board and cursor.
  */
-public class BoardScreen {
+public class BoardScreen extends InteractiveScreen {
 
     private CanvasWindow canvas;
     private double scale;
@@ -31,22 +31,8 @@ public class BoardScreen {
         }
     }
 
-    /**
-     * Adds the icon of the given card at the position on the screen that corresponds to (x,y)
-     */
-    public void addCardtoScreen(Card card, int x, int y) {
-        ScreenUtils.addCardtoScreen(canvas, card, x, y, scale);
-    }
-
     public CanvasWindow getScreen() {
         return canvas;
-    }
-
-    /**
-     * Place a rectangle at the position on the screen that corresponds to (x,y) on the given board
-     */
-    public void placeCursor(int x, int y) {
-        ScreenUtils.placeCursor(canvas, x, y, scale);
     }
 
     /**
