@@ -24,3 +24,6 @@ All major bugs and errors have been thoroughly tested for and fixed. There are o
 ## Societal Impact
 Firstly, with consideration for both artists and the environment, no generative AI was used in the making of the game. That being said, there is some controversy to the game itself. The game’s messages of cities, debt, and capitalism could be harmful to people with real-world struggles. However, it is just a game, so there are not many malicious and oppressive ways to abuse the software.
 
+## Live Demo
+[Click here](https://youtu.be/m_mnW-XsXkI) to watch a live demonstration and breakdown of the game and the coding process.
+
