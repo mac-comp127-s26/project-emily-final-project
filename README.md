@@ -27,4 +27,4 @@ Firstly, with consideration for both artists and the environment, no generative 
 ## Live Demo
 [Click here](https://youtu.be/m_mnW-XsXkI) to watch a live demonstration and breakdown of the game and the coding process.
 
-![Title card displaying "CardCity" with the subtitle "Comp127, Emily Keller"](DemoSlides/0.jpg)
+![Title card displaying "CardCity" with the subtitle "Comp127, Emily Keller"](res/DemoSlides/0.jpg)
