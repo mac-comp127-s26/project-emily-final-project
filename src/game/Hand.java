@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import enums.IconPath;
+
 public class Hand {
 
     private final int maxHandSize;
     private List<Card> remainingCardList = new ArrayList<>();
     private List<Card> currentHand = new ArrayList<>();
 
-    public Hand(Deck deck, int maxHandSize) {
+    public Hand(int maxHandSize) {
+        Deck deck = new Deck(IconPath.POLISHED);
         remainingCardList = deck.getCards();
         this.maxHandSize = maxHandSize;
     }

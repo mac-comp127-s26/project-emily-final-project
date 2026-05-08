@@ -21,9 +21,8 @@ public class GameManager {
     private boolean gameFinished = false;
 
     public GameManager(int screenSize, int boardSize, IconPath iconType) {
-        Deck deck = new Deck(iconType);
         board = new Board(boardSize);
-        hand = new Hand(deck, 6);
+        hand = new Hand(6);
         boardScreen = new BoardScreen(screenSize);
         handScreen = new HandScreen(screenSize);
         scoreScreen = new StatsScreen(screenSize);
