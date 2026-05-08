@@ -32,4 +32,4 @@ Firstly, with consideration for both artists and the environment, no generative 
 ![Pyramid diagram showing the stucture of the game loop. First, "GameManager initializes classes," then "Hand stores Cards from Deck," then "Board places cards from Hand," then "Screens read information onto a visual display."](res/DemoSlides/2.jpg)
 ![An image of a grid of paper with cartoon images of buildings on them. Text: "After prototyping... initial math & code, reworking & refactoring, translating to an interaactive medium, gameplay testing."](res/DemoSlides/3.jpg)
 ![An image of a whiteboard with sketches of a grid and math on it, and typed-out code showing the same thing. Text: "The simplest solution is not always the right one; consider your scope."](res/DemoSlides/4.jpg)
-![Text: "Faster calculations -> more games -> more data. Issues in gameplay and code."](res/DemoSlides/4.jpg)
+![Text: "Faster calculations -> more games -> more data. Issues in gameplay and code."](res/DemoSlides/5.jpg)
