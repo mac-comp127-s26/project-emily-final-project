@@ -9,6 +9,7 @@ import storage.Position;
 public abstract class InteractiveScreen {
 
     public abstract CanvasWindow getScreen();
+
     public abstract double getScale();
 
     /**

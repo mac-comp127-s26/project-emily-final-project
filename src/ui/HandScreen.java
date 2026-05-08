@@ -60,5 +60,5 @@ public class HandScreen extends InteractiveScreen {
     public void close() {
         canvas.closeWindow();
     }
-    
+
 }
