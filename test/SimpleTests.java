@@ -123,7 +123,7 @@ public class SimpleTests {
     public void newBoardRecursion() {
         board.addCard(bank);
         board.addCard(3, 4, park);
-board = board.refreshBoard();
+        board = board.refreshBoard();
         assertEquals("Park", board.getCard(2, 2).getName());
         assertEquals("Bank", board.getCard(1, 0).getName());
     }
@@ -156,7 +156,7 @@ board = board.refreshBoard();
         GameManager game = new GameManager(600, 3, IconPath.POLISHED);
         game.getScoreTracker().changeStat(Stat.ECONOMY, -2);
         game.getScoreTracker().changeStat(Stat.POPULATION, +4);
-        assertEquals(List.of(5,-1,1), game.getScoreTracker().getStats());
+        assertEquals(List.of(5, -1, 1), game.getScoreTracker().getStats());
         assertEquals(29, game.getScoreTracker().finalScore());
     }
 
@@ -165,7 +165,7 @@ board = board.refreshBoard();
         GameManager game = new GameManager(600, 3, IconPath.POLISHED);
         game.getScoreTracker().changeStat(Stat.ECONOMY, +1);
         game.getScoreTracker().changeStat(Stat.POPULATION, +1);
-        assertEquals(List.of(2,2,1), game.getScoreTracker().getStats());
+        assertEquals(List.of(2, 2, 1), game.getScoreTracker().getStats());
         assertEquals(21, game.getScoreTracker().finalScore());
     }
 }
